@@ -40,11 +40,17 @@ namespace GitterSharp.Model
         [JsonProperty("lastAccessTime")]
         public DateTime LastAccessTime { get; set; }
 
+        [JsonProperty("favourite")]
+        public bool Favourite { get; set; }
+
         [JsonProperty("lurk")]
         public bool DisabledNotifications { get; set; }
 
         [JsonProperty("githubType")]
         public string Type { get; set; }
+
+        [JsonProperty("tags")]
+        public IEnumerable<string> Tags { get; set; }
 
         [JsonProperty("v")]
         public int Version { get; set; }
