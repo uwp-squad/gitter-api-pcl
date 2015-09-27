@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Gitter.API.Helpers
 {
-    public static class StreamHelper
+    internal static class StreamHelper
     {
         public static async Task<string> ReadStream(Stream stream)
         {
