@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
-  <metadata>
-    <id>gitter-api-pcl</id>
-    <version>0.1.1</version>
-    <title>Gitter#</title>
-    <authors>David Bottiau</authors>
-    <owners>David Bottiau</owners>
-    <iconUrl>https://avatars0.githubusercontent.com/u/5990364</iconUrl>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Gitter# provide you the minimum code you need to use the Gitter API.</description>
-    <copyright>Copyright 2015</copyright>
-    <releaseNotes>Add Image property of room</releaseNotes>
-    <tags>Gitter Api</tags>
-  </metadata>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>gitter-api-pcl</id>
+        <version>0.1.2</version>
+        <title>Gitter#</title>
+        <authors>David Bottiau</authors>
+        <owners>David Bottiau</owners>
+        <projectUrl>https://github.com/Odonno/gitter-api-pcl</projectUrl>
+        <iconUrl>https://avatars0.githubusercontent.com/u/5990364</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Gitter# provide you the minimum code you need to use the Gitter API.</description>
+        <releaseNotes>Add project url</releaseNotes>
+        <copyright>Copyright 2015</copyright>
+        <tags>Gitter Api</tags>
+    </metadata>
 </package>
