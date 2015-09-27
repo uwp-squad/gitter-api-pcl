@@ -6,15 +6,15 @@ using System.Runtime.InteropServices;
 // Les informations générales relatives à un assembly dépendent de 
 // l'ensemble d'attributs suivant. Changez les valeurs de ces attributs pour modifier les informations
 // associées à un assembly.
-[assembly: AssemblyTitle("Gitter.API")]
+[assembly: AssemblyTitle("GitterSharp")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Gitter.API")]
+[assembly: AssemblyProduct("GitterSharp")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-[assembly: NeutralResourcesLanguage("fr")]
+[assembly: NeutralResourcesLanguage("en")]
 
 // Les informations de version pour un assembly se composent des quatre valeurs suivantes :
 //
