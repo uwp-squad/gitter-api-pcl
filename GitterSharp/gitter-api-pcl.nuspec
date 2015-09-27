@@ -15,6 +15,6 @@
         <tags>Gitter Api</tags>
     </metadata>
     <files>
-        <file src="..\GitterSharp\GitterSharp\bin\Release\GitterSharp.dll" target="lib\portable-netcore451+wpa81" />
+        <file src=".\GitterSharp\bin\Release\GitterSharp.dll" target="lib\portable-netcore451+wpa81" />
     </files>
 </package>
