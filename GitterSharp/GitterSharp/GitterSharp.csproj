@@ -8,8 +8,8 @@
     <ProjectGuid>{B8339332-779B-48BE-8342-F95386362DB1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Gitter.API</RootNamespace>
-    <AssemblyName>Gitter.API</AssemblyName>
+    <RootNamespace>GitterSharp</RootNamespace>
+    <AssemblyName>GitterSharp</AssemblyName>
     <DefaultLanguage>fr-FR</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -36,9 +36,15 @@
   <ItemGroup>
     <Compile Include="Configuration\Constants.cs" />
     <Compile Include="Helpers\StreamHelper.cs" />
+    <Compile Include="Model\Issue.cs" />
+    <Compile Include="Model\Mention.cs" />
+    <Compile Include="Model\Message.cs" />
+    <Compile Include="Model\MessageUrl.cs" />
+    <Compile Include="Model\Room.cs" />
+    <Compile Include="Model\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Abstract\IGitterApiService.cs" />
-    <Compile Include="Services\Concrete\GitterApiService.cs" />
+    <Compile Include="Services\IGitterApiService.cs" />
+    <Compile Include="Services\GitterApiService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="ModernHttpClient, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -76,12 +82,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Gitter.Model\Gitter.Model.csproj">
-      <Project>{16d857a7-428a-4d1e-bbd8-95678de737e4}</Project>
-      <Name>Gitter.Model</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <TargetPlatform Include="Windows, Version=8.1" />

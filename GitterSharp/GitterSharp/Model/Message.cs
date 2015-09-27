@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Gitter.Model
+namespace GitterSharp.Model
 {
     public class Message
     {

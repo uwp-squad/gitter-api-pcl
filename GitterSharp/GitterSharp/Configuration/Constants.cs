@@ -1,4 +1,4 @@
-﻿namespace Gitter.API.Configuration
+﻿namespace GitterSharp.Configuration
 {
     public static class Constants
     {

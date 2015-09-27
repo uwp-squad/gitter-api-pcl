@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Gitter.Model;
+using GitterSharp.Model;
 
-namespace Gitter.API.Services.Abstract
+namespace GitterSharp.Services
 {
     public interface IGitterApiService
     {

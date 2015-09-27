@@ -7,14 +7,13 @@ using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
 using Windows.Web.Http;
 using Windows.Web.Http.Headers;
-using Gitter.API.Configuration;
-using Gitter.API.Helpers;
-using Gitter.API.Services.Abstract;
-using Gitter.Model;
+using GitterSharp.Configuration;
+using GitterSharp.Helpers;
+using GitterSharp.Model;
 using Newtonsoft.Json;
 using UnicodeEncoding = Windows.Storage.Streams.UnicodeEncoding;
 
-namespace Gitter.API.Services.Concrete
+namespace GitterSharp.Services
 {
     public class GitterApiService : IGitterApiService
     {

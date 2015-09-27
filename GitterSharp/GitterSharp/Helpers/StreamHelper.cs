@@ -2,7 +2,7 @@
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gitter.API.Helpers
+namespace GitterSharp.Helpers
 {
     internal static class StreamHelper
     {
