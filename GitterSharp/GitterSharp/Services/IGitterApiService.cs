@@ -26,13 +26,21 @@ namespace GitterSharp.Services
         Task<User> GetCurrentUserAsync();
 
         /// <summary>
+        /// Retrieve unread chat messages of a specific room
+        /// </summary>
+        /// <param name="userId">Id of the user who unread the messages</param>
+        /// <param name="roomId">Id of the room that contains the messages</param>
+        /// <returns></returns>
+        Task<UnreadItems> RetrieveUnreadChatMessagesAsync(string userId, string roomId);
+
+        /// <summary>
         /// Send a query that informs messages was read by the user
         /// </summary>
         /// <param name="userId">Id of the user who read the messages</param>
         /// <param name="roomId">Id of the room that contains the messages</param>
         /// <param name="messageIds">List of Id of messages read</param>
         /// <returns></returns>
-        Task ReadChatMessagesAsync(string userId, string roomId, IEnumerable<string> messageIds);
+        Task MarkReadChatMessagesAsync(string userId, string roomId, IEnumerable<string> messageIds);
 
         #endregion
 
