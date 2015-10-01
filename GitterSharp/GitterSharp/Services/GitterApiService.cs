@@ -90,7 +90,7 @@ namespace GitterSharp.Services
             }
         }
 
-        public async Task MarkReadChatMessagesAsync(string userId, string roomId, IEnumerable<string> messageIds)
+        public async Task MarkUnreadChatMessagesAsync(string userId, string roomId, IEnumerable<string> messageIds)
         {
             string url = _baseApiAddress + $"user/{userId}/rooms/{roomId}/unreadItems";
             var content = new HttpStringContent("{\"chat\": " + JsonConvert.SerializeObject(messageIds) + "}",

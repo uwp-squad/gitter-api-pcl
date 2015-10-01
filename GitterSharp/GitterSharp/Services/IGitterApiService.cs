@@ -43,7 +43,7 @@ namespace GitterSharp.Services
         /// <param name="roomId">Id of the room that contains the messages</param>
         /// <param name="messageIds">List of Id of messages read</param>
         /// <returns></returns>
-        Task MarkReadChatMessagesAsync(string userId, string roomId, IEnumerable<string> messageIds);
+        Task MarkUnreadChatMessagesAsync(string userId, string roomId, IEnumerable<string> messageIds);
 
         #endregion
 

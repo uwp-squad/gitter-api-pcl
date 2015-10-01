@@ -6,9 +6,9 @@ namespace GitterSharp.Model
     public class UnreadItems
     {
         [JsonProperty("chat")]
-        IEnumerable<string> UnreadMessages { get; set; }
+        IEnumerable<string> Messages { get; set; }
 
         [JsonProperty("mention")]
-        IEnumerable<string> UnreadMentions { get; set; }
+        IEnumerable<string> Mentions { get; set; }
     }
 }
