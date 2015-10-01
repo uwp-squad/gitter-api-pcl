@@ -21,12 +21,14 @@ namespace GitterSharp.Services
 
         /// <summary>
         /// Returns the current user logged
+        /// (https://developer.gitter.im/docs/user-resource#get-the-current-user)
         /// </summary>
         /// <returns></returns>
         Task<User> GetCurrentUserAsync();
 
         /// <summary>
         /// Retrieve unread chat messages of a specific room
+        /// (https://developer.gitter.im/docs/user-resource#unread-items)
         /// </summary>
         /// <param name="userId">Id of the user who unread the messages</param>
         /// <param name="roomId">Id of the room that contains the messages</param>
@@ -35,6 +37,7 @@ namespace GitterSharp.Services
 
         /// <summary>
         /// Send a query that informs messages was read by the user
+        /// (https://developer.gitter.im/docs/user-resource#mark-unread-items)
         /// </summary>
         /// <param name="userId">Id of the user who read the messages</param>
         /// <param name="roomId">Id of the room that contains the messages</param>
@@ -48,12 +51,14 @@ namespace GitterSharp.Services
 
         /// <summary>
         /// Returns list of rooms of the user logged
+        /// (https://developer.gitter.im/docs/rooms-resource#list-rooms)
         /// </summary>
         /// <returns></returns>
         Task<IEnumerable<Room>> GetRoomsAsync();
 
         /// <summary>
         /// Join and retrieve the room the user ask using the URI of the room
+        /// (https://developer.gitter.im/docs/rooms-resource#join-a-room)
         /// </summary>
         /// <param name="uri">URI of the room targeted</param>
         /// <returns></returns>
@@ -65,6 +70,7 @@ namespace GitterSharp.Services
 
         /// <summary>
         /// Retrieve messages of a specific room - in realtime
+        /// (https://developer.gitter.im/docs/streaming-api)
         /// </summary>
         /// <param name="roomId">Id of the room that contains messages</param>
         /// <returns></returns>
@@ -72,6 +78,7 @@ namespace GitterSharp.Services
 
         /// <summary>
         /// Retrieve messages of a specific room
+        /// (https://developer.gitter.im/docs/messages-resource#list-messages)
         /// </summary>
         /// <param name="roomId">Id of the room that contains messages</param>
         /// <param name="limit">The limit of messages returned by the request</param>
@@ -83,6 +90,7 @@ namespace GitterSharp.Services
 
         /// <summary>
         /// Send a new message
+        /// (https://developer.gitter.im/docs/messages-resource#send-a-message)
         /// </summary>
         /// <param name="roomId">Id of the room that will contain this message</param>
         /// <param name="message">Content of the message</param>
@@ -91,6 +99,7 @@ namespace GitterSharp.Services
 
         /// <summary>
         /// Update an existing message
+        /// (https://developer.gitter.im/docs/messages-resource#update-a-message)
         /// </summary>
         /// <param name="roomId">Id of the room that contains this message</param>
         /// <param name="messageId">Id of the existing message</param>
