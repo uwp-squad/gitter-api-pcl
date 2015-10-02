@@ -21,5 +21,8 @@ namespace GitterSharp.Model
 
         [JsonProperty("avatarUrlMedium")]
         public string MediumAvatarUrl { get; set; }
+
+        [JsonIgnore]
+        public string GitHubUrl { get { return $"https://github.com{Url}"; } }
     }
 }

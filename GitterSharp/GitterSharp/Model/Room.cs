@@ -56,6 +56,9 @@ namespace GitterSharp.Model
         public int Version { get; set; }
 
         [JsonIgnore]
+        public string GitHubUrl { get { return $"https://github.com{Url}"; } }
+
+        [JsonIgnore]
         public string Image
         {
             get
