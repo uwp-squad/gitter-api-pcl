@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>gitter-api-pcl</id>
-        <version>0.2.7</version>
+        <version>0.2.8</version>
         <title>Gitter#</title>
         <authors>David Bottiau</authors>
         <owners>David Bottiau</owners>
