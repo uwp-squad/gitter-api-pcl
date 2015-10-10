@@ -49,13 +49,25 @@ var currentUser = await gitterApiService.GetCurrentUserAsync();
 
 ## Unread items
 
-### [Unread messages](https://developer.gitter.im/docs/user-resource#unread-items)
+```
+public class UnreadItems
+{
+    public IEnumerable<string> Messages { get; set; }
+    public IEnumerable<string> Mentions { get; set; }
+}
+```
+
+### [Unread items](https://developer.gitter.im/docs/user-resource#unread-items)
+
+Retrieve unread items (messages + mentions) of a specific room. Each list of string contains a list of message id.
 
 ```
 var unreadItems = await gitterApiService.RetrieveUnreadChatMessagesAsync("user-id", "room-id");
 ```
 
 ### [Mark unread messages](https://developer.gitter.im/docs/user-resource#mark-unread-items)
+
+Mark unread messages for the user who are currently reading the messages. You need to pass the list of message id.
 
 ```
 IEnumerable<string> ids = new [] { "message-id", "another-message-id" };
