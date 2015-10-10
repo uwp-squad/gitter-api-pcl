@@ -22,6 +22,8 @@ IGitterApiService gitterApiService = new GitterApiService();
 gitterApiService.TryAuthenticate("the-token");
 ```
 
+*Be careful, you need to set the token using TryAuthenticate method each time you create a new instance of GitterApiService.*
+
 ## User
 
 ### [Current User](https://developer.gitter.im/docs/user-resource#get-the-current-user)
