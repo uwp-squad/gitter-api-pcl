@@ -17,7 +17,7 @@ gitterApiService.TryAuthenticate("the-token");
 
 ## User
 
-### Current User
+### [Current User](https://developer.gitter.im/docs/user-resource#get-the-current-user)
 
 ```
 var currentUser = await gitterApiService.GetCurrentUserAsync();
@@ -25,13 +25,13 @@ var currentUser = await gitterApiService.GetCurrentUserAsync();
 
 ## Unread items
 
-### Unread messages
+### [Unread messages](https://developer.gitter.im/docs/user-resource#unread-items)
 
 ```
 var unreadItems = await gitterApiService.RetrieveUnreadChatMessagesAsync("user-id", "room-id");
 ```
 
-### Mark unread messages
+### [Mark unread messages](https://developer.gitter.im/docs/user-resource#mark-unread-items)
 
 ```
 IEnumerable<string> ids = new [] { "message-id", "another-message-id" };
@@ -40,13 +40,13 @@ await gitterApiService.MarkUnreadChatMessagesAsync("user-id", "room-id", ids);
 
 ## Room
 
-### Retrieve rooms
+### [Retrieve rooms](https://developer.gitter.im/docs/rooms-resource#list-rooms)
 
 ```
 var rooms = await gitterApiService.GetRoomsAsync();
 ```
 
-### Join room
+### [Join room](https://developer.gitter.im/docs/rooms-resource#join-a-room)
 
 ```
 var room = await gitterApiService.JoinRoomAsync("room-uri");
@@ -54,13 +54,13 @@ var room = await gitterApiService.JoinRoomAsync("room-uri");
 
 ## Messages
 
-### Single message
+### [Single message](https://developer.gitter.im/docs/messages-resource#single-message)
 
 ```
 var message = await gitterApiService.GetSingleRoomMessageAsync("room-id", "message-id");
 ```
 
-### All room messages
+### [All room messages](https://developer.gitter.im/docs/messages-resource#list-messages)
 
 ```
 var messages = await gitterApiService.GetRoomMessagesAsync("room-id");
@@ -82,18 +82,24 @@ var messages = await gitterApiService.GetRoomMessagesAsync("room-id", 20, "messa
 var messages = await gitterApiService.GetRoomMessagesAsync("room-id", 20, "message-id", "another-message-id", 10);
 ```
 
-### Send message
+### [Send message](https://developer.gitter.im/docs/messages-resource#send-a-message)
 
 ```
 var message = await gitterApiService.SendMessageAsync("room-id", "this is a test message");
 ```
 
-### Update message
+### [Update message](https://developer.gitter.im/docs/messages-resource#update-a-message)
 
 ```
 var message = await gitterApiService.UpdateMessageAsync("room-id", "message-id", "this is an updated message");
 ```
 
-## Realtime messages
+## [Streaming API](https://developer.gitter.im/docs/streaming-api)
+
+### Realtime messages
 
 To complete...
+
+### Realtime events
+
+Not available...
