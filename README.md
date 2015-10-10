@@ -227,7 +227,16 @@ var message = await gitterApiService.UpdateMessageAsync("room-id", "message-id",
 
 ### Realtime messages
 
-To complete...
+Retrieve realtime new messages in inside a room.
+
+```
+gitterApiService.GetRealtimeMessages(Room.Id)
+                .Subscribe(message => 
+					{
+						// Do everything you need
+						// This code will be executed each time the room receive a new message
+					});
+```
 
 ### Realtime events
 
