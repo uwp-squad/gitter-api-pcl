@@ -2,7 +2,14 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/dnoqp3gt2f6d6w2t?svg=true)](https://ci.appveyor.com/project/Odonno/gitter-api-pcl)
 
-Gitter# provide you the minimum code you need to use the Gitter API.
+Gitter# provide you the minimum code you need to use the Gitter API. You can use Gitter# on these platforms :
+
+* Windows 8.1 (Store Apps)
+* Windows Phone 8.1
+* Windows 10
+* .NET Framework 4.5 [planned]
+* Xamarin.Android [planned]
+* Xamarin.iOS [planned]
 
 ## Authentication
 
