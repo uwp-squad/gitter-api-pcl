@@ -167,7 +167,25 @@ namespace GitterSharp.Services
                     .Where(x => !string.IsNullOrWhiteSpace(x))
                     .Select(JsonConvert.DeserializeObject<Message>));
         }
-        
+
+        public async Task<Message> GetSingleRoomMessageAsync(string roomId, string messageId)
+        {
+            string url = _baseApiAddress + $"rooms/{roomId}/chatMessages/{messageId}";
+
+            using (var httpClient = HttpClient)
+            {
+                var response = await httpClient.GetAsync(new Uri(url));
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<Message>(result);
+                }
+
+                throw new Exception();
+            }
+        }
+
         public async Task<IEnumerable<Message>> GetRoomMessagesAsync(string roomId, int limit = 50, string beforeId = null, string afterId = null, int skip = 0)
         {
             string url = _baseApiAddress + $"rooms/{roomId}/chatMessages?limit={limit}";
