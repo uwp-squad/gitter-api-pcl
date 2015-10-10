@@ -118,7 +118,49 @@ var room = await gitterApiService.JoinRoomAsync("room-name");
 
 ## Messages
 
+```
+public class Message
+{
+    public string Id { get; set; }
+    public string Text { get; set; }
+    public string Html { get; set; }
+    public DateTime SentDate { get; set; }
+    public DateTime? EditedDate { get; set; }
+    public User User { get; set; }
+    public bool UnreadByCurrent { get; set; }
+    public int ReadCount { get; set; }
+    public IEnumerable<MessageUrl> Urls { get; set; }
+    public IEnumerable<Mention> Mentions { get; set; }
+    public IEnumerable<Issue> Issues { get; set; }
+    public int Version { get; set; }
+}
+```
+
+```
+public class MessageUrl
+{
+    public string Url { get; set; }
+}
+```
+
+```
+public class Mention
+{
+    public string ScreenName { get; set; }
+    public string UserId { get; set; }
+}
+```
+
+```
+public class Issue
+{
+    public string Number { get; set; }
+}
+```
+
 ### [Single message](https://developer.gitter.im/docs/messages-resource#single-message)
+
+Retrieve a single message based on its id.
 
 ```
 var message = await gitterApiService.GetSingleRoomMessageAsync("room-id", "message-id");
@@ -126,33 +168,56 @@ var message = await gitterApiService.GetSingleRoomMessageAsync("room-id", "messa
 
 ### [All room messages](https://developer.gitter.im/docs/messages-resource#list-messages)
 
+Retrieve multiple messages contained in a room. There is multiple parameters you can use to define a more precise request.
+
 ```
 var messages = await gitterApiService.GetRoomMessagesAsync("room-id");
 ```
+
+By default, the *limit* of messages you can get using this request is 50.
 
 ```
 var messages = await gitterApiService.GetRoomMessagesAsync("room-id", 20);
 ```
 
-```
-var messages = await gitterApiService.GetRoomMessagesAsync("room-id", 20, "message-id");
-```
+Of course, you can overload this parameter like this. Here, we set the *limit* to 20.
 
 ```
-var messages = await gitterApiService.GetRoomMessagesAsync("room-id", 20, "message-id", "another-message-id");
+var messages = await gitterApiService.GetRoomMessagesAsync("room-id", 20, "before-message-id");
 ```
 
+You can also add a parameter which expect a message id (*beforeId*). Using this parameter, you will only receive the messages before the one you set in parameter.
+
 ```
-var messages = await gitterApiService.GetRoomMessagesAsync("room-id", 20, "message-id", "another-message-id", 10);
+var messages = await gitterApiService.GetRoomMessagesAsync("room-id", 20, "before-message-id", "after-message-id");
 ```
+
+There is also another parameter to set the *afterId*. It is the exact opposite effect of *beforeId* parameter.
+
+```
+var messages = await gitterApiService.GetRoomMessagesAsync("room-id", 20, "before-message-id", "after-message-id", 10);
+```
+
+Then, you have a way to *skip* some messages. Here, with the previous request, we ask to retrieve 20 messages before the 10 we skip.
+
+```
+var messages = await gitterApiService.GetRoomMessagesAsync("room-id", 20, null, null, 10);
+```
+
+Of course, you can also remove some parameters if you need the *skip* parameter but neither *beforeId* nor *afterId*.
+
 
 ### [Send message](https://developer.gitter.im/docs/messages-resource#send-a-message)
+
+Send a new message to the room.
 
 ```
 var message = await gitterApiService.SendMessageAsync("room-id", "this is a test message");
 ```
 
 ### [Update message](https://developer.gitter.im/docs/messages-resource#update-a-message)
+
+Update an existing message.
 
 ```
 var message = await gitterApiService.UpdateMessageAsync("room-id", "message-id", "this is an updated message");
