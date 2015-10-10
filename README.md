@@ -26,7 +26,22 @@ gitterApiService.TryAuthenticate("the-token");
 
 ## User
 
+```
+public class User
+{
+    public string Id { get; set; }
+    public string Username { get; set; }
+    public string DisplayName { get; set; }
+    public string Url { get; set; }
+    public string SmallAvatarUrl { get; set; }
+    public string MediumAvatarUrl { get; set; }
+    public string GitHubUrl { get; }
+}
+```
+
 ### [Current User](https://developer.gitter.im/docs/user-resource#get-the-current-user)
+
+Retrieve information about the user logged in (after authentication).
 
 ```
 var currentUser = await gitterApiService.GetCurrentUserAsync();
