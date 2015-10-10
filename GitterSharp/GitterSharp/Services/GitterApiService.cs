@@ -133,7 +133,7 @@ namespace GitterSharp.Services
             string url = _baseApiAddress + "rooms";
             var content = new HttpFormUrlEncodedContent(new Dictionary<string, string>
             {
-                {"uri", uri}
+                {"uri", roomName}
             });
 
             using (var httpClient = HttpClient)
