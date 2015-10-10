@@ -74,9 +74,35 @@ IEnumerable<string> ids = new [] { "message-id", "another-message-id" };
 await gitterApiService.MarkUnreadChatMessagesAsync("user-id", "room-id", ids);
 ```
 
-## Room
+## Rooms
+
+```
+public class Room
+{
+    public string Id { get; set; }
+    public string Name { get; set; }
+    public string Topic { get; set; }
+    public string Url { get; set; }
+    public bool OneToOne { get; set; }
+    public User User { get; set; }
+    public IList<User> Users { get; set; }
+    public int UserCount { get; set; }
+    public int UnreadItems { get; set; }
+    public int UnreadMentions { get; set; }
+    public DateTime LastAccessTime { get; set; }
+    public bool Favourite { get; set; }
+    public bool DisabledNotifications { get; set; }
+    public string Type { get; set; }
+    public IEnumerable<string> Tags { get; set; }
+    public int Version { get; set; }
+    public string GitHubUrl { get; }
+    public string Image { get; }
+}
+```
 
 ### [Retrieve rooms](https://developer.gitter.im/docs/rooms-resource#list-rooms)
+
+Retrieve all rooms where the current user is in.
 
 ```
 var rooms = await gitterApiService.GetRoomsAsync();
@@ -84,8 +110,10 @@ var rooms = await gitterApiService.GetRoomsAsync();
 
 ### [Join room](https://developer.gitter.im/docs/rooms-resource#join-a-room)
 
+The current user join a room. The parameter *room-name* looks like this : *Odonno/Modern-Gitter*.
+
 ```
-var room = await gitterApiService.JoinRoomAsync("room-uri");
+var room = await gitterApiService.JoinRoomAsync("room-name");
 ```
 
 ## Messages

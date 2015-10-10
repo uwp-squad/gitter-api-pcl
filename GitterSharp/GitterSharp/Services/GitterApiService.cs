@@ -128,7 +128,7 @@ namespace GitterSharp.Services
             }
         }
 
-        public async Task<Room> JoinRoomAsync(string uri)
+        public async Task<Room> JoinRoomAsync(string roomName)
         {
             string url = _baseApiAddress + "rooms";
             var content = new HttpFormUrlEncodedContent(new Dictionary<string, string>

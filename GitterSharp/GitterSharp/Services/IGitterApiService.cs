@@ -60,9 +60,9 @@ namespace GitterSharp.Services
         /// Join and retrieve the room the user ask using the URI of the room
         /// (https://developer.gitter.im/docs/rooms-resource#join-a-room)
         /// </summary>
-        /// <param name="uri">URI of the room targeted</param>
+        /// <param name="roomName">Name of the room targeted (example: 'Odonno/Modern-Gitter')</param>
         /// <returns></returns>
-        Task<Room> JoinRoomAsync(string uri);
+        Task<Room> JoinRoomAsync(string roomName);
 
         #endregion
 
