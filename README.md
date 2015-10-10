@@ -17,15 +17,82 @@ gitterApiService.TryAuthenticate("the-token");
 
 ## User
 
-To complete...
+### Current User
+
+```
+var currentUser = await gitterApiService.GetCurrentUserAsync();
+```
+
+## Unread items
+
+### Unread messages
+
+```
+var unreadItems = await gitterApiService.RetrieveUnreadChatMessagesAsync("user-id", "room-id");
+```
+
+### Mark unread messages
+
+```
+IEnumerable<string> ids = new [] { "message-id", "another-message-id" };
+await gitterApiService.MarkUnreadChatMessagesAsync("user-id", "room-id", ids);
+```
 
 ## Room
 
-To complete...
+### Retrieve rooms
+
+```
+var rooms = await gitterApiService.GetRoomsAsync();
+```
+
+### Join room
+
+```
+var room = await gitterApiService.JoinRoomAsync("room-uri");
+```
 
 ## Messages
 
-To complete...
+### Single message
+
+```
+var message = await gitterApiService.GetSingleRoomMessageAsync("room-id", "message-id");
+```
+
+### All room messages
+
+```
+var messages = await gitterApiService.GetRoomMessagesAsync("room-id");
+```
+
+```
+var messages = await gitterApiService.GetRoomMessagesAsync("room-id", 20);
+```
+
+```
+var messages = await gitterApiService.GetRoomMessagesAsync("room-id", 20, "message-id");
+```
+
+```
+var messages = await gitterApiService.GetRoomMessagesAsync("room-id", 20, "message-id", "another-message-id");
+```
+
+```
+var messages = await gitterApiService.GetRoomMessagesAsync("room-id", 20, "message-id", "another-message-id", 10);
+```
+
+### Send message
+
+```
+var message = await gitterApiService.SendMessageAsync("room-id", "this is a test message");
+```
+
+### Update message
+
+```
+var message = await gitterApiService.UpdateMessageAsync("room-id", "message-id", "this is an updated message");
+```
 
 ## Realtime messages
 
