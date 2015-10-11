@@ -158,7 +158,7 @@ public class Issue
 }
 ```
 
-### [Single message](https://developer.gitter.im/docs/messages-resource#single-message)
+### [Single message](https://developer.gitter.im/docs/messages-resource#get-a-single-message)
 
 Retrieve a single message based on its id.
 

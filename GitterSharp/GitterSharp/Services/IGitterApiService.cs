@@ -78,7 +78,7 @@ namespace GitterSharp.Services
 
         /// <summary>
         /// Retrieve a single message of a specific room
-        /// (https://developer.gitter.im/docs/messages-resource#single-message)
+        /// (https://developer.gitter.im/docs/messages-resource#get-a-single-message)
         /// </summary>
         /// <param name="roomId">Id of the room that contains messages</param>
         /// <param name="messageId">Id of the message you are looking for</param>
