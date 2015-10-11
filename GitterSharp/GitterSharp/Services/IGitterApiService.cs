@@ -34,6 +34,14 @@ namespace GitterSharp.Services
         /// <returns></returns>
         Task<IEnumerable<Organization>> GetOrganizationsAsync(string userId);
 
+        /// <summary>
+        /// Returns a list of repositories of the current user logged
+        /// (https://developer.gitter.im/docs/user-resource#repos)
+        /// </summary>
+        /// <param name="userId">Id of the user currently logged</param>
+        /// <returns></returns>
+        Task<IEnumerable<Repository>> GetRepositoriesAsync(string userId);
+
         #endregion
 
         #region Unread Items

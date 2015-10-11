@@ -90,6 +90,24 @@ namespace GitterSharp.Services
             }
         }
 
+        public async Task<IEnumerable<Repository>> GetRepositoriesAsync(string userId)
+        {
+            string url = _baseApiAddress + $"user/{userId}/repos";
+
+            using (var httpClient = HttpClient)
+            {
+                var response = await httpClient.GetAsync(new Uri(url));
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<IEnumerable<Repository>>(result);
+                }
+
+                throw new Exception();
+            }
+        }
+
         #endregion
 
         #region Unread Items

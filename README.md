@@ -49,6 +49,17 @@ public class Organization
 }
 ```
 
+```
+public class Repository
+{
+    public string Id { get; set; }
+    public string Name { get; set; }
+    public string Uri { get; set; }
+    public bool IsPrivate { get; set; }
+    public Room Room { get; set; }
+}
+```
+
 ### [Current User](https://developer.gitter.im/docs/user-resource#get-the-current-user)
 
 Retrieve information about the user logged in (after authentication).
@@ -64,6 +75,15 @@ Retrieve the list of organizations of the current user logged.
 ```
 var currentUser = await gitterApiService.GetCurrentUserAsync();
 var organizations = await gitterApiService.GetOrganizationsAsync(currentUser.Id);
+```
+
+### [Repositories](https://developer.gitter.im/docs/user-resource#repos)
+
+Retrieve the list of repositories of the current user logged.
+
+```
+var currentUser = await gitterApiService.GetCurrentUserAsync();
+var repositories = await gitterApiService.GetRepositoriesAsync(currentUser.Id);
 ```
 
 ## Unread items
