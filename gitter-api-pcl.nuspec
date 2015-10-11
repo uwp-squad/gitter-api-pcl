@@ -15,7 +15,7 @@
         <tags>Gitter Api</tags>
     </metadata>
     <files>
-        <file src=".\GitterSharp\GitterSharp\bin\Release\GitterSharp.UniversalWindows.dll" target="lib\portable-netcore451+wpa81" />
-        <file src=".\GitterSharp\GitterSharp\bin\Release\GitterSharp.NetFramework.dll" target="lib\net45" />
+        <file src=".\GitterSharp\GitterSharp.UniversalWindows\bin\Release\GitterSharp.UniversalWindows.dll" target="lib\portable-netcore451+wpa81" />
+        <file src=".\GitterSharp\GitterSharp.NetFramework\bin\Release\GitterSharp.NetFramework.dll" target="lib\net45" />
     </files>
 </package>
