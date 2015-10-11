@@ -27,6 +27,18 @@ namespace GitterSharp.Services
         Task<User> GetCurrentUserAsync();
 
         /// <summary>
+        /// Returns a list of organizations of the current user logged
+        /// (https://developer.gitter.im/docs/user-resource#orgs)
+        /// </summary>
+        /// <param name="userId">Id of the user currently logged</param>
+        /// <returns></returns>
+        Task<IEnumerable<Organization>> GetOrganizationsAsync(string userId);
+
+        #endregion
+
+        #region Unread Items
+
+        /// <summary>
         /// Retrieve unread chat messages of a specific room
         /// (https://developer.gitter.im/docs/user-resource#unread-items)
         /// </summary>

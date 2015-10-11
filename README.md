@@ -39,12 +39,31 @@ public class User
 }
 ```
 
+```
+public class Organization
+{
+    public string Id { get; set; }
+    public string Name { get; set; }
+    public string Avatar { get; set; }
+    public Room Room { get; set; }
+}
+```
+
 ### [Current User](https://developer.gitter.im/docs/user-resource#get-the-current-user)
 
 Retrieve information about the user logged in (after authentication).
 
 ```
 var currentUser = await gitterApiService.GetCurrentUserAsync();
+```
+
+### [Organizations](https://developer.gitter.im/docs/user-resource#orgs)
+
+Retrieve the list of organizations of the current user logged.
+
+```
+var currentUser = await gitterApiService.GetCurrentUserAsync();
+var organizations = await gitterApiService.GetOrganizationsAsync(currentUser.Id);
 ```
 
 ## Unread items
