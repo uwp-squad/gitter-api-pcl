@@ -11,6 +11,53 @@ Gitter# provide you the minimum code you need to use the Gitter API. You can use
 * Xamarin.Android [planned]
 * Xamarin.iOS [planned]
 
+## Gitter API as a service
+
+With Gitter#, you can use the Gitter API as a service. So, everything you need is inside a single place : *GitterApiService*.
+
+```
+public interface IGitterApiService
+{
+    #region Authentication
+
+    void TryAuthenticate(string token);
+
+    #endregion
+
+    #region User
+
+    Task<User> GetCurrentUserAsync();
+    Task<IEnumerable<Organization>> GetOrganizationsAsync(string userId);
+    Task<IEnumerable<Repository>> GetRepositoriesAsync(string userId);
+
+    #endregion
+
+    #region Unread Items
+
+    Task<UnreadItems> RetrieveUnreadChatMessagesAsync(string userId, string roomId);
+    Task MarkUnreadChatMessagesAsync(string userId, string roomId, IEnumerable<string> messageIds);
+
+    #endregion
+
+    #region Rooms
+
+    Task<IEnumerable<Room>> GetRoomsAsync();
+    Task<Room> JoinRoomAsync(string roomName);
+
+    #endregion
+
+    #region Messages
+
+    IObservable<Message> GetRealtimeMessages(string roomId);
+    Task<Message> GetSingleRoomMessageAsync(string roomId, string messageId);
+    Task<IEnumerable<Message>> GetRoomMessagesAsync(string roomId, int limit = 50, string beforeId = null, string afterId = null, int skip = 0);
+    Task<Message> SendMessageAsync(string roomId, string message);
+    Task<Message> UpdateMessageAsync(string roomId, string messageId, string message);
+
+    #endregion
+}
+```
+
 ## Authentication
 
 The Gitter API requires you to retrieve a token to have access to the entire API. You can follow [this tutorial to get a token using OAuth2 authentication](https://developer.gitter.im/docs/authentication).
