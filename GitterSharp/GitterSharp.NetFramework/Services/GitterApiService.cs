@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
-using Windows.Web.Http;
-using Windows.Web.Http.Headers;
 using GitterSharp.Configuration;
 using GitterSharp.Helpers;
 using GitterSharp.Model;
 using Newtonsoft.Json;
-using UnicodeEncoding = Windows.Storage.Streams.UnicodeEncoding;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 
 namespace GitterSharp.Services
 {
@@ -29,11 +28,11 @@ namespace GitterSharp.Services
             get
             {
                 var httpClient = new HttpClient();
-
-                httpClient.DefaultRequestHeaders.Accept.Add(new HttpMediaTypeWithQualityHeaderValue("application/json"));
+                
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 if (!string.IsNullOrWhiteSpace(_accessToken))
-                    httpClient.DefaultRequestHeaders.Authorization = new HttpCredentialsHeaderValue("Bearer", _accessToken);
+                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken);
 
                 return httpClient;
             }
@@ -86,8 +85,8 @@ namespace GitterSharp.Services
         public async Task MarkUnreadChatMessagesAsync(string userId, string roomId, IEnumerable<string> messageIds)
         {
             string url = _baseApiAddress + $"user/{userId}/rooms/{roomId}/unreadItems";
-            var content = new HttpStringContent("{\"chat\": " + JsonConvert.SerializeObject(messageIds) + "}",
-                UnicodeEncoding.Utf8,
+            var content = new StringContent("{\"chat\": " + JsonConvert.SerializeObject(messageIds) + "}",
+                Encoding.UTF8,
                 "application/json");
 
             await HttpClient.PostAsync(url, content);
@@ -106,7 +105,7 @@ namespace GitterSharp.Services
         public async Task<Room> JoinRoomAsync(string roomName)
         {
             string url = _baseApiAddress + "rooms";
-            var content = new HttpFormUrlEncodedContent(new Dictionary<string, string>
+            var content = new FormUrlEncodedContent(new Dictionary<string, string>
             {
                 {"uri", roomName}
             });
@@ -123,10 +122,9 @@ namespace GitterSharp.Services
             string url = _baseStreamingApiAddress + $"rooms/{roomId}/chatMessages";
 
             return Observable.Using(() => HttpClient,
-                client => client.GetInputStreamAsync(new Uri(url))
-                    .AsTask()
+                client => client.GetStreamAsync(new Uri(url))
                     .ToObservable()
-                    .Select(x => Observable.FromAsync(() => StreamHelper.ReadStreamAsync(x.AsStreamForRead())).Repeat())
+                    .Select(x => Observable.FromAsync(() => StreamHelper.ReadStreamAsync(x)).Repeat())
                     .Concat()
                     .Where(x => !string.IsNullOrWhiteSpace(x))
                     .Select(JsonConvert.DeserializeObject<Message>));
@@ -157,7 +155,7 @@ namespace GitterSharp.Services
         public async Task<Message> SendMessageAsync(string roomId, string message)
         {
             string url = _baseApiAddress + $"rooms/{roomId}/chatMessages";
-            var content = new HttpFormUrlEncodedContent(new Dictionary<string, string>
+            var content = new FormUrlEncodedContent(new Dictionary<string, string>
             {
                 {"text", message}
             });
@@ -168,7 +166,7 @@ namespace GitterSharp.Services
         public async Task<Message> UpdateMessageAsync(string roomId, string messageId, string message)
         {
             string url = _baseApiAddress + $"rooms/{roomId}/chatMessages/{messageId}";
-            var content = new HttpFormUrlEncodedContent(new Dictionary<string, string>
+            var content = new FormUrlEncodedContent(new Dictionary<string, string>
             {
                 {"text", message}
             });

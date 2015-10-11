@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>gitter-api-pcl</id>
-        <version>0.2.11</version>
+        <version>0.2.12</version>
         <title>Gitter#</title>
         <authors>David Bottiau</authors>
         <owners>David Bottiau</owners>
@@ -10,12 +10,12 @@
         <iconUrl>https://avatars0.githubusercontent.com/u/5990364</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Gitter# provide you the minimum code you need to use the Gitter API.</description>
-        <releaseNotes>Add a method to retrieve Repositories of the current user : GetRepositoriesAsync</releaseNotes>
+        <releaseNotes>Add a project to target .NET Framework 4.5</releaseNotes>
         <copyright>Copyright 2015</copyright>
         <tags>Gitter Api</tags>
     </metadata>
     <files>
         <file src=".\GitterSharp\GitterSharp\bin\Release\GitterSharp.UniversalWindows.dll" target="lib\portable-netcore451+wpa81" />
-        <file src=".\GitterSharp\GitterSharp\bin\Release\GitterSharp.NetFramework.dll" target="lib\portable-net45+sl50+monoandroid+monotouch+xamarin.ios10" />
+        <file src=".\GitterSharp\GitterSharp\bin\Release\GitterSharp.NetFramework.dll" target="lib\net45" />
     </files>
 </package>
