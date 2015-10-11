@@ -57,55 +57,20 @@ namespace GitterSharp.Services
         public async Task<User> GetCurrentUserAsync()
         {
             string url = _baseApiAddress + "user";
-
-            using (var httpClient = HttpClient)
-            {
-                var response = await httpClient.GetAsync(new Uri(url));
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var result = await response.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<IEnumerable<User>>(result).FirstOrDefault();
-                }
-
-                throw new Exception();
-            }
+            var users = await HttpClient.GetAsync<IEnumerable<User>>(url);
+            return users.FirstOrDefault();
         }
 
         public async Task<IEnumerable<Organization>> GetOrganizationsAsync(string userId)
         {
             string url = _baseApiAddress + $"user/{userId}/orgs";
-
-            using (var httpClient = HttpClient)
-            {
-                var response = await httpClient.GetAsync(new Uri(url));
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var result = await response.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<IEnumerable<Organization>>(result);
-                }
-
-                throw new Exception();
-            }
+            return await HttpClient.GetAsync<IEnumerable<Organization>>(url);
         }
 
         public async Task<IEnumerable<Repository>> GetRepositoriesAsync(string userId)
         {
             string url = _baseApiAddress + $"user/{userId}/repos";
-
-            using (var httpClient = HttpClient)
-            {
-                var response = await httpClient.GetAsync(new Uri(url));
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var result = await response.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<IEnumerable<Repository>>(result);
-                }
-
-                throw new Exception();
-            }
+            return await HttpClient.GetAsync<IEnumerable<Repository>>(url);
         }
 
         #endregion
@@ -115,19 +80,7 @@ namespace GitterSharp.Services
         public async Task<UnreadItems> RetrieveUnreadChatMessagesAsync(string userId, string roomId)
         {
             string url = _baseApiAddress + $"user/{userId}/rooms/{roomId}/unreadItems";
-
-            using (var httpClient = HttpClient)
-            {
-                var response = await httpClient.GetAsync(new Uri(url));
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var result = await response.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<UnreadItems>(result);
-                }
-
-                throw new Exception();
-            }
+            return await HttpClient.GetAsync<UnreadItems>(url);
         }
 
         public async Task MarkUnreadChatMessagesAsync(string userId, string roomId, IEnumerable<string> messageIds)
@@ -137,13 +90,7 @@ namespace GitterSharp.Services
                 UnicodeEncoding.Utf8,
                 "application/json");
 
-            using (var httpClient = HttpClient)
-            {
-                var response = await httpClient.PostAsync(new Uri(url), content);
-
-                if (!response.IsSuccessStatusCode)
-                    throw new Exception();
-            }
+            await HttpClient.PostAsync(url, content);
         }
 
         #endregion
@@ -153,19 +100,7 @@ namespace GitterSharp.Services
         public async Task<IEnumerable<Room>> GetRoomsAsync()
         {
             string url = _baseApiAddress + "rooms";
-
-            using (var httpClient = HttpClient)
-            {
-                var response = await httpClient.GetAsync(new Uri(url));
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var result = await response.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<IEnumerable<Room>>(result);
-                }
-
-                throw new Exception();
-            }
+            return await HttpClient.GetAsync<IEnumerable<Room>>(url);
         }
 
         public async Task<Room> JoinRoomAsync(string roomName)
@@ -176,18 +111,7 @@ namespace GitterSharp.Services
                 {"uri", roomName}
             });
 
-            using (var httpClient = HttpClient)
-            {
-                var response = await httpClient.PostAsync(new Uri(url), content);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var result = await response.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<Room>(result);
-                }
-
-                throw new Exception();
-            }
+            return await HttpClient.PostAsync<Room>(url, content);
         }
 
         #endregion
@@ -211,19 +135,7 @@ namespace GitterSharp.Services
         public async Task<Message> GetSingleRoomMessageAsync(string roomId, string messageId)
         {
             string url = _baseApiAddress + $"rooms/{roomId}/chatMessages/{messageId}";
-
-            using (var httpClient = HttpClient)
-            {
-                var response = await httpClient.GetAsync(new Uri(url));
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var result = await response.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<Message>(result);
-                }
-
-                throw new Exception();
-            }
+            return await HttpClient.GetAsync<Message>(url);
         }
 
         public async Task<IEnumerable<Message>> GetRoomMessagesAsync(string roomId, int limit = 50, string beforeId = null, string afterId = null, int skip = 0)
@@ -239,18 +151,7 @@ namespace GitterSharp.Services
             if (skip > 0)
                 url += $"&skip={skip}";
 
-            using (var httpClient = HttpClient)
-            {
-                var response = await httpClient.GetAsync(new Uri(url));
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var result = await response.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<IEnumerable<Message>>(result);
-                }
-
-                throw new Exception();
-            }
+            return await HttpClient.GetAsync<IEnumerable<Message>>(url);
         }
 
         public async Task<Message> SendMessageAsync(string roomId, string message)
@@ -261,18 +162,7 @@ namespace GitterSharp.Services
                 {"text", message}
             });
 
-            using (var httpClient = HttpClient)
-            {
-                var response = await httpClient.PostAsync(new Uri(url), content);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var result = await response.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<Message>(result);
-                }
-
-                throw new Exception();
-            }
+            return await HttpClient.PostAsync<Message>(url, content);
         }
 
         public async Task<Message> UpdateMessageAsync(string roomId, string messageId, string message)
@@ -283,18 +173,7 @@ namespace GitterSharp.Services
                 {"text", message}
             });
 
-            using (var httpClient = HttpClient)
-            {
-                var response = await httpClient.PutAsync(new Uri(url), content);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var result = await response.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<Message>(result);
-                }
-
-                throw new Exception();
-            }
+            return await HttpClient.PutAsync<Message>(url, content);
         }
 
         #endregion

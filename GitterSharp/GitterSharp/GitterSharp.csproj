@@ -35,6 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Configuration\Constants.cs" />
+    <Compile Include="Helpers\HttpHelper.cs" />
     <Compile Include="Helpers\StreamHelper.cs" />
     <Compile Include="Model\Issue.cs" />
     <Compile Include="Model\Mention.cs" />
