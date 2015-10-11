@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitterSharp", "GitterSharp\GitterSharp.csproj", "{B8339332-779B-48BE-8342-F95386362DB1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitterSharp.NetFramework", "GitterSharp.NetFramework\GitterSharp.NetFramework.csproj", "{9F70E49C-B714-4C6A-A490-1FEC82C2F6BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitterSharp.UniversalWindows", "GitterSharp.UniversalWindows\GitterSharp.UniversalWindows.csproj", "{B8339332-779B-48BE-8342-F95386362DB1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,6 +13,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9F70E49C-B714-4C6A-A490-1FEC82C2F6BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F70E49C-B714-4C6A-A490-1FEC82C2F6BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F70E49C-B714-4C6A-A490-1FEC82C2F6BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F70E49C-B714-4C6A-A490-1FEC82C2F6BD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B8339332-779B-48BE-8342-F95386362DB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B8339332-779B-48BE-8342-F95386362DB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8339332-779B-48BE-8342-F95386362DB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
