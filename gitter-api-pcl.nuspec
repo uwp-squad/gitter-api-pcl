@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>gitter-api-pcl</id>
-        <version>0.2.15</version>
+        <version>0.2.16</version>
         <title>Gitter#</title>
         <authors>David Bottiau</authors>
         <owners>David Bottiau</owners>
@@ -10,9 +10,21 @@
         <iconUrl>https://avatars0.githubusercontent.com/u/5990364</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Gitter# provide you the minimum code you need to use the Gitter API.</description>
-        <releaseNotes>Create iOS project</releaseNotes>
+        <releaseNotes>Add package dependencies</releaseNotes>
         <copyright>Copyright 2015</copyright>
         <tags>Gitter Api</tags>
+        <dependencies>
+            <dependency id="Newtonsoft.Json" />
+            <dependency id="Rx-Main" />
+
+            <group targetFramework="net45">
+                <dependency id="System.Net.Http" />
+            </group>
+
+            <group targetFramework="netcore451+wpa81">
+                <dependency id="Microsoft.Net.Http" />
+            </group>
+        </dependencies>
     </metadata>
     <files>
         <file src=".\GitterSharp\GitterSharp.UniversalWindows\bin\Release\GitterSharp.*.dll" target="lib\portable-netcore451+wpa81" />
