@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitterSharp.Model", "Gitter
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitterSharp.Services", "GitterSharp.Services\GitterSharp.Services.csproj", "{08FC7432-FA5C-415D-9DF6-DC018EE5DE26}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitterSharp.iOS", "GitterSharp.iOS\GitterSharp.iOS.csproj", "{BC3D5A3C-27A4-42E5-B707-FE2EA95B28E9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{08FC7432-FA5C-415D-9DF6-DC018EE5DE26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08FC7432-FA5C-415D-9DF6-DC018EE5DE26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08FC7432-FA5C-415D-9DF6-DC018EE5DE26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC3D5A3C-27A4-42E5-B707-FE2EA95B28E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC3D5A3C-27A4-42E5-B707-FE2EA95B28E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC3D5A3C-27A4-42E5-B707-FE2EA95B28E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC3D5A3C-27A4-42E5-B707-FE2EA95B28E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,5 +59,6 @@ Global
 		{4F8DF090-7771-440B-9FE3-A5E874025A82} = {063F959F-0BCF-4653-AFF4-6755FBC94EAC}
 		{10E8A4DA-FD99-4045-AB78-F586A2546072} = {063F959F-0BCF-4653-AFF4-6755FBC94EAC}
 		{08FC7432-FA5C-415D-9DF6-DC018EE5DE26} = {063F959F-0BCF-4653-AFF4-6755FBC94EAC}
+		{BC3D5A3C-27A4-42E5-B707-FE2EA95B28E9} = {D2E04D6F-CB68-4BE9-9B55-DDC37508C95E}
 	EndGlobalSection
 EndGlobal
