@@ -7,6 +7,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitterSharp.UniversalWindow
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitterSharp.NetFramework", "GitterSharp.NetFramework\GitterSharp.NetFramework.csproj", "{2E309B2C-E725-4102-815A-D36193278921}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{063F959F-0BCF-4653-AFF4-6755FBC94EAC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Front", "Front", "{D2E04D6F-CB68-4BE9-9B55-DDC37508C95E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitterSharp.Configuration", "GitterSharp.Configuration\GitterSharp.Configuration.csproj", "{4F8DF090-7771-440B-9FE3-A5E874025A82}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitterSharp.Model", "GitterSharp.Model\GitterSharp.Model.csproj", "{10E8A4DA-FD99-4045-AB78-F586A2546072}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitterSharp.Services", "GitterSharp.Services\GitterSharp.Services.csproj", "{08FC7432-FA5C-415D-9DF6-DC018EE5DE26}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,8 +31,27 @@ Global
 		{2E309B2C-E725-4102-815A-D36193278921}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E309B2C-E725-4102-815A-D36193278921}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E309B2C-E725-4102-815A-D36193278921}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F8DF090-7771-440B-9FE3-A5E874025A82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F8DF090-7771-440B-9FE3-A5E874025A82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F8DF090-7771-440B-9FE3-A5E874025A82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F8DF090-7771-440B-9FE3-A5E874025A82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10E8A4DA-FD99-4045-AB78-F586A2546072}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10E8A4DA-FD99-4045-AB78-F586A2546072}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10E8A4DA-FD99-4045-AB78-F586A2546072}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10E8A4DA-FD99-4045-AB78-F586A2546072}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08FC7432-FA5C-415D-9DF6-DC018EE5DE26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08FC7432-FA5C-415D-9DF6-DC018EE5DE26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08FC7432-FA5C-415D-9DF6-DC018EE5DE26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08FC7432-FA5C-415D-9DF6-DC018EE5DE26}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B8339332-779B-48BE-8342-F95386362DB1} = {D2E04D6F-CB68-4BE9-9B55-DDC37508C95E}
+		{2E309B2C-E725-4102-815A-D36193278921} = {D2E04D6F-CB68-4BE9-9B55-DDC37508C95E}
+		{4F8DF090-7771-440B-9FE3-A5E874025A82} = {063F959F-0BCF-4653-AFF4-6755FBC94EAC}
+		{10E8A4DA-FD99-4045-AB78-F586A2546072} = {063F959F-0BCF-4653-AFF4-6755FBC94EAC}
+		{08FC7432-FA5C-415D-9DF6-DC018EE5DE26} = {063F959F-0BCF-4653-AFF4-6755FBC94EAC}
 	EndGlobalSection
 EndGlobal

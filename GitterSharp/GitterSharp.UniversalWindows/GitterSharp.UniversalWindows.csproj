@@ -34,21 +34,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Configuration\Constants.cs" />
     <Compile Include="Helpers\HttpHelper.cs" />
     <Compile Include="Helpers\StreamHelper.cs" />
-    <Compile Include="Model\Issue.cs" />
-    <Compile Include="Model\Mention.cs" />
-    <Compile Include="Model\Message.cs" />
-    <Compile Include="Model\MessageUrl.cs" />
-    <Compile Include="Model\Organization.cs" />
-    <Compile Include="Model\Repository.cs" />
-    <Compile Include="Model\Room.cs" />
-    <Compile Include="Model\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\IGitterApiService.cs" />
     <Compile Include="Services\GitterApiService.cs" />
-    <Compile Include="Model\UnreadItems.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -86,6 +75,20 @@
   <ItemGroup>
     <TargetPlatform Include="Windows, Version=8.1" />
     <TargetPlatform Include="WindowsPhoneApp, Version=8.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GitterSharp.Configuration\GitterSharp.Configuration.csproj">
+      <Project>{4f8df090-7771-440b-9fe3-a5e874025a82}</Project>
+      <Name>GitterSharp.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GitterSharp.Model\GitterSharp.Model.csproj">
+      <Project>{10e8a4da-fd99-4045-ab78-f586a2546072}</Project>
+      <Name>GitterSharp.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GitterSharp.Services\GitterSharp.Services.csproj">
+      <Project>{08fc7432-fa5c-415d-9df6-dc018ee5de26}</Project>
+      <Name>GitterSharp.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
