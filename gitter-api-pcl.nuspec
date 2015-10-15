@@ -16,14 +16,6 @@
         <dependencies>
             <dependency id="Newtonsoft.Json" />
             <dependency id="Rx-Main" />
-
-            <group targetFramework="net45">
-                <dependency id="System.Net.Http" />
-            </group>
-
-            <group targetFramework="netcore451+wpa81">
-                <dependency id="Microsoft.Net.Http" />
-            </group>
         </dependencies>
     </metadata>
     <files>
