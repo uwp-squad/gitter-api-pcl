@@ -8,9 +8,9 @@ Gitter# provide you the minimum code you need to use the Gitter API. You can use
 * Windows 8.1 (Store Apps)
 * Windows Phone 8.1
 * Windows 10
-* .NET Framework 4.5 [planned]
-* Xamarin.Android [planned]
-* Xamarin.iOS [planned]
+* .NET Framework 4.5
+* Xamarin.Android
+* Xamarin.iOS
 
 ## Gitter API as a service
 
