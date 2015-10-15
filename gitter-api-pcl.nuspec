@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>gitter-api-pcl</id>
-        <version>0.2.16</version>
+        <version>0.3.0</version>
         <title>Gitter#</title>
         <authors>David Bottiau</authors>
         <owners>David Bottiau</owners>
@@ -10,7 +10,7 @@
         <iconUrl>https://avatars0.githubusercontent.com/u/5990364</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Gitter# provide you the minimum code you need to use the Gitter API.</description>
-        <releaseNotes>Add package dependencies</releaseNotes>
+        <releaseNotes>Add Xamarin.iOS and Xamarin.Android libraries</releaseNotes>
         <copyright>Copyright 2015</copyright>
         <tags>Gitter Api</tags>
         <dependencies>
@@ -21,5 +21,7 @@
     <files>
         <file src=".\GitterSharp\GitterSharp.UniversalWindows\bin\Release\GitterSharp.*.dll" target="lib\portable-netcore451+wpa81" />
         <file src=".\GitterSharp\GitterSharp.NetFramework\bin\Release\GitterSharp.*.dll" target="lib\net45" />
+        <file src=".\GitterSharp\GitterSharp.Android\bin\Release\GitterSharp.*.dll" target="lib\monoandroid" />
+        <file src=".\GitterSharp\GitterSharp.iOS\bin\iPhone\Release\GitterSharp.*.dll" target="lib\xamarin.ios" />
     </files>
 </package>
