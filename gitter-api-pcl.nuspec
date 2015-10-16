@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>gitter-api-pcl</id>
-        <version>0.3.0</version>
+        <version>0.3.1</version>
         <title>Gitter#</title>
         <authors>David Bottiau</authors>
         <owners>David Bottiau</owners>
@@ -14,8 +14,16 @@
         <copyright>Copyright 2015</copyright>
         <tags>Gitter Api</tags>
         <dependencies>
-            <dependency id="Newtonsoft.Json" />
-            <dependency id="Rx-Main" />
+            <group>
+                <dependency id="Newtonsoft.Json" />
+                <dependency id="Rx-Main" />
+            </group>
+            <group targetFramework="net45">
+                <dependency id="System.Net.Http" />
+            </group>
+            <group targetFramework="portable-win81+wpa81">
+                <dependency id="Microsoft.Net.Http" />
+            </group>
         </dependencies>
     </metadata>
     <files>
