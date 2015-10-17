@@ -12,6 +12,7 @@ using GitterSharp.Helpers;
 using GitterSharp.Model;
 using Newtonsoft.Json;
 using UnicodeEncoding = Windows.Storage.Streams.UnicodeEncoding;
+using Windows.Security.Authentication.Web;
 
 namespace GitterSharp.Services
 {
@@ -43,6 +44,27 @@ namespace GitterSharp.Services
 
 
         #region Authentication
+
+        public async Task<bool?> LoginAsync(string oauthKey, string oauthSecret)
+        {
+            try
+            {
+                AuthenticationService.OauthKey = oauthKey;
+                AuthenticationService.OauthSecret = oauthSecret;
+
+                string startUrl = $"https://gitter.im/login/oauth/authorize?client_id={oauthKey}&response_type=code&redirect_uri={Constants.RedirectUrl}";
+                var startUri = new Uri(startUrl);
+                var endUri = new Uri(Constants.RedirectUrl);
+
+                WebAuthenticationBroker.AuthenticateAndContinue(startUri, endUri, null, WebAuthenticationOptions.None);
+
+                return await Task.FromResult<bool?>(null);                
+            }
+            catch
+            {
+                return null;
+            }
+        }
 
         public void TryAuthenticate(string token = null)
         {

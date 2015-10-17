@@ -43,6 +43,11 @@ namespace GitterSharp.Services
 
         #region Authentication
 
+        public Task<bool?> LoginAsync(string oauthKey, string oauthSecret)
+        {
+            throw new NotImplementedException();
+        }
+
         public void TryAuthenticate(string token = null)
         {
             if (!string.IsNullOrWhiteSpace(token))
