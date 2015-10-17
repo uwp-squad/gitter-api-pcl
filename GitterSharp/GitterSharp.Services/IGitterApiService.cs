@@ -19,7 +19,7 @@ namespace GitterSharp.Services
         /// Once authenticated, set the token provided by auth
         /// </summary>
         /// <param name="token">Token retrieved from authentication</param>
-        void TryAuthenticate(string token);
+        void SetToken(string token);
 
         #endregion
 

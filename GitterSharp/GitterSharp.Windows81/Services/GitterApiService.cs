@@ -56,7 +56,7 @@ namespace GitterSharp.Services
                 var webAuthenticationResult = await WebAuthenticationBroker.AuthenticateAsync(WebAuthenticationOptions.None, startUri, endUri);
                 string token = await AuthHelper.RetrieveToken(webAuthenticationResult, oauthKey, oauthSecret);
 
-                TryAuthenticate(token);
+                SetToken(token);
 
                 return !string.IsNullOrWhiteSpace(token);
             }
@@ -66,7 +66,7 @@ namespace GitterSharp.Services
             }
         }
 
-        public void TryAuthenticate(string token = null)
+        public void SetToken(string token = null)
         {
             if (!string.IsNullOrWhiteSpace(token))
                 _accessToken = token;

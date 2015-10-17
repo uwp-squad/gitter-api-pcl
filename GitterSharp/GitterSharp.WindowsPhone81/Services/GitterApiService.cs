@@ -66,7 +66,7 @@ namespace GitterSharp.Services
             }
         }
 
-        public void TryAuthenticate(string token = null)
+        public void SetToken(string token = null)
         {
             if (!string.IsNullOrWhiteSpace(token))
                 _accessToken = token;

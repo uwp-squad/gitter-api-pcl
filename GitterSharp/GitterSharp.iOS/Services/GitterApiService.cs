@@ -48,7 +48,7 @@ namespace GitterSharp.Services
             throw new NotImplementedException();
         }
 
-        public void TryAuthenticate(string token = null)
+        public void SetToken(string token = null)
         {
             if (!string.IsNullOrWhiteSpace(token))
                 _accessToken = token;
