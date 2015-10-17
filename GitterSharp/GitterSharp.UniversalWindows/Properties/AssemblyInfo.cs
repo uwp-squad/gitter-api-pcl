@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("GitterSharp.Helpers")]
+[assembly: AssemblyTitle("GitterSharp.UniversalWindows")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("GitterSharp.Helpers")]
+[assembly: AssemblyProduct("GitterSharp.UniversalWindows")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -29,9 +29,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
-[assembly: InternalsVisibleTo("GitterSharp.Android")]
-[assembly: InternalsVisibleTo("GitterSharp.iOS")]
-[assembly: InternalsVisibleTo("GitterSharp.NetFramework")]
-[assembly: InternalsVisibleTo("GitterSharp.UniversalWindows")]
 [assembly: InternalsVisibleTo("GitterSharp.Windows81")]
 [assembly: InternalsVisibleTo("GitterSharp.WindowsPhone81")]

@@ -105,8 +105,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\AuthHelper.cs" />
-    <Compile Include="Helpers\HttpHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\GitterApiService.cs" />
   </ItemGroup>
@@ -156,6 +154,10 @@
     <ProjectReference Include="..\GitterSharp.Services\GitterSharp.Services.csproj">
       <Project>{08fc7432-fa5c-415d-9df6-dc018ee5de26}</Project>
       <Name>GitterSharp.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GitterSharp.UniversalWindows\GitterSharp.UniversalWindows.csproj">
+      <Project>{8a23ee2d-19ff-4078-b5a5-03b8f186bc05}</Project>
+      <Name>GitterSharp.UniversalWindows</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
