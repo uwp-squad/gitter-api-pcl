@@ -84,7 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\AuthenticationService.cs" />
+    <Compile Include="Services\WindowsPhoneAuthenticationService.cs" />
     <Compile Include="Services\GitterApiService.cs" />
   </ItemGroup>
   <ItemGroup>
