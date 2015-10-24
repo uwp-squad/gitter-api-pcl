@@ -10,7 +10,7 @@ namespace GitterSharp.Services
     /// <summary>
     /// Service used to finalize the authentication using Web Authentication Broker on Windows Phone 8.1
     /// </summary>
-    public static class WindowsPhoneAuthenticationService
+    public class AuthenticationService : IAuthenticationService
     {
         #region Fields
 
@@ -22,7 +22,7 @@ namespace GitterSharp.Services
 
         #region Methods
 
-        public static async Task<bool?> ExecuteLoginAsync(string oauthKey, string oauthSecret)
+        public async Task<bool?> LoginAsync(string oauthKey, string oauthSecret)
         {
             try
             {
@@ -43,7 +43,7 @@ namespace GitterSharp.Services
             }
         }
 
-        public static async Task<string> RetrieveTokenAsync(WebAuthenticationBrokerContinuationEventArgs args)
+        public async Task<string> RetrieveTokenAsync(WebAuthenticationBrokerContinuationEventArgs args)
         {
             try
             {

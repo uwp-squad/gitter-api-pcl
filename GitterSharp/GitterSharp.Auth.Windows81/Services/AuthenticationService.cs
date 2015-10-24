@@ -9,7 +9,7 @@ namespace GitterSharp.Services
     /// <summary>
     /// Service used to finalize the authentication using Web Authentication Broker on Windows 8.1
     /// </summary>
-    public static class WindowsAuthenticationService
+    public class AuthenticationService : IAuthenticationService
     {
         #region Fields
 
@@ -20,7 +20,7 @@ namespace GitterSharp.Services
 
         #region Methods
 
-        public static async Task<bool?> ExecuteLoginAsync(string oauthKey, string oauthSecret)
+        public async Task<bool?> LoginAsync(string oauthKey, string oauthSecret)
         {
             try
             {
@@ -39,7 +39,7 @@ namespace GitterSharp.Services
             }
         }
 
-        public static string RetrieveToken()
+        public string RetrieveToken()
         {
             return _token;
         }

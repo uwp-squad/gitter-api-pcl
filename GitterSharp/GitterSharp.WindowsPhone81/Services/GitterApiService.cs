@@ -6,10 +6,7 @@ namespace GitterSharp.Services
     {
         #region Authentication
 
-        public override async Task<bool?> LoginAsync(string oauthKey, string oauthSecret)
-        {
-            return await WindowsPhoneAuthenticationService.ExecuteLoginAsync(oauthKey, oauthSecret);
-        }
+        
         
         #endregion
     }

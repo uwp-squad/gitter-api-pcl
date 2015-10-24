@@ -15,7 +15,7 @@ using UnicodeEncoding = Windows.Storage.Streams.UnicodeEncoding;
 
 namespace GitterSharp.Services
 {
-    public abstract class BaseGitterApiService : IGitterApiService
+    public class GitterApiService : IGitterApiService
     {
         #region Fields
 
@@ -43,8 +43,6 @@ namespace GitterSharp.Services
 
 
         #region Authentication
-
-        public abstract Task<bool?> LoginAsync(string oauthKey, string oauthSecret);
 
         public void SetToken(string token = null)
         {

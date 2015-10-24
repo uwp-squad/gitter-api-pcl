@@ -10,13 +10,6 @@ namespace GitterSharp.Services
         #region Authentication
 
         /// <summary>
-        /// Execute login process through OAuth2 authentication mechanism
-        /// (https://developer.gitter.im/docs/authentication)
-        /// </summary>
-        /// <returns>true: login success / false: login failed / null: exception occured</returns>
-        Task<bool?> LoginAsync(string oauthKey, string oauthSecret);
-
-        /// <summary>
         /// Once authenticated, set the token provided by auth
         /// </summary>
         /// <param name="token">Token retrieved from authentication</param>
