@@ -21,7 +21,7 @@ public interface IGitterApiService
 {
     #region Authentication
 
-    void TryAuthenticate(string token);
+    void SetToken(string token);
 
     #endregion
 
@@ -67,10 +67,12 @@ Now, you should receive a token. All you need to do is to provide it to the ApiS
 
 ```
 IGitterApiService gitterApiService = new GitterApiService();
-gitterApiService.TryAuthenticate("the-token");
+gitterApiService.SetToken("the-token");
 ```
 
-*Be careful, you need to set the token using TryAuthenticate method each time you create a new instance of GitterApiService.*
+*Be careful, you need to set the token using SetToken method each time you create a new instance of GitterApiService.*
+
+**Moreover, I've created another project / NuGet package that you can use to do authentication easily. You can retrieve this package following the GitHub repository here : [https://github.com/Odonno/gitter-api-auth](https://github.com/Odonno/gitter-api-auth).**
 
 ## User
 
