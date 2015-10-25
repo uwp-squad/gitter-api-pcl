@@ -16,10 +16,5 @@
         /// Version of the current Gitter API
         /// </summary>
         public static string ApiVersion = "v1/";
-
-        /// <summary>
-        /// Redirect URL when authenticate
-        /// </summary>
-        public static string RedirectUrl = "http://localhost";
     }
 }
