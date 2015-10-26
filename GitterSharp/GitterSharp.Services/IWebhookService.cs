@@ -9,9 +9,9 @@ namespace GitterSharp.Services
         /// Send event message to a dedicated room
         /// </summary>
         /// <param name="url">The webhook url used to send data</param>
-        /// <param name="content">Content of the event message</param>
+        /// <param name="message">Content of the event message</param>
         /// <param name="level">Level of the message</param>
         /// <returns></returns>
-        Task<bool> Post(string url, string content, MessageLevel level = MessageLevel.Info);
+        Task<bool> Post(string url, string message, MessageLevel level = MessageLevel.Info);
     }
 }
