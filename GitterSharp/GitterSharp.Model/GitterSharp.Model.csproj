@@ -37,6 +37,7 @@
     <Compile Include="Issue.cs" />
     <Compile Include="Mention.cs" />
     <Compile Include="Message.cs" />
+    <Compile Include="MessageLevel.cs" />
     <Compile Include="MessageUrl.cs" />
     <Compile Include="Organization.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
