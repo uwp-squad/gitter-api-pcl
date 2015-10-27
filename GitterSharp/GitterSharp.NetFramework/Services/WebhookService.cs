@@ -41,9 +41,6 @@ namespace GitterSharp.Services
                 });
                 var response = await httpClient.PostAsync(new Uri(url), content);
 
-                if (!response.IsSuccessStatusCode)
-                    throw new Exception();
-
                 result = await response.Content.ReadAsStringAsync();
             }
 
