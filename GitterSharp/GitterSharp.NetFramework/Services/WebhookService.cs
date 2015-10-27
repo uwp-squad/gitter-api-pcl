@@ -36,7 +36,8 @@ namespace GitterSharp.Services
             {
                 var content = new FormUrlEncodedContent(new Dictionary<string, string>
                 {
-                    {"message", message}
+                    {"message", message},
+                    {"level", level.ToString().ToLower()}
                 });
                 var response = await httpClient.PostAsync(new Uri(url), content);
 
