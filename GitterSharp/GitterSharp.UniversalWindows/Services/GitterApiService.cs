@@ -45,6 +45,17 @@ namespace GitterSharp.Services
 
         #endregion
 
+        #region Constructors
+
+        public GitterApiService() { }
+
+        public GitterApiService(string token)
+        {
+            Token = token;
+        }
+
+        #endregion
+
         #region User
 
         public async Task<User> GetCurrentUserAsync()

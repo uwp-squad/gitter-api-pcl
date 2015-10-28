@@ -70,7 +70,13 @@ IGitterApiService gitterApiService = new GitterApiService();
 gitterApiService.Token = "the-token";
 ```
 
-*Be careful, you need to set the token using SetToken method each time you create a new instance of GitterApiService.*
+In case, you want to set instantly by creating a new instance of *GitterApiService*, you can use a specific constructor :
+
+```
+IGitterApiService gitterApiService = new GitterApiService("the-token");
+```
+
+*Be careful, you need to set the token each time you create a new instance of GitterApiService.*
 
 **Moreover, I've created another project / NuGet package that you can use to do authentication easily. You can retrieve this package following the GitHub repository here : [https://github.com/Odonno/gitter-api-auth](https://github.com/Odonno/gitter-api-auth).**
 
