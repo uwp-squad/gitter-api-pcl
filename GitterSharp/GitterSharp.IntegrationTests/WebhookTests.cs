@@ -14,7 +14,7 @@ namespace GitterSharp.IntegrationTests
             IWebhookService webhookService = new WebhookService();
 
             // Act
-            bool result = await webhookService.Post("https://webhooks.gitter.im/e/cdf519d88a935d54a6d2", "A simple test");
+            bool result = await webhookService.PostAsync("https://webhooks.gitter.im/e/cdf519d88a935d54a6d2", "A simple test");
 
             // Assert
             Assert.IsTrue(result);

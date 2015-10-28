@@ -28,7 +28,7 @@ namespace GitterSharp.Services
 
         #region Methods
 
-        public async Task<bool> Post(string url, string message, MessageLevel level = MessageLevel.Info)
+        public async Task<bool> PostAsync(string url, string message, MessageLevel level = MessageLevel.Info)
         {
             // Create an HttpClient and send content payload
             using (var httpClient = HttpClient)
