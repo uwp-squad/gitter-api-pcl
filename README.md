@@ -19,9 +19,9 @@ With Gitter#, you can use the Gitter API as a service. So, everything you need i
 ```
 public interface IGitterApiService
 {
-    #region Authentication
+    #region Properties
 
-    void SetToken(string token);
+    string Token { get; set; }
 
     #endregion
 
@@ -67,7 +67,7 @@ Now, you should receive a token. All you need to do is to provide it to the ApiS
 
 ```
 IGitterApiService gitterApiService = new GitterApiService();
-gitterApiService.SetToken("the-token");
+gitterApiService.Token = "the-token";
 ```
 
 *Be careful, you need to set the token using SetToken method each time you create a new instance of GitterApiService.*

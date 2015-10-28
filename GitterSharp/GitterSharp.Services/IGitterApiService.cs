@@ -7,13 +7,12 @@ namespace GitterSharp.Services
 {
     public interface IGitterApiService
     {
-        #region Authentication
+        #region Properties
 
         /// <summary>
-        /// Once authenticated, set the token provided by auth
+        /// Token used by the Gitter API to provide access to the entire API
         /// </summary>
-        /// <param name="token">Token retrieved from authentication</param>
-        void SetToken(string token);
+        string Token { get; set; }
 
         #endregion
 

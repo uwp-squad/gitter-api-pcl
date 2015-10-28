@@ -19,8 +19,6 @@ namespace GitterSharp.Services
     {
         #region Fields
 
-        private string _accessToken;
-
         private readonly string _baseApiAddress = $"{Constants.ApiBaseUrl}{Constants.ApiVersion}";
         private readonly string _baseStreamingApiAddress = $"{Constants.StreamApiBaseUrl}{Constants.ApiVersion}";
 
@@ -32,23 +30,18 @@ namespace GitterSharp.Services
 
                 httpClient.DefaultRequestHeaders.Accept.Add(new HttpMediaTypeWithQualityHeaderValue("application/json"));
 
-                if (!string.IsNullOrWhiteSpace(_accessToken))
-                    httpClient.DefaultRequestHeaders.Authorization = new HttpCredentialsHeaderValue("Bearer", _accessToken);
+                if (!string.IsNullOrWhiteSpace(Token))
+                    httpClient.DefaultRequestHeaders.Authorization = new HttpCredentialsHeaderValue("Bearer", Token);
 
                 return httpClient;
             }
         }
 
         #endregion
+        
+        #region Properties
 
-
-        #region Authentication
-
-        public void SetToken(string token = null)
-        {
-            if (!string.IsNullOrWhiteSpace(token))
-                _accessToken = token;
-        }
+        public string Token { get; set; }
 
         #endregion
 
