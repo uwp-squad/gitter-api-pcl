@@ -4,6 +4,7 @@ using Windows.Web.Http;
 using Windows.Web.Http.Headers;
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace GitterSharp.Services
 {
@@ -29,11 +30,11 @@ namespace GitterSharp.Services
 
         public async Task<bool> Post(string url, string message, MessageLevel level = MessageLevel.Info)
         {
-            string result;
-
             // Create an HttpClient and send content payload
             using (var httpClient = HttpClient)
             {
+                httpClient.DefaultRequestHeaders.Accept.Add(new HttpMediaTypeWithQualityHeaderValue("application/json"));
+
                 var content = new HttpFormUrlEncodedContent(new Dictionary<string, string>
                 {
                     {"message", message},
@@ -41,10 +42,10 @@ namespace GitterSharp.Services
                 });
                 var response = await httpClient.PostAsync(new Uri(url), content);
 
-                result = await response.Content.ReadAsStringAsync();
-            }
+                var result = JsonConvert.DeserializeObject<WebhookResponse>(await response.Content.ReadAsStringAsync());
 
-            return (result == "ok");
+                return result.success;
+            }
         }
 
         #endregion
