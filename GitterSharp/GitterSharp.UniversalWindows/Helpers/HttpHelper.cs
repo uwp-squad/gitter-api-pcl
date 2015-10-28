@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using GitterSharp.Exceptions;
+using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
 using Windows.Web.Http;
@@ -13,13 +14,11 @@ namespace GitterSharp.Helpers
             {
                 var response = await httpClient.GetAsync(new Uri(url));
 
-                if (response.IsSuccessStatusCode)
-                {
-                    var result = await response.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<T>(result);
-                }
+                if (!response.IsSuccessStatusCode)
+                    throw new ApiException(response.ReasonPhrase, response.StatusCode);
 
-                throw new Exception();
+                var result = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<T>(result);
             }
         }
 
@@ -30,7 +29,7 @@ namespace GitterSharp.Helpers
                 var response = await httpClient.PostAsync(new Uri(url), content);
 
                 if (!response.IsSuccessStatusCode)
-                    throw new Exception();
+                    throw new ApiException(response.ReasonPhrase, response.StatusCode);
             }
         }
         public static async Task<T> PostAsync<T>(this HttpClient httpClient, string url, IHttpContent content)
@@ -39,13 +38,11 @@ namespace GitterSharp.Helpers
             {
                 var response = await httpClient.PostAsync(new Uri(url), content);
 
-                if (response.IsSuccessStatusCode)
-                {
-                    var result = await response.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<T>(result);
-                }
+                if (!response.IsSuccessStatusCode)
+                    throw new ApiException(response.ReasonPhrase, response.StatusCode);
 
-                throw new Exception();
+                var result = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<T>(result);
             }
         }
 
@@ -56,7 +53,7 @@ namespace GitterSharp.Helpers
                 var response = await httpClient.PutAsync(new Uri(url), content);
 
                 if (!response.IsSuccessStatusCode)
-                    throw new Exception();
+                    throw new ApiException(response.ReasonPhrase, response.StatusCode);
             }
         }
         public static async Task<T> PutAsync<T>(this HttpClient httpClient, string url, IHttpContent content)
@@ -65,13 +62,11 @@ namespace GitterSharp.Helpers
             {
                 var response = await httpClient.PutAsync(new Uri(url), content);
 
-                if (response.IsSuccessStatusCode)
-                {
-                    var result = await response.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<T>(result);
-                }
+                if (!response.IsSuccessStatusCode)
+                    throw new ApiException(response.ReasonPhrase, response.StatusCode);
 
-                throw new Exception();
+                var result = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<T>(result);
             }
         }
     }
