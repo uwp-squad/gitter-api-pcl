@@ -45,6 +45,7 @@
     <Compile Include="Room.cs" />
     <Compile Include="UnreadItems.cs" />
     <Compile Include="User.cs" />
+    <Compile Include="WebhookResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">

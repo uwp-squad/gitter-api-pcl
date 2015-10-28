@@ -17,6 +17,7 @@ namespace GitterSharp.Services
             {
                 var httpClient = new HttpClient();
                 httpClient.DefaultRequestHeaders.Accept.Add(new HttpMediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
+                httpClient.DefaultRequestHeaders.Accept.Add(new HttpMediaTypeWithQualityHeaderValue("application/json"));
 
                 return httpClient;
             }
@@ -27,10 +28,8 @@ namespace GitterSharp.Services
 
         #region Methods
 
-        public async Task<bool> Post(string url, string message, MessageLevel level = MessageLevel.Info)
+        public async Task<bool> PostAsync(string url, string message, MessageLevel level = MessageLevel.Info)
         {
-            string result;
-
             // Create an HttpClient and send content payload
             using (var httpClient = HttpClient)
             {
@@ -41,10 +40,8 @@ namespace GitterSharp.Services
                 });
                 var response = await httpClient.PostAsync(new Uri(url), content);
 
-                result = await response.Content.ReadAsStringAsync();
+                return response.IsSuccessStatusCode;
             }
-
-            return (result == "ok");
         }
 
         #endregion
