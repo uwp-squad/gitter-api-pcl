@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
 using GitterSharp.Configuration;
 using GitterSharp.Helpers;
@@ -26,7 +24,7 @@ namespace GitterSharp.Services
             get
             {
                 var httpClient = new HttpClient();
-                
+
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 if (!string.IsNullOrWhiteSpace(Token))
@@ -37,7 +35,7 @@ namespace GitterSharp.Services
         }
 
         #endregion
-        
+
         #region Properties
 
         public string Token { get; set; }
@@ -120,19 +118,6 @@ namespace GitterSharp.Services
         #endregion
 
         #region Messages
-
-        public IObservable<Message> GetRealtimeMessages(string roomId)
-        {
-            string url = _baseStreamingApiAddress + $"rooms/{roomId}/chatMessages";
-
-            return Observable.Using(() => HttpClient,
-                client => client.GetStreamAsync(new Uri(url))
-                    .ToObservable()
-                    .Select(x => Observable.FromAsync(() => StreamHelper.ReadStreamAsync(x)).Repeat())
-                    .Concat()
-                    .Where(x => !string.IsNullOrWhiteSpace(x))
-                    .Select(JsonConvert.DeserializeObject<Message>));
-        }
 
         public async Task<Message> GetSingleRoomMessageAsync(string roomId, string messageId)
         {

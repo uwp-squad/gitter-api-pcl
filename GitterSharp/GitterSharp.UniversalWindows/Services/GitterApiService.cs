@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
 using Windows.Web.Http;
 using Windows.Web.Http.Headers;
@@ -121,20 +118,6 @@ namespace GitterSharp.Services
         #endregion
 
         #region Messages
-
-        public IObservable<Message> GetRealtimeMessages(string roomId)
-        {
-            string url = _baseStreamingApiAddress + $"rooms/{roomId}/chatMessages";
-
-            return Observable.Using(() => HttpClient,
-                client => client.GetInputStreamAsync(new Uri(url))
-                    .AsTask()
-                    .ToObservable()
-                    .Select(x => Observable.FromAsync(() => StreamHelper.ReadStreamAsync(x.AsStreamForRead())).Repeat())
-                    .Concat()
-                    .Where(x => !string.IsNullOrWhiteSpace(x))
-                    .Select(JsonConvert.DeserializeObject<Message>));
-        }
 
         public async Task<Message> GetSingleRoomMessageAsync(string roomId, string messageId)
         {
