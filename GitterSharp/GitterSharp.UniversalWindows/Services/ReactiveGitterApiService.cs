@@ -1,9 +1,9 @@
 ﻿using GitterSharp.Services;
 using System;
+using System.Reactive;
 using System.Linq;
 using System.Collections.Generic;
 using GitterSharp.Model;
-using System.Reactive;
 using Windows.Web.Http;
 using GitterSharp.Configuration;
 using Windows.Web.Http.Headers;
@@ -63,9 +63,8 @@ namespace GitterSharp.UniversalWindows.Services
         {
             string url = _baseApiAddress + "user";
             return HttpClient.GetAsync<IEnumerable<User>>(url)
-                .AsAsyncOperation()
-                .GetResults()
-                .ToObservable();
+                .ToObservable()
+                .Select(users => users.FirstOrDefault());
         }
 
         public IObservable<IEnumerable<Organization>> GetOrganizations(string userId)

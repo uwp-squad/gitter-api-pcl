@@ -1,5 +1,6 @@
 ﻿using GitterSharp.Services;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using GitterSharp.Model;
 using System.Reactive;
@@ -10,6 +11,7 @@ using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
 using Newtonsoft.Json;
 using GitterSharp.Helpers;
+using System.Text;
 
 namespace GitterSharp.UniversalWindows.Services
 {
@@ -58,17 +60,24 @@ namespace GitterSharp.UniversalWindows.Services
 
         public IObservable<User> GetCurrentUser()
         {
-            throw new NotImplementedException();
+            string url = _baseApiAddress + "user";
+            return HttpClient.GetAsync<IEnumerable<User>>(url)
+                .ToObservable()
+                .Select(users => users.FirstOrDefault());
         }
 
         public IObservable<IEnumerable<Organization>> GetOrganizations(string userId)
         {
-            throw new NotImplementedException();
+            string url = _baseApiAddress + $"user/{userId}/orgs";
+            return HttpClient.GetAsync<IEnumerable<Organization>>(url)
+                .ToObservable();
         }
 
         public IObservable<IEnumerable<Repository>> GetRepositories(string userId)
         {
-            throw new NotImplementedException();
+            string url = _baseApiAddress + $"user/{userId}/repos";
+            return HttpClient.GetAsync<IEnumerable<Repository>>(url)
+                .ToObservable();
         }
 
         #endregion
@@ -77,12 +86,21 @@ namespace GitterSharp.UniversalWindows.Services
 
         public IObservable<UnreadItems> RetrieveUnreadChatMessages(string userId, string roomId)
         {
-            throw new NotImplementedException();
+            string url = _baseApiAddress + $"user/{userId}/rooms/{roomId}/unreadItems";
+            return HttpClient.GetAsync<UnreadItems>(url)
+                .ToObservable();
         }
 
         public IObservable<Unit> MarkUnreadChatMessages(string userId, string roomId, IEnumerable<string> messageIds)
         {
-            throw new NotImplementedException();
+            string url = _baseApiAddress + $"user/{userId}/rooms/{roomId}/unreadItems";
+            var content = new StringContent("{\"chat\": " + JsonConvert.SerializeObject(messageIds) + "}",
+                Encoding.UTF8,
+                "application/json");
+
+            return HttpClient.PostAsync(url, content)
+                .ToObservable()
+                .Select(x => new Unit());
         }
 
         #endregion
@@ -91,12 +109,21 @@ namespace GitterSharp.UniversalWindows.Services
 
         public IObservable<IEnumerable<Room>> GetRooms()
         {
-            throw new NotImplementedException();
+            string url = _baseApiAddress + "rooms";
+            return HttpClient.GetAsync<IEnumerable<Room>>(url)
+                .ToObservable();
         }
 
         public IObservable<Room> JoinRoom(string roomName)
         {
-            throw new NotImplementedException();
+            string url = _baseApiAddress + "rooms";
+            var content = new FormUrlEncodedContent(new Dictionary<string, string>
+            {
+                {"uri", roomName}
+            });
+
+            return HttpClient.PostAsync<Room>(url, content)
+                .ToObservable();
         }
 
         #endregion
@@ -105,22 +132,50 @@ namespace GitterSharp.UniversalWindows.Services
 
         public IObservable<Message> GetSingleRoomMessage(string roomId, string messageId)
         {
-            throw new NotImplementedException();
+            string url = _baseApiAddress + $"rooms/{roomId}/chatMessages/{messageId}";
+            return HttpClient.GetAsync<Message>(url)
+                .ToObservable();
         }
 
         public IObservable<IEnumerable<Message>> GetRoomMessages(string roomId, int limit = 50, string beforeId = null, string afterId = null, int skip = 0)
         {
-            throw new NotImplementedException();
+            string url = _baseApiAddress + $"rooms/{roomId}/chatMessages?limit={limit}";
+
+            if (!string.IsNullOrWhiteSpace(beforeId))
+                url += $"&beforeId={beforeId}";
+
+            if (!string.IsNullOrWhiteSpace(afterId))
+                url += $"&afterId={afterId}";
+
+            if (skip > 0)
+                url += $"&skip={skip}";
+
+            return HttpClient.GetAsync<IEnumerable<Message>>(url)
+                .ToObservable();
         }
 
         public IObservable<Message> SendMessage(string roomId, string message)
         {
-            throw new NotImplementedException();
+            string url = _baseApiAddress + $"rooms/{roomId}/chatMessages";
+            var content = new FormUrlEncodedContent(new Dictionary<string, string>
+            {
+                {"text", message}
+            });
+
+            return HttpClient.PostAsync<Message>(url, content)
+                .ToObservable();
         }
 
         public IObservable<Message> UpdateMessage(string roomId, string messageId, string message)
         {
-            throw new NotImplementedException();
+            string url = _baseApiAddress + $"rooms/{roomId}/chatMessages/{messageId}";
+            var content = new FormUrlEncodedContent(new Dictionary<string, string>
+            {
+                {"text", message}
+            });
+
+            return HttpClient.PutAsync<Message>(url, content)
+                .ToObservable();
         }
 
         #endregion
