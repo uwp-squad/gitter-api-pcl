@@ -26,7 +26,7 @@ namespace GitterSharp.Services
             get
             {
                 var httpClient = new HttpClient();
-                
+
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 if (!string.IsNullOrWhiteSpace(Token))
@@ -37,7 +37,7 @@ namespace GitterSharp.Services
         }
 
         #endregion
-        
+
         #region Properties
 
         public string Token { get; set; }
@@ -121,19 +121,6 @@ namespace GitterSharp.Services
 
         #region Messages
 
-        public IObservable<Message> GetRealtimeMessages(string roomId)
-        {
-            string url = _baseStreamingApiAddress + $"rooms/{roomId}/chatMessages";
-
-            return Observable.Using(() => HttpClient,
-                client => client.GetStreamAsync(new Uri(url))
-                    .ToObservable()
-                    .Select(x => Observable.FromAsync(() => StreamHelper.ReadStreamAsync(x)).Repeat())
-                    .Concat()
-                    .Where(x => !string.IsNullOrWhiteSpace(x))
-                    .Select(JsonConvert.DeserializeObject<Message>));
-        }
-
         public async Task<Message> GetSingleRoomMessageAsync(string roomId, string messageId)
         {
             string url = _baseApiAddress + $"rooms/{roomId}/chatMessages/{messageId}";
@@ -176,6 +163,23 @@ namespace GitterSharp.Services
             });
 
             return await HttpClient.PutAsync<Message>(url, content);
+        }
+
+        #endregion
+
+        #region Streaming
+
+        public IObservable<Message> GetRealtimeMessages(string roomId)
+        {
+            string url = _baseStreamingApiAddress + $"rooms/{roomId}/chatMessages";
+
+            return Observable.Using(() => HttpClient,
+                client => client.GetStreamAsync(new Uri(url))
+                    .ToObservable()
+                    .Select(x => Observable.FromAsync(() => StreamHelper.ReadStreamAsync(x)).Repeat())
+                    .Concat()
+                    .Where(x => !string.IsNullOrWhiteSpace(x))
+                    .Select(JsonConvert.DeserializeObject<Message>));
         }
 
         #endregion
