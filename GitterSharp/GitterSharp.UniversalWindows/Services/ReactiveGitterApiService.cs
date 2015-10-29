@@ -46,6 +46,17 @@ namespace GitterSharp.UniversalWindows.Services
 
         #endregion
 
+        #region Constructors
+
+        public ReactiveGitterApiService() { }
+
+        public ReactiveGitterApiService(string token)
+        {
+            Token = token;
+        }
+
+        #endregion
+
         #region User
 
         public IObservable<User> GetCurrentUser()
