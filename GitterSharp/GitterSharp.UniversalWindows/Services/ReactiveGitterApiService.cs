@@ -3,11 +3,41 @@ using System;
 using System.Collections.Generic;
 using GitterSharp.Model;
 using System.Reactive;
+using Windows.Web.Http;
+using GitterSharp.Configuration;
+using Windows.Web.Http.Headers;
+using System.Reactive.Linq;
+using Newtonsoft.Json;
+using System.Reactive.Threading.Tasks;
+using GitterSharp.Helpers;
+using System.IO;
 
 namespace GitterSharp.UniversalWindows.Services
 {
     public class ReactiveGitterApiService : IReactiveGitterApiService
     {
+        #region Fields
+
+        private readonly string _baseApiAddress = $"{Constants.ApiBaseUrl}{Constants.ApiVersion}";
+        private readonly string _baseStreamingApiAddress = $"{Constants.StreamApiBaseUrl}{Constants.ApiVersion}";
+
+        private HttpClient HttpClient
+        {
+            get
+            {
+                var httpClient = new HttpClient();
+
+                httpClient.DefaultRequestHeaders.Accept.Add(new HttpMediaTypeWithQualityHeaderValue("application/json"));
+
+                if (!string.IsNullOrWhiteSpace(Token))
+                    httpClient.DefaultRequestHeaders.Authorization = new HttpCredentialsHeaderValue("Bearer", Token);
+
+                return httpClient;
+            }
+        }
+
+        #endregion
+
         #region Properties
 
         public string Token { get; set; }
@@ -89,7 +119,16 @@ namespace GitterSharp.UniversalWindows.Services
 
         public IObservable<Message> GetRealtimeMessages(string roomId)
         {
-            throw new NotImplementedException();
+            string url = _baseStreamingApiAddress + $"rooms/{roomId}/chatMessages";
+
+            return Observable.Using(() => HttpClient,
+                client => client.GetInputStreamAsync(new Uri(url))
+                    .AsTask()
+                    .ToObservable()
+                    .Select(x => Observable.FromAsync(() => StreamHelper.ReadStreamAsync(x.AsStreamForRead())).Repeat())
+                    .Concat()
+                    .Where(x => !string.IsNullOrWhiteSpace(x))
+                    .Select(JsonConvert.DeserializeObject<Message>));
         }
 
         #endregion

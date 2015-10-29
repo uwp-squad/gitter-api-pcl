@@ -128,17 +128,5 @@ namespace GitterSharp.Services
         Task<Message> UpdateMessageAsync(string roomId, string messageId, string message);
 
         #endregion
-
-        #region Streaming
-
-        /// <summary>
-        /// Retrieve messages of a specific room - in realtime
-        /// (https://developer.gitter.im/docs/streaming-api)
-        /// </summary>
-        /// <param name="roomId">Id of the room that contains messages</param>
-        /// <returns></returns>
-        IObservable<Message> GetRealtimeMessages(string roomId);
-
-        #endregion
     }
 }

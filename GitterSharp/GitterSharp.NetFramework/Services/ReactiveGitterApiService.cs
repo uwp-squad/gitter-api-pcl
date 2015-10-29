@@ -3,11 +3,40 @@ using System;
 using System.Collections.Generic;
 using GitterSharp.Model;
 using System.Reactive;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using GitterSharp.Configuration;
+using System.Reactive.Linq;
+using System.Reactive.Threading.Tasks;
+using Newtonsoft.Json;
+using GitterSharp.Helpers;
 
 namespace GitterSharp.UniversalWindows.Services
 {
     public class ReactiveGitterApiService : IReactiveGitterApiService
     {
+        #region Fields
+
+        private readonly string _baseApiAddress = $"{Constants.ApiBaseUrl}{Constants.ApiVersion}";
+        private readonly string _baseStreamingApiAddress = $"{Constants.StreamApiBaseUrl}{Constants.ApiVersion}";
+
+        private HttpClient HttpClient
+        {
+            get
+            {
+                var httpClient = new HttpClient();
+
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                if (!string.IsNullOrWhiteSpace(Token))
+                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
+
+                return httpClient;
+            }
+        }
+
+        #endregion
+
         #region Properties
 
         public string Token { get; set; }
@@ -89,7 +118,15 @@ namespace GitterSharp.UniversalWindows.Services
 
         public IObservable<Message> GetRealtimeMessages(string roomId)
         {
-            throw new NotImplementedException();
+            string url = _baseStreamingApiAddress + $"rooms/{roomId}/chatMessages";
+
+            return Observable.Using(() => HttpClient,
+                client => client.GetStreamAsync(new Uri(url))
+                    .ToObservable()
+                    .Select(x => Observable.FromAsync(() => StreamHelper.ReadStreamAsync(x)).Repeat())
+                    .Concat()
+                    .Where(x => !string.IsNullOrWhiteSpace(x))
+                    .Select(JsonConvert.DeserializeObject<Message>));
         }
 
         #endregion
