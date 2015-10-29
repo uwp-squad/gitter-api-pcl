@@ -48,7 +48,7 @@ namespace GitterSharp.UniversalWindows.Services
 
         #region User
 
-        public IObservable<User> GetCurrentUserAsync()
+        public IObservable<User> GetCurrentUser()
         {
             string url = _baseApiAddress + "user";
             return HttpClient.GetAsync<IEnumerable<User>>(url)
@@ -57,14 +57,14 @@ namespace GitterSharp.UniversalWindows.Services
                 .ToObservable();
         }
 
-        public IObservable<IEnumerable<Organization>> GetOrganizationsAsync(string userId)
+        public IObservable<IEnumerable<Organization>> GetOrganizations(string userId)
         {
             string url = _baseApiAddress + $"user/{userId}/orgs";
             return HttpClient.GetAsync<IEnumerable<Organization>>(url)
                 .ToObservable();
         }
 
-        public IObservable<IEnumerable<Repository>> GetRepositoriesAsync(string userId)
+        public IObservable<IEnumerable<Repository>> GetRepositories(string userId)
         {
             string url = _baseApiAddress + $"user/{userId}/repos";
             return HttpClient.GetAsync<IEnumerable<Repository>>(url)
@@ -75,14 +75,14 @@ namespace GitterSharp.UniversalWindows.Services
 
         #region Unread Items
 
-        public IObservable<UnreadItems> RetrieveUnreadChatMessagesAsync(string userId, string roomId)
+        public IObservable<UnreadItems> RetrieveUnreadChatMessages(string userId, string roomId)
         {
             string url = _baseApiAddress + $"user/{userId}/rooms/{roomId}/unreadItems";
             return HttpClient.GetAsync<UnreadItems>(url)
                 .ToObservable();
         }
 
-        public IObservable<Unit> MarkUnreadChatMessagesAsync(string userId, string roomId, IEnumerable<string> messageIds)
+        public IObservable<Unit> MarkUnreadChatMessages(string userId, string roomId, IEnumerable<string> messageIds)
         {
             string url = _baseApiAddress + $"user/{userId}/rooms/{roomId}/unreadItems";
             var content = new HttpStringContent("{\"chat\": " + JsonConvert.SerializeObject(messageIds) + "}",
@@ -97,14 +97,14 @@ namespace GitterSharp.UniversalWindows.Services
 
         #region Rooms
 
-        public IObservable<IEnumerable<Room>> GetRoomsAsync()
+        public IObservable<IEnumerable<Room>> GetRooms()
         {
             string url = _baseApiAddress + "rooms";
             return HttpClient.GetAsync<IEnumerable<Room>>(url)
                 .ToObservable();
         }
 
-        public IObservable<Room> JoinRoomAsync(string roomName)
+        public IObservable<Room> JoinRoom(string roomName)
         {
             string url = _baseApiAddress + "rooms";
             var content = new HttpFormUrlEncodedContent(new Dictionary<string, string>
@@ -120,14 +120,14 @@ namespace GitterSharp.UniversalWindows.Services
 
         #region Messages
 
-        public IObservable<Message> GetSingleRoomMessageAsync(string roomId, string messageId)
+        public IObservable<Message> GetSingleRoomMessage(string roomId, string messageId)
         {
             string url = _baseApiAddress + $"rooms/{roomId}/chatMessages/{messageId}";
             return HttpClient.GetAsync<Message>(url)
                 .ToObservable();
         }
 
-        public IObservable<IEnumerable<Message>> GetRoomMessagesAsync(string roomId, int limit = 50, string beforeId = null, string afterId = null, int skip = 0)
+        public IObservable<IEnumerable<Message>> GetRoomMessages(string roomId, int limit = 50, string beforeId = null, string afterId = null, int skip = 0)
         {
             string url = _baseApiAddress + $"rooms/{roomId}/chatMessages?limit={limit}";
 
@@ -144,7 +144,7 @@ namespace GitterSharp.UniversalWindows.Services
                 .ToObservable();
         }
 
-        public IObservable<Message> SendMessageAsync(string roomId, string message)
+        public IObservable<Message> SendMessage(string roomId, string message)
         {
             string url = _baseApiAddress + $"rooms/{roomId}/chatMessages";
             var content = new HttpFormUrlEncodedContent(new Dictionary<string, string>
@@ -156,7 +156,7 @@ namespace GitterSharp.UniversalWindows.Services
                 .ToObservable();
         }
 
-        public IObservable<Message> UpdateMessageAsync(string roomId, string messageId, string message)
+        public IObservable<Message> UpdateMessage(string roomId, string messageId, string message)
         {
             string url = _baseApiAddress + $"rooms/{roomId}/chatMessages/{messageId}";
             var content = new HttpFormUrlEncodedContent(new Dictionary<string, string>

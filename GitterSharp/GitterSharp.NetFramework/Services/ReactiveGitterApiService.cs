@@ -45,17 +45,17 @@ namespace GitterSharp.UniversalWindows.Services
 
         #region User
 
-        public IObservable<User> GetCurrentUserAsync()
+        public IObservable<User> GetCurrentUser()
         {
             throw new NotImplementedException();
         }
 
-        public IObservable<IEnumerable<Organization>> GetOrganizationsAsync(string userId)
+        public IObservable<IEnumerable<Organization>> GetOrganizations(string userId)
         {
             throw new NotImplementedException();
         }
 
-        public IObservable<IEnumerable<Repository>> GetRepositoriesAsync(string userId)
+        public IObservable<IEnumerable<Repository>> GetRepositories(string userId)
         {
             throw new NotImplementedException();
         }
@@ -64,12 +64,12 @@ namespace GitterSharp.UniversalWindows.Services
 
         #region Unread Items
 
-        public IObservable<UnreadItems> RetrieveUnreadChatMessagesAsync(string userId, string roomId)
+        public IObservable<UnreadItems> RetrieveUnreadChatMessages(string userId, string roomId)
         {
             throw new NotImplementedException();
         }
 
-        public IObservable<Unit> MarkUnreadChatMessagesAsync(string userId, string roomId, IEnumerable<string> messageIds)
+        public IObservable<Unit> MarkUnreadChatMessages(string userId, string roomId, IEnumerable<string> messageIds)
         {
             throw new NotImplementedException();
         }
@@ -78,12 +78,12 @@ namespace GitterSharp.UniversalWindows.Services
 
         #region Rooms
 
-        public IObservable<IEnumerable<Room>> GetRoomsAsync()
+        public IObservable<IEnumerable<Room>> GetRooms()
         {
             throw new NotImplementedException();
         }
 
-        public IObservable<Room> JoinRoomAsync(string roomName)
+        public IObservable<Room> JoinRoom(string roomName)
         {
             throw new NotImplementedException();
         }
@@ -92,22 +92,22 @@ namespace GitterSharp.UniversalWindows.Services
 
         #region Messages
 
-        public IObservable<Message> GetSingleRoomMessageAsync(string roomId, string messageId)
+        public IObservable<Message> GetSingleRoomMessage(string roomId, string messageId)
         {
             throw new NotImplementedException();
         }
 
-        public IObservable<IEnumerable<Message>> GetRoomMessagesAsync(string roomId, int limit = 50, string beforeId = null, string afterId = null, int skip = 0)
+        public IObservable<IEnumerable<Message>> GetRoomMessages(string roomId, int limit = 50, string beforeId = null, string afterId = null, int skip = 0)
         {
             throw new NotImplementedException();
         }
 
-        public IObservable<Message> SendMessageAsync(string roomId, string message)
+        public IObservable<Message> SendMessage(string roomId, string message)
         {
             throw new NotImplementedException();
         }
 
-        public IObservable<Message> UpdateMessageAsync(string roomId, string messageId, string message)
+        public IObservable<Message> UpdateMessage(string roomId, string messageId, string message)
         {
             throw new NotImplementedException();
         }
