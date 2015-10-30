@@ -1,5 +1,10 @@
 ﻿using System;
+#if __IOS__ || __ANDROID__ || NET45
 using System.Net;
+#endif
+#if NETFX_CORE
+using Windows.Web.Http;
+#endif
 
 namespace GitterSharp.Exceptions
 {

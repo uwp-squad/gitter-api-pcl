@@ -69,10 +69,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\GitterSharp.NetFramework\Exceptions\ApiException.cs">
+      <Link>Exceptions\ApiException.cs</Link>
+    </Compile>
     <Compile Include="..\GitterSharp.NetFramework\Helpers\HttpHelper.cs">
       <Link>Helpers\HttpHelper.cs</Link>
     </Compile>
-    <Compile Include="Exceptions\ApiException.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\GitterApiService.cs" />
