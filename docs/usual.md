@@ -1,6 +1,6 @@
 # Gitter API as a service
 
-With Gitter#, you can use the Gitter API as a service. So, everything you need is inside a single place : *GitterApiService*.
+With Gitter#, you can use the Gitter API as a service. So, everything you need (almost) is inside a single place : *GitterApiService*.
 
 ```
 public interface IGitterApiService
@@ -35,7 +35,6 @@ public interface IGitterApiService
 
     #region Messages
 
-    IObservable<Message> GetRealtimeMessages(string roomId);
     Task<Message> GetSingleRoomMessageAsync(string roomId, string messageId);
     Task<IEnumerable<Message>> GetRoomMessagesAsync(string roomId, int limit = 50, string beforeId = null, string afterId = null, int skip = 0);
     Task<Message> SendMessageAsync(string roomId, string message);
@@ -44,6 +43,8 @@ public interface IGitterApiService
     #endregion
 }
 ```
+
+**Be careful, as no usual methods allow us to send incoming streaming messages, the streaming API could only be available using the [reactive](/docs/reactive.md) version of this service.**
 
 ## User
 
