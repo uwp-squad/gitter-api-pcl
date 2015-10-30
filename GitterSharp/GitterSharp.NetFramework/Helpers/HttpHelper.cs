@@ -1,8 +1,15 @@
 ﻿using GitterSharp.Exceptions;
 using Newtonsoft.Json;
 using System;
-using System.Net.Http;
 using System.Threading.Tasks;
+#if __IOS__ || __ANDROID__ || NET45
+using System.Net.Http;
+using HttpContent = System.Net.Http.HttpContent;
+#endif
+#if NETFX_CORE
+using Windows.Web.Http;
+using HttpContent = Windows.Web.Http.IHttpContent;
+#endif
 
 namespace GitterSharp.Helpers
 {
