@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Threading.Tasks;
 using GitterSharp.Model;
 using System.Collections.Generic;
+using System.Reactive.Threading.Tasks;
+using System.Reactive.Linq;
 #if __IOS__ || __ANDROID__ || NET45
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -13,7 +14,7 @@ using Windows.Web.Http.Headers;
 
 namespace GitterSharp.Services
 {
-    public class WebhookService : IWebhookService
+    public class ReactiveWebhookService : IReactiveWebhookService
     {
         #region Fields
 
@@ -41,7 +42,7 @@ namespace GitterSharp.Services
 
         #region Methods
 
-        public async Task<bool> PostAsync(string url, string message, MessageLevel level = MessageLevel.Info)
+        public IObservable<bool> PostAsync(string url, string message, MessageLevel level = MessageLevel.Info)
         {
             // Create an HttpClient and send content payload
             using (var httpClient = HttpClient)
@@ -61,8 +62,17 @@ namespace GitterSharp.Services
                 });
 #endif
 
-                var response = await httpClient.PostAsync(new Uri(url), content);
-                return response.IsSuccessStatusCode;
+#if __IOS__ || __ANDROID__ || NET45
+                return httpClient.PostAsync(new Uri(url), content)
+                    .ToObservable()
+                    .Select(response => response.IsSuccessStatusCode);
+#endif
+#if NETFX_CORE
+                return httpClient.PostAsync(new Uri(url), content)
+                    .AsTask()
+                    .ToObservable()
+                    .Select(response => response.IsSuccessStatusCode);
+#endif
             }
         }
 

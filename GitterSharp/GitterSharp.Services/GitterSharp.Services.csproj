@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="IGitterApiService.cs" />
     <Compile Include="IReactiveGitterApiService.cs" />
+    <Compile Include="IReactiveWebhookService.cs" />
     <Compile Include="IWebhookService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

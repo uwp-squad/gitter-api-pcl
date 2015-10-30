@@ -50,6 +50,9 @@
     <Compile Include="..\GitterSharp.NetFramework\Services\ReactiveGitterApiService.cs">
       <Link>Services\ReactiveGitterApiService.cs</Link>
     </Compile>
+    <Compile Include="..\GitterSharp.NetFramework\Services\ReactiveWebhookService.cs">
+      <Link>Services\ReactiveWebhookService.cs</Link>
+    </Compile>
     <Compile Include="..\GitterSharp.NetFramework\Services\WebhookService.cs">
       <Link>Services\WebhookService.cs</Link>
     </Compile>

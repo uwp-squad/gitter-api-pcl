@@ -66,6 +66,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\GitterApiService.cs" />
     <Compile Include="Services\ReactiveGitterApiService.cs" />
+    <Compile Include="Services\ReactiveWebhookService.cs" />
     <Compile Include="Services\WebhookService.cs" />
   </ItemGroup>
   <ItemGroup>
