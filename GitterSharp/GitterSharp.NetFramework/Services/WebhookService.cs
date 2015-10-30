@@ -1,9 +1,15 @@
 ﻿using System;
 using System.Threading.Tasks;
 using GitterSharp.Model;
+using System.Collections.Generic;
+#if __IOS__ || __ANDROID__ || NET45
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Collections.Generic;
+#endif
+#if NETFX_CORE
+using Windows.Web.Http;
+using Windows.Web.Http.Headers;
+#endif
 
 namespace GitterSharp.Services
 {
@@ -16,8 +22,15 @@ namespace GitterSharp.Services
             get
             {
                 var httpClient = new HttpClient();
+
+#if __IOS__ || __ANDROID__ || NET45
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
                 httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Accept", "application/json");
+#endif
+#if NETFX_CORE
+                httpClient.DefaultRequestHeaders.Accept.Add(new HttpMediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
+                httpClient.DefaultRequestHeaders.Accept.Add(new HttpMediaTypeWithQualityHeaderValue("application/json"));
+#endif
 
                 return httpClient;
             }
@@ -33,11 +46,21 @@ namespace GitterSharp.Services
             // Create an HttpClient and send content payload
             using (var httpClient = HttpClient)
             {
+#if __IOS__ || __ANDROID__ || NET45
                 var content = new FormUrlEncodedContent(new Dictionary<string, string>
                 {
                     {"message", message},
                     {"level", level.ToString().ToLower()}
                 });
+#endif
+#if NETFX_CORE
+                var content = new HttpFormUrlEncodedContent(new Dictionary<string, string>
+                {
+                    {"message", message},
+                    {"level", level.ToString().ToLower()}
+                });
+#endif
+
                 var response = await httpClient.PostAsync(new Uri(url), content);
 
                 return response.IsSuccessStatusCode;

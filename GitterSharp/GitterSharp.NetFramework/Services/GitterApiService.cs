@@ -6,9 +6,16 @@ using GitterSharp.Configuration;
 using GitterSharp.Helpers;
 using GitterSharp.Model;
 using Newtonsoft.Json;
+#if __IOS__ || __ANDROID__ || NET45
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+#endif
+#if NETFX_CORE
+using Windows.Web.Http;
+using Windows.Web.Http.Headers;
+using UnicodeEncoding = Windows.Storage.Streams.UnicodeEncoding;
+#endif
 
 namespace GitterSharp.Services
 {
@@ -24,18 +31,24 @@ namespace GitterSharp.Services
             get
             {
                 var httpClient = new HttpClient();
-                
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
+#if __IOS__ || __ANDROID__ || NET45
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 if (!string.IsNullOrWhiteSpace(Token))
                     httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
+#endif
+#if NETFX_CORE
+                httpClient.DefaultRequestHeaders.Accept.Add(new HttpMediaTypeWithQualityHeaderValue("application/json"));
+                if (!string.IsNullOrWhiteSpace(Token))
+                    httpClient.DefaultRequestHeaders.Authorization = new HttpCredentialsHeaderValue("Bearer", Token);
+#endif
 
                 return httpClient;
             }
         }
 
         #endregion
-        
+
         #region Properties
 
         public string Token { get; set; }
@@ -87,9 +100,17 @@ namespace GitterSharp.Services
         public async Task MarkUnreadChatMessagesAsync(string userId, string roomId, IEnumerable<string> messageIds)
         {
             string url = _baseApiAddress + $"user/{userId}/rooms/{roomId}/unreadItems";
+
+#if __IOS__ || __ANDROID__ || NET45
             var content = new StringContent("{\"chat\": " + JsonConvert.SerializeObject(messageIds) + "}",
                 Encoding.UTF8,
                 "application/json");
+#endif
+#if NETFX_CORE
+            var content = new HttpStringContent("{\"chat\": " + JsonConvert.SerializeObject(messageIds) + "}",
+                UnicodeEncoding.Utf8,
+                "application/json");
+#endif
 
             await HttpClient.PostAsync(url, content);
         }
@@ -107,10 +128,19 @@ namespace GitterSharp.Services
         public async Task<Room> JoinRoomAsync(string roomName)
         {
             string url = _baseApiAddress + "rooms";
+
+#if __IOS__ || __ANDROID__ || NET45
             var content = new FormUrlEncodedContent(new Dictionary<string, string>
             {
                 {"uri", roomName}
             });
+#endif
+#if NETFX_CORE
+            var content = new HttpFormUrlEncodedContent(new Dictionary<string, string>
+            {
+                {"uri", roomName}
+            });
+#endif
 
             return await HttpClient.PostAsync<Room>(url, content);
         }
@@ -144,10 +174,19 @@ namespace GitterSharp.Services
         public async Task<Message> SendMessageAsync(string roomId, string message)
         {
             string url = _baseApiAddress + $"rooms/{roomId}/chatMessages";
+
+#if __IOS__ || __ANDROID__ || NET45
             var content = new FormUrlEncodedContent(new Dictionary<string, string>
             {
                 {"text", message}
             });
+#endif
+#if NETFX_CORE
+            var content = new HttpFormUrlEncodedContent(new Dictionary<string, string>
+            {
+                {"text", message}
+            });
+#endif
 
             return await HttpClient.PostAsync<Message>(url, content);
         }
@@ -155,10 +194,19 @@ namespace GitterSharp.Services
         public async Task<Message> UpdateMessageAsync(string roomId, string messageId, string message)
         {
             string url = _baseApiAddress + $"rooms/{roomId}/chatMessages/{messageId}";
+
+#if __IOS__ || __ANDROID__ || NET45
             var content = new FormUrlEncodedContent(new Dictionary<string, string>
             {
                 {"text", message}
             });
+#endif
+#if NETFX_CORE
+            var content = new HttpFormUrlEncodedContent(new Dictionary<string, string>
+            {
+                {"text", message}
+            });
+#endif
 
             return await HttpClient.PutAsync<Message>(url, content);
         }

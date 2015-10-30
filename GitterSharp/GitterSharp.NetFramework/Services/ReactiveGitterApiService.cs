@@ -4,14 +4,22 @@ using System.Linq;
 using System.Collections.Generic;
 using GitterSharp.Model;
 using System.Reactive;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using GitterSharp.Configuration;
 using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
 using Newtonsoft.Json;
 using GitterSharp.Helpers;
+#if __IOS__ || __ANDROID__ || NET45
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
+#endif
+#if NETFX_CORE
+using Windows.Web.Http;
+using Windows.Web.Http.Headers;
+using System.IO;
+using Windows.Storage.Streams;
+#endif
 
 namespace GitterSharp.UniversalWindows.Services
 {
@@ -28,10 +36,16 @@ namespace GitterSharp.UniversalWindows.Services
             {
                 var httpClient = new HttpClient();
 
+#if __IOS__ || __ANDROID__ || NET45
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
                 if (!string.IsNullOrWhiteSpace(Token))
                     httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
+#endif
+#if NETFX_CORE
+                httpClient.DefaultRequestHeaders.Accept.Add(new HttpMediaTypeWithQualityHeaderValue("application/json"));
+                if (!string.IsNullOrWhiteSpace(Token))
+                    httpClient.DefaultRequestHeaders.Authorization = new HttpCredentialsHeaderValue("Bearer", Token);
+#endif
 
                 return httpClient;
             }
@@ -94,9 +108,17 @@ namespace GitterSharp.UniversalWindows.Services
         public IObservable<Unit> MarkUnreadChatMessages(string userId, string roomId, IEnumerable<string> messageIds)
         {
             string url = _baseApiAddress + $"user/{userId}/rooms/{roomId}/unreadItems";
+
+#if __IOS__ || __ANDROID__ || NET45
             var content = new StringContent("{\"chat\": " + JsonConvert.SerializeObject(messageIds) + "}",
                 Encoding.UTF8,
                 "application/json");
+#endif
+#if NETFX_CORE
+            var content = new HttpStringContent("{\"chat\": " + JsonConvert.SerializeObject(messageIds) + "}",
+                UnicodeEncoding.Utf8,
+                "application/json");
+#endif
 
             return HttpClient.PostAsync(url, content)
                 .ToObservable()
@@ -117,10 +139,19 @@ namespace GitterSharp.UniversalWindows.Services
         public IObservable<Room> JoinRoom(string roomName)
         {
             string url = _baseApiAddress + "rooms";
+
+#if __IOS__ || __ANDROID__ || NET45
             var content = new FormUrlEncodedContent(new Dictionary<string, string>
             {
                 {"uri", roomName}
             });
+#endif
+#if NETFX_CORE
+            var content = new HttpFormUrlEncodedContent(new Dictionary<string, string>
+            {
+                {"uri", roomName}
+            });
+#endif
 
             return HttpClient.PostAsync<Room>(url, content)
                 .ToObservable();
@@ -157,10 +188,19 @@ namespace GitterSharp.UniversalWindows.Services
         public IObservable<Message> SendMessage(string roomId, string message)
         {
             string url = _baseApiAddress + $"rooms/{roomId}/chatMessages";
+
+#if __IOS__ || __ANDROID__ || NET45
             var content = new FormUrlEncodedContent(new Dictionary<string, string>
             {
                 {"text", message}
             });
+#endif
+#if NETFX_CORE
+            var content = new HttpFormUrlEncodedContent(new Dictionary<string, string>
+            {
+                {"text", message}
+            });
+#endif
 
             return HttpClient.PostAsync<Message>(url, content)
                 .ToObservable();
@@ -169,10 +209,19 @@ namespace GitterSharp.UniversalWindows.Services
         public IObservable<Message> UpdateMessage(string roomId, string messageId, string message)
         {
             string url = _baseApiAddress + $"rooms/{roomId}/chatMessages/{messageId}";
+
+#if __IOS__ || __ANDROID__ || NET45
             var content = new FormUrlEncodedContent(new Dictionary<string, string>
             {
                 {"text", message}
             });
+#endif
+#if NETFX_CORE
+            var content = new HttpFormUrlEncodedContent(new Dictionary<string, string>
+            {
+                {"text", message}
+            });
+#endif
 
             return HttpClient.PutAsync<Message>(url, content)
                 .ToObservable();
@@ -186,6 +235,7 @@ namespace GitterSharp.UniversalWindows.Services
         {
             string url = _baseStreamingApiAddress + $"rooms/{roomId}/chatMessages";
 
+#if __IOS__ || __ANDROID__ || NET45
             return Observable.Using(() => HttpClient,
                 client => client.GetStreamAsync(new Uri(url))
                     .ToObservable()
@@ -193,6 +243,17 @@ namespace GitterSharp.UniversalWindows.Services
                     .Concat()
                     .Where(x => !string.IsNullOrWhiteSpace(x))
                     .Select(JsonConvert.DeserializeObject<Message>));
+#endif
+#if NETFX_CORE
+            return Observable.Using(() => HttpClient,
+                client => client.GetInputStreamAsync(new Uri(url))
+                    .AsTask()
+                    .ToObservable()
+                    .Select(x => Observable.FromAsync(() => StreamHelper.ReadStreamAsync(x.AsStreamForRead())).Repeat())
+                    .Concat()
+                    .Where(x => !string.IsNullOrWhiteSpace(x))
+                    .Select(JsonConvert.DeserializeObject<Message>));
+#endif
         }
 
         #endregion
