@@ -42,7 +42,7 @@ namespace GitterSharp.Services
 
         #region Methods
 
-        public IObservable<bool> PostAsync(string url, string message, MessageLevel level = MessageLevel.Info)
+        public IObservable<bool> Post(string url, string message, MessageLevel level = MessageLevel.Info)
         {
             // Create an HttpClient and send content payload
             using (var httpClient = HttpClient)

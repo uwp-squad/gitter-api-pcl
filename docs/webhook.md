@@ -33,7 +33,7 @@ bool errorPosted = await webhookService.PostAsync("webhook-url", "an error messa
 ```
 public interface IReactiveWebhookService
 {
-    IObservable<bool> PostAsync(string url, string message, MessageLevel level = MessageLevel.Info);
+    IObservable<bool> Post(string url, string message, MessageLevel level = MessageLevel.Info);
 }
 ```
 

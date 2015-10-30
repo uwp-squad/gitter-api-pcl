@@ -12,6 +12,6 @@ namespace GitterSharp.Services
         /// <param name="message">Content of the event message</param>
         /// <param name="level">Level of the message</param>
         /// <returns></returns>
-        IObservable<bool> PostAsync(string url, string message, MessageLevel level = MessageLevel.Info);
+        IObservable<bool> Post(string url, string message, MessageLevel level = MessageLevel.Info);
     }
 }
