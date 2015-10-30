@@ -9,7 +9,7 @@ IGitterApiService gitterApiService = new GitterApiService();
 gitterApiService.Token = "the-token";
 ```
 
-In case, you want to set instantly by creating a new instance of *GitterApiService*, you can use a specific constructor :
+In case you want to set the token instantly by creating a new instance of *GitterApiService*, you can use a specific constructor :
 
 ```
 IGitterApiService gitterApiService = new GitterApiService("the-token");
