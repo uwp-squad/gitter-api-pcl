@@ -76,6 +76,17 @@ namespace GitterSharp.Services
         IObservable<IEnumerable<Room>> GetRooms();
 
         /// <summary>
+        /// Returns list of users in the room
+        /// (https://developer.gitter.im/docs/rooms-resource#users)
+        /// </summary>
+        /// <param name="roomId">Id of the room to get user list from</param>
+        /// <param name="limit">The limit of users returned by the request</param>
+        /// <param name="q">A search query for user names</param>
+        /// <param name="skip">The number of users to skip in the request</param>
+        /// <returns></returns>
+        IObservable<IEnumerable<User>> GetRoomUsers(string roomId, int limit = 30, string q = null, int skip = 0);
+
+        /// <summary>
         /// Join and retrieve the room the user ask using the URI of the room
         /// (https://developer.gitter.im/docs/rooms-resource#join-a-room)
         /// </summary>

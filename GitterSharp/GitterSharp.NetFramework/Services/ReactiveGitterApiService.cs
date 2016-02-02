@@ -136,6 +136,20 @@ namespace GitterSharp.UniversalWindows.Services
                 .ToObservable();
         }
 
+        public IObservable<IEnumerable<User>> GetRoomUsers(string roomId, int limit = 30, string q = null, int skip = 0)
+        {
+            string url = _baseApiAddress + $"rooms/{roomId}/users?limit={limit}";
+
+            if (!string.IsNullOrWhiteSpace(q))
+                url += $"&q={q}";
+
+            if (skip > 0)
+                url += $"&skip={skip}";
+
+            return HttpClient.GetAsync<IEnumerable<User>>(url)
+                .ToObservable();
+        }
+
         public IObservable<Room> JoinRoom(string roomName)
         {
             string url = _baseApiAddress + "rooms";
