@@ -29,6 +29,7 @@ public interface IGitterApiService
     #region Rooms
 
     Task<IEnumerable<Room>> GetRoomsAsync();
+	Task<IEnumerable<User>> GetRoomUsersAsync(string roomId, int limit = 30, string q = null, int skip = 0);
     Task<Room> JoinRoomAsync(string roomName);
 
     #endregion
@@ -167,6 +168,14 @@ Retrieve all rooms where the current user is in.
 
 ```
 var rooms = await gitterApiService.GetRoomsAsync();
+```
+
+### [Retrieve room users](https://developer.gitter.im/docs/rooms-resource#users)
+
+Returns list of users in the room.
+
+```
+var users = await gitterApiService.GetRoomUsersAsync("room-id");
 ```
 
 ### [Join room](https://developer.gitter.im/docs/rooms-resource#join-a-room)
