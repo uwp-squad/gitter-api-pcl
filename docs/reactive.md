@@ -29,6 +29,7 @@ public interface IReactiveGitterApiService
     #region Rooms
 
     IObservable<IEnumerable<Room>> GetRooms();
+	IObservable<IEnumerable<User>> GetRoomUsers(string roomId, int limit = 30, string q = null, int skip = 0);
     IObservable<Room> JoinRoom(string roomName);
 
     #endregion

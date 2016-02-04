@@ -125,6 +125,19 @@ namespace GitterSharp.Services
             return await HttpClient.GetAsync<IEnumerable<Room>>(url);
         }
 
+        public async Task<IEnumerable<User>> GetRoomUsersAsync(string roomId, int limit = 30, string q = null, int skip = 0)
+        {
+            string url = _baseApiAddress + $"rooms/{roomId}/users?limit={limit}";
+
+            if (!string.IsNullOrWhiteSpace(q))
+                url += $"&q={q}";
+
+            if (skip > 0)
+                url += $"&skip={skip}";
+
+            return await HttpClient.GetAsync<IEnumerable<User>>(url);
+        }
+
         public async Task<Room> JoinRoomAsync(string roomName)
         {
             string url = _baseApiAddress + "rooms";
