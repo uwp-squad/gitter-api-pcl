@@ -1,5 +1,4 @@
-﻿using GitterSharp.Services;
-using System;
+﻿using System;
 using System.Linq;
 using System.Collections.Generic;
 using GitterSharp.Model;
@@ -21,7 +20,7 @@ using System.IO;
 using Windows.Storage.Streams;
 #endif
 
-namespace GitterSharp.UniversalWindows.Services
+namespace GitterSharp.Services
 {
     public class ReactiveGitterApiService : IReactiveGitterApiService
     {
