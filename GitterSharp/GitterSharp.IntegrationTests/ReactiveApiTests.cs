@@ -11,7 +11,11 @@ namespace GitterSharp.IntegrationTests
     {
         #region Fields
 
+#if DEBUG
         private string _token = Environment.GetEnvironmentVariable("GITTER_TOKEN", EnvironmentVariableTarget.Machine);
+#else
+        private string _token = Environment.GetEnvironmentVariable("GITTER_TOKEN");
+#endif
         private string _roomId = "56312c8816b6c7089cb89e07";
 
         #endregion
