@@ -26,7 +26,6 @@ namespace GitterSharp.Services
     {
         #region Fields
 
-        private readonly string _baseApiAddress = $"{Constants.ApiBaseUrl}{Constants.ApiVersion}";
         private readonly string _baseStreamingApiAddress = $"{Constants.StreamApiBaseUrl}{Constants.ApiVersion}";
 
         private HttpClient HttpClient
@@ -50,11 +49,17 @@ namespace GitterSharp.Services
             }
         }
 
+        private IGitterApiService _apiService = new GitterApiService();
+
         #endregion
 
         #region Properties
 
-        public string Token { get; set; }
+        public string Token
+        {
+            get { return _apiService.Token; }
+            set { _apiService.Token = value; }
+        }
 
         #endregion
 
@@ -73,24 +78,17 @@ namespace GitterSharp.Services
 
         public IObservable<User> GetCurrentUser()
         {
-            string url = _baseApiAddress + "user";
-            return HttpClient.GetAsync<IEnumerable<User>>(url)
-                .ToObservable()
-                .Select(users => users.FirstOrDefault());
+            return _apiService.GetCurrentUserAsync().ToObservable();
         }
 
         public IObservable<IEnumerable<Organization>> GetOrganizations(string userId)
         {
-            string url = _baseApiAddress + $"user/{userId}/orgs";
-            return HttpClient.GetAsync<IEnumerable<Organization>>(url)
-                .ToObservable();
+            return _apiService.GetOrganizationsAsync(userId).ToObservable();
         }
 
         public IObservable<IEnumerable<Repository>> GetRepositories(string userId)
         {
-            string url = _baseApiAddress + $"user/{userId}/repos";
-            return HttpClient.GetAsync<IEnumerable<Repository>>(url)
-                .ToObservable();
+            return _apiService.GetRepositoriesAsync(userId).ToObservable();
         }
 
         #endregion
@@ -99,29 +97,12 @@ namespace GitterSharp.Services
 
         public IObservable<UnreadItems> RetrieveUnreadChatMessages(string userId, string roomId)
         {
-            string url = _baseApiAddress + $"user/{userId}/rooms/{roomId}/unreadItems";
-            return HttpClient.GetAsync<UnreadItems>(url)
-                .ToObservable();
+            return _apiService.RetrieveUnreadChatMessagesAsync(userId, roomId).ToObservable();
         }
 
         public IObservable<Unit> MarkUnreadChatMessages(string userId, string roomId, IEnumerable<string> messageIds)
         {
-            string url = _baseApiAddress + $"user/{userId}/rooms/{roomId}/unreadItems";
-
-#if __IOS__ || __ANDROID__ || NET45
-            var content = new StringContent("{\"chat\": " + JsonConvert.SerializeObject(messageIds) + "}",
-                Encoding.UTF8,
-                "application/json");
-#endif
-#if NETFX_CORE
-            var content = new HttpStringContent("{\"chat\": " + JsonConvert.SerializeObject(messageIds) + "}",
-                UnicodeEncoding.Utf8,
-                "application/json");
-#endif
-
-            return HttpClient.PostAsync(url, content)
-                .ToObservable()
-                .Select(x => new Unit());
+            return _apiService.MarkUnreadChatMessagesAsync(userId, roomId, messageIds).ToObservable();
         }
 
         #endregion
@@ -130,44 +111,17 @@ namespace GitterSharp.Services
 
         public IObservable<IEnumerable<Room>> GetRooms()
         {
-            string url = _baseApiAddress + "rooms";
-            return HttpClient.GetAsync<IEnumerable<Room>>(url)
-                .ToObservable();
+            return _apiService.GetRoomsAsync().ToObservable();
         }
 
         public IObservable<IEnumerable<User>> GetRoomUsers(string roomId, int limit = 30, string q = null, int skip = 0)
         {
-            string url = _baseApiAddress + $"rooms/{roomId}/users?limit={limit}";
-
-            if (!string.IsNullOrWhiteSpace(q))
-                url += $"&q={q}";
-
-            if (skip > 0)
-                url += $"&skip={skip}";
-
-            return HttpClient.GetAsync<IEnumerable<User>>(url)
-                .ToObservable();
+            return _apiService.GetRoomUsersAsync(roomId, limit, q, skip).ToObservable();
         }
 
         public IObservable<Room> JoinRoom(string roomName)
         {
-            string url = _baseApiAddress + "rooms";
-
-#if __IOS__ || __ANDROID__ || NET45
-            var content = new FormUrlEncodedContent(new Dictionary<string, string>
-            {
-                {"uri", roomName}
-            });
-#endif
-#if NETFX_CORE
-            var content = new HttpFormUrlEncodedContent(new Dictionary<string, string>
-            {
-                {"uri", roomName}
-            });
-#endif
-
-            return HttpClient.PostAsync<Room>(url, content)
-                .ToObservable();
+            return _apiService.JoinRoomAsync(roomName).ToObservable();
         }
 
         #endregion
@@ -176,68 +130,22 @@ namespace GitterSharp.Services
 
         public IObservable<Message> GetSingleRoomMessage(string roomId, string messageId)
         {
-            string url = _baseApiAddress + $"rooms/{roomId}/chatMessages/{messageId}";
-            return HttpClient.GetAsync<Message>(url)
-                .ToObservable();
+            return _apiService.GetSingleRoomMessageAsync(roomId, messageId).ToObservable();
         }
 
         public IObservable<IEnumerable<Message>> GetRoomMessages(string roomId, int limit = 50, string beforeId = null, string afterId = null, int skip = 0)
         {
-            string url = _baseApiAddress + $"rooms/{roomId}/chatMessages?limit={limit}";
-
-            if (!string.IsNullOrWhiteSpace(beforeId))
-                url += $"&beforeId={beforeId}";
-
-            if (!string.IsNullOrWhiteSpace(afterId))
-                url += $"&afterId={afterId}";
-
-            if (skip > 0)
-                url += $"&skip={skip}";
-
-            return HttpClient.GetAsync<IEnumerable<Message>>(url)
-                .ToObservable();
+            return _apiService.GetRoomMessagesAsync(roomId, limit, beforeId, afterId, skip).ToObservable();
         }
 
         public IObservable<Message> SendMessage(string roomId, string message)
         {
-            string url = _baseApiAddress + $"rooms/{roomId}/chatMessages";
-
-#if __IOS__ || __ANDROID__ || NET45
-            var content = new FormUrlEncodedContent(new Dictionary<string, string>
-            {
-                {"text", message}
-            });
-#endif
-#if NETFX_CORE
-            var content = new HttpFormUrlEncodedContent(new Dictionary<string, string>
-            {
-                {"text", message}
-            });
-#endif
-
-            return HttpClient.PostAsync<Message>(url, content)
-                .ToObservable();
+            return _apiService.SendMessageAsync(roomId, message).ToObservable();
         }
 
         public IObservable<Message> UpdateMessage(string roomId, string messageId, string message)
         {
-            string url = _baseApiAddress + $"rooms/{roomId}/chatMessages/{messageId}";
-
-#if __IOS__ || __ANDROID__ || NET45
-            var content = new FormUrlEncodedContent(new Dictionary<string, string>
-            {
-                {"text", message}
-            });
-#endif
-#if NETFX_CORE
-            var content = new HttpFormUrlEncodedContent(new Dictionary<string, string>
-            {
-                {"text", message}
-            });
-#endif
-
-            return HttpClient.PutAsync<Message>(url, content)
-                .ToObservable();
+            return _apiService.UpdateMessageAsync(roomId, messageId, message).ToObservable();
         }
 
         #endregion

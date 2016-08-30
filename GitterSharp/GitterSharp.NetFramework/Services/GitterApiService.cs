@@ -24,7 +24,6 @@ namespace GitterSharp.Services
         #region Fields
 
         private readonly string _baseApiAddress = $"{Constants.ApiBaseUrl}{Constants.ApiVersion}";
-        private readonly string _baseStreamingApiAddress = $"{Constants.StreamApiBaseUrl}{Constants.ApiVersion}";
 
         private HttpClient HttpClient
         {
