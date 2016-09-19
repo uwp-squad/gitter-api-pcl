@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace GitterSharp.Model
 {
@@ -21,6 +22,15 @@ namespace GitterSharp.Model
 
         [JsonProperty("avatarUrlMedium")]
         public string MediumAvatarUrl { get; set; }
+
+        [JsonProperty("providers")]
+        public IEnumerable<string> Providers { get; set; }
+
+        [JsonProperty("v")]
+        public int Version { get; set; }
+
+        [JsonProperty("gv")]
+        public string GravatarVersion { get; set; }
 
         [JsonIgnore]
         public string GitHubUrl { get { return $"https://github.com{Url}"; } }
