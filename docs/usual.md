@@ -64,6 +64,9 @@ public class User
     public string Url { get; set; }
     public string SmallAvatarUrl { get; set; }
     public string MediumAvatarUrl { get; set; }
+    public IEnumerable<string> Providers { get; set; }
+    public int Version { get; set; }
+    public string GravatarVersion { get; set; }
     public string GitHubUrl { get; }
 }
 ```
@@ -89,7 +92,7 @@ public class Repository
 }
 ```
 
-### [Current User](https://developer.gitter.im/docs/user-resource#get-the-current-user)
+### [Current User](https://developer.gitter.im/docs/authentication#check-who-you-are-authenticated-as)
 
 Retrieve information about the user logged in (after authentication).
 

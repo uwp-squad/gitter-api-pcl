@@ -20,7 +20,7 @@ namespace GitterSharp.Services
 
         /// <summary>
         /// Returns the current user logged
-        /// (https://developer.gitter.im/docs/user-resource#get-the-current-user)
+        /// (https://developer.gitter.im/docs/authentication#check-who-you-are-authenticated-as)
         /// </summary>
         /// <returns></returns>
         Task<User> GetCurrentUserAsync();

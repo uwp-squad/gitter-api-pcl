@@ -70,9 +70,8 @@ namespace GitterSharp.Services
 
         public async Task<User> GetCurrentUserAsync()
         {
-            string url = _baseApiAddress + "user";
-            var users = await HttpClient.GetAsync<IEnumerable<User>>(url);
-            return users.FirstOrDefault();
+            string url = _baseApiAddress + "user/me";
+            return await HttpClient.GetAsync<User>(url);
         }
 
         public async Task<IEnumerable<Organization>> GetOrganizationsAsync(string userId)
