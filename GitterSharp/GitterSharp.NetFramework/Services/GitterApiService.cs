@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
@@ -221,6 +222,16 @@ namespace GitterSharp.Services
 #endif
 
             return await HttpClient.PutAsync<Message>(url, content);
+        }
+
+        #endregion
+
+        #region Events
+
+        public async Task<IEnumerable<RoomEvent>> GetRoomEventsAsync(string roomId)
+        {
+            string url = _baseApiAddress + $"rooms/{roomId}/events";
+            return await HttpClient.GetAsync<IEnumerable<RoomEvent>>(url);
         }
 
         #endregion

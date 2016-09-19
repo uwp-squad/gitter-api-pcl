@@ -150,6 +150,15 @@ namespace GitterSharp.Services
 
         #endregion
 
+        #region Events
+
+        public IObservable<IEnumerable<RoomEvent>> GetRoomEvents(string roomId)
+        {
+            return _apiService.GetRoomEventsAsync(roomId).ToObservable();
+        }
+
+        #endregion
+
         #region Streaming
 
         public IObservable<Message> GetRealtimeMessages(string roomId)

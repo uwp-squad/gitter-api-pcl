@@ -96,6 +96,17 @@ namespace GitterSharp.Services
 
         #endregion
 
+        #region Events
+
+        /// <summary>
+        /// Returns list of room events
+        /// </summary>
+        /// <param name="roomId">Id of the room</param>
+        /// <returns></returns>
+        Task<IEnumerable<RoomEvent>> GetRoomEventsAsync(string roomId);
+
+        #endregion
+
         #region Messages
 
         /// <summary>

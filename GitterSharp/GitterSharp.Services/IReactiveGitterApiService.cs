@@ -140,6 +140,17 @@ namespace GitterSharp.Services
 
         #endregion
 
+        #region Events
+
+        /// <summary>
+        /// Returns list of room events
+        /// </summary>
+        /// <param name="roomId">Id of the room</param>
+        /// <returns></returns>
+        IObservable<IEnumerable<RoomEvent>> GetRoomEvents(string roomId);
+
+        #endregion
+
         #region Streaming
 
         /// <summary>

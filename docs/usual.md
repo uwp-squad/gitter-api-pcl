@@ -42,6 +42,12 @@ public interface IGitterApiService
     Task<Message> UpdateMessageAsync(string roomId, string messageId, string message);
 
     #endregion
+
+    #region Events
+
+    Task<IEnumerable<RoomEvent>> GetRoomEventsAsync(string roomId);
+
+    #endregion
 }
 ```
 
@@ -291,4 +297,27 @@ Update an existing message.
 
 ```
 var message = await gitterApiService.UpdateMessageAsync("room-id", "message-id", "this is an updated message");
+```
+
+## Events
+
+```
+public class RoomEvent
+{
+    public string Id { get; set; }
+    public string Text { get; set; }
+    public string Html { get; set; }
+    public DateTime SentDate { get; set; }
+    public DateTime? EditedDate { get; set; }
+    public Meta Meta { get; set; }
+    public int Version { get; set; }
+}
+```
+
+### List of room events
+
+Retrieve all room events.
+
+```
+var events = await gitterApiService.GetRoomEventsAsync("room-id");
 ```

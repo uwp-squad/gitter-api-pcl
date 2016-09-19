@@ -43,6 +43,12 @@ public interface IReactiveGitterApiService
 
     #endregion
 
+    #region Events
+
+    IObservable<IEnumerable<RoomEvent>> GetRoomEvents(string roomId);
+
+    #endregion
+
     #region Streaming
 
     IObservable<Message> GetRealtimeMessages(string roomId);
