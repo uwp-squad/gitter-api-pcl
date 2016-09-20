@@ -48,6 +48,13 @@ public interface IGitterApiService
     Task<IEnumerable<RoomEvent>> GetRoomEventsAsync(string roomId);
 
     #endregion
+
+    #region Groups
+
+    Task<IEnumerable<Group>> GetGroupsAsync();
+    Task<IEnumerable<Room>> GetGroupRoomsAsync(string groupId);
+
+    #endregion
 }
 ```
 
@@ -323,4 +330,29 @@ Retrieve all room events.
 
 ```
 var events = await gitterApiService.GetRoomEventsAsync("room-id");
+```
+
+## Groups
+
+```
+public class Group
+{
+    public string Id { get; set; }
+    public string Name { get; set; }
+    public string Uri { get; set; }
+    public GroupSecurity BackedBy { get; set; }
+    public string AvatarUrl { get; set; }
+}
+```
+
+### [List of groups](https://developer.gitter.im/docs/groups-resource#list-groups)
+
+```
+var groups = await gitterApiService.GetGroupsAsync("room-id");
+```
+
+### [List of rooms in a group](https://developer.gitter.im/docs/groups-resource#list-rooms-under-group)
+
+```
+var rooms = await gitterApiService.GetGroupRoomsAsync("group-id");
 ```

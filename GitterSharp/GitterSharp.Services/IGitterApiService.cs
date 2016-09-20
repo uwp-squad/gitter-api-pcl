@@ -95,18 +95,7 @@ namespace GitterSharp.Services
         Task<Room> JoinRoomAsync(string roomName);
 
         #endregion
-
-        #region Events
-
-        /// <summary>
-        /// Returns list of room events
-        /// </summary>
-        /// <param name="roomId">Id of the room</param>
-        /// <returns></returns>
-        Task<IEnumerable<RoomEvent>> GetRoomEventsAsync(string roomId);
-
-        #endregion
-
+     
         #region Messages
 
         /// <summary>
@@ -148,6 +137,36 @@ namespace GitterSharp.Services
         /// <param name="message">Content of the message</param>
         /// <returns></returns>
         Task<Message> UpdateMessageAsync(string roomId, string messageId, string message);
+
+        #endregion
+
+        #region Events
+
+        /// <summary>
+        /// Returns list of room events
+        /// </summary>
+        /// <param name="roomId">Id of the room</param>
+        /// <returns></returns>
+        Task<IEnumerable<RoomEvent>> GetRoomEventsAsync(string roomId);
+
+        #endregion
+
+        #region Groups
+
+        /// <summary>
+        /// Returns list of groups the user is currently in
+        /// (https://developer.gitter.im/docs/groups-resource#list-groups)
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<Group>> GetGroupsAsync();
+
+        /// <summary>
+        /// Returns list of rooms inside the group
+        /// (https://developer.gitter.im/docs/groups-resource#list-rooms-under-group)
+        /// </summary>
+        /// <param name="groupId">Id of the group</param>
+        /// <returns></returns>
+        Task<IEnumerable<Room>> GetGroupRoomsAsync(string groupId);
 
         #endregion
     }

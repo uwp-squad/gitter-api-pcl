@@ -234,5 +234,21 @@ namespace GitterSharp.Services
         }
 
         #endregion
+
+        #region Groups
+
+        public async Task<IEnumerable<Group>> GetGroupsAsync()
+        {
+            string url = _baseApiAddress + "groups";
+            return await HttpClient.GetAsync<IEnumerable<Group>>(url);
+        }
+
+        public async Task<IEnumerable<Room>> GetGroupRoomsAsync(string groupId)
+        {
+            string url = _baseApiAddress + $"groups/{groupId}/rooms";
+            return await HttpClient.GetAsync<IEnumerable<Room>>(url);
+        }
+
+        #endregion
     }
 }

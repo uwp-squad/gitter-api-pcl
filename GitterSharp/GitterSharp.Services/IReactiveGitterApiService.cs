@@ -151,6 +151,25 @@ namespace GitterSharp.Services
 
         #endregion
 
+        #region Groups
+
+        /// <summary>
+        /// Returns list of groups the user is currently in
+        /// (https://developer.gitter.im/docs/groups-resource#list-groups)
+        /// </summary>
+        /// <returns></returns>
+        IObservable<IEnumerable<Group>> GetGroups();
+
+        /// <summary>
+        /// Returns list of rooms inside the group
+        /// (https://developer.gitter.im/docs/groups-resource#list-rooms-under-group)
+        /// </summary>
+        /// <param name="groupId">Id of the group</param>
+        /// <returns></returns>
+        IObservable<IEnumerable<Room>> GetGroupRooms(string groupId);
+
+        #endregion
+
         #region Streaming
 
         /// <summary>

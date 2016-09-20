@@ -159,6 +159,20 @@ namespace GitterSharp.Services
 
         #endregion
 
+        #region Groups
+
+        public IObservable<IEnumerable<Group>> GetGroups()
+        {
+            return _apiService.GetGroupsAsync().ToObservable();
+        }
+
+        public IObservable<IEnumerable<Room>> GetGroupRooms(string groupId)
+        {
+            return _apiService.GetGroupRoomsAsync(groupId).ToObservable();
+        }
+
+        #endregion
+
         #region Streaming
 
         public IObservable<Message> GetRealtimeMessages(string roomId)
