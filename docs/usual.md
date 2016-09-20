@@ -160,18 +160,25 @@ public class Room
     public string Id { get; set; }
     public string Name { get; set; }
     public string Topic { get; set; }
-    public string Url { get; set; }
+    public string AvatarUrl { get; set; }
+    public string Uri { get; set; }
     public bool OneToOne { get; set; }
-    public User User { get; set; }
-    public IList<User> Users { get; set; }
     public int UserCount { get; set; }
+    public User User { get; set; }
     public int UnreadItems { get; set; }
     public int UnreadMentions { get; set; }
     public DateTime LastAccessTime { get; set; }
     public bool Favourite { get; set; }
     public bool DisabledNotifications { get; set; }
+    public string Url { get; set; }
     public string Type { get; set; }
+    public string Security { get; set; }
+    public bool Premium { get; set; }
+    public bool NoIndex { get; set; }
     public IEnumerable<string> Tags { get; set; }
+    public bool RoomMember { get; set; }
+    public string GroupId { get; set; }
+    public bool Public { get; set; }
     public int Version { get; set; }
     public string GitHubUrl { get; }
     public string Image { get; }

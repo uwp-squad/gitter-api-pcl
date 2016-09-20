@@ -10,7 +10,7 @@ namespace GitterSharp.Model
     {
         public static string OneToOne = "ONE_TO_ONE";
         public static string Repository = "GH_REPOSITORY";
-        public static string Organization = "GH_ORG";
+        public static string Organisation = "GH_ORG";
         public static string User = "GH_USER";
     }
 }

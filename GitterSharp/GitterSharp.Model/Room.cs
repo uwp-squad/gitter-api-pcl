@@ -16,20 +16,20 @@ namespace GitterSharp.Model
         [JsonProperty("topic")]
         public string Topic { get; set; }
 
-        [JsonProperty("url")]
-        public string Url { get; set; }
+        [JsonProperty("avatarUrl")]
+        public string AvatarUrl { get; set; }
+
+        [JsonProperty("uri")]
+        public string Uri { get; set; }
 
         [JsonProperty("oneToOne")]
         public bool OneToOne { get; set; }
 
-        [JsonProperty("user")]
-        public User User { get; set; }
-
-        [JsonProperty("users")]
-        public IList<User> Users { get; set; }
-
         [JsonProperty("userCount")]
         public int UserCount { get; set; }
+
+        [JsonProperty("user")]
+        public User User { get; set; }
 
         [JsonProperty("unreadItems")]
         public int UnreadItems { get; set; }
@@ -46,11 +46,36 @@ namespace GitterSharp.Model
         [JsonProperty("lurk")]
         public bool DisabledNotifications { get; set; }
 
+        [JsonProperty("url")]
+        public string Url { get; set; }
+
         [JsonProperty("githubType")]
         public string Type { get; set; }
 
+        /// <summary>
+        /// Security of the room
+        /// Refers to <see cref="RoomSecurityType"/>
+        /// </summary>
+        [JsonProperty("security")]
+        public string Security { get; set; }
+
+        [JsonProperty("premium")]
+        public bool Premium { get; set; }
+
+        [JsonProperty("noindex")]
+        public bool NoIndex { get; set; }
+
         [JsonProperty("tags")]
         public IEnumerable<string> Tags { get; set; }
+
+        [JsonProperty("roomMember")]
+        public bool RoomMember { get; set; }
+
+        [JsonProperty("groupId")]
+        public string GroupId { get; set; }
+
+        [JsonProperty("public")]
+        public bool Public { get; set; }
 
         [JsonProperty("v")]
         public int Version { get; set; }
@@ -58,19 +83,10 @@ namespace GitterSharp.Model
         [JsonIgnore]
         public string GitHubUrl { get { return $"https://github.com{Url}"; } }
 
+        /// <summary>
+        /// Deprecated (should use `AvatarUrl`)
+        /// </summary>
         [JsonIgnore]
-        public string Image
-        {
-            get
-            {
-                if (User == null)
-                {
-                    string orgName = Name.Split(new[] {'/'}, StringSplitOptions.RemoveEmptyEntries).First();
-                    return $"https://avatars.githubusercontent.com/{orgName}";
-                }
-
-                return User.MediumAvatarUrl;
-            }
-        }
+        public string Image { get { return AvatarUrl; } }
     }
 }
