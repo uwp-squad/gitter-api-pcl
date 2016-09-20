@@ -84,7 +84,7 @@ namespace GitterSharp.Services
         /// <param name="q">A search query for user names</param>
         /// <param name="skip">The number of users to skip in the request</param>
         /// <returns></returns>
-        Task<IEnumerable<User>> GetRoomUsersAsync(string roomId, int limit = 30, string q = null, int skip = 0);
+        Task<IEnumerable<User>> GetRoomUsersAsync(string roomId, int limit = 30, string q = null, int skip = 0); // TODO : `limit` and `skip` does not exist anymore
 
         /// <summary>
         /// Join and retrieve the room the user ask using the URI of the room

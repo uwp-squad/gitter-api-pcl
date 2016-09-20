@@ -10,6 +10,13 @@ namespace GitterSharp.Model
     public class GroupSecurity
     {
         /// <summary>
+        /// Security : `PUBLIC` or `PRIVATE`
+        /// `PUBLIC` by default
+        /// </summary>
+        [JsonProperty("security")]
+        public string Security { get; set; }
+
+        /// <summary>
         /// Type of the group
         /// Refers to <see cref="GroupType"/>
         /// </summary>
