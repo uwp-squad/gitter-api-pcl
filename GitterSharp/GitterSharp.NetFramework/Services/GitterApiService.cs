@@ -167,18 +167,26 @@ namespace GitterSharp.Services
             return await HttpClient.GetAsync<Message>(url);
         }
 
-        public async Task<IEnumerable<Message>> GetRoomMessagesAsync(string roomId, int limit = 50, string beforeId = null, string afterId = null, int skip = 0)
+        public async Task<IEnumerable<Message>> GetRoomMessagesAsync(string roomId, MessageRequest request)
         {
-            string url = _baseApiAddress + $"rooms/{roomId}/chatMessages?limit={limit}";
+            string url = _baseApiAddress + $"rooms/{roomId}/chatMessages?";
+            
+            url += $"limit={request.Limit}";
 
-            if (!string.IsNullOrWhiteSpace(beforeId))
-                url += $"&beforeId={beforeId}";
+            if (!string.IsNullOrWhiteSpace(request.BeforeId))
+                url += $"&beforeId={request.BeforeId}";
 
-            if (!string.IsNullOrWhiteSpace(afterId))
-                url += $"&afterId={afterId}";
+            if (!string.IsNullOrWhiteSpace(request.AfterId))
+                url += $"&afterId={request.AfterId}";
 
-            if (skip > 0)
-                url += $"&skip={skip}";
+            if (!string.IsNullOrWhiteSpace(request.AroundId))
+                url += $"&aroundId={request.AroundId}";
+
+            if (request.Skip > 0)
+                url += $"&skip={request.Skip}";
+
+            if (!string.IsNullOrWhiteSpace(request.Query))
+                url += $"&q={request.Query}";
 
             return await HttpClient.GetAsync<IEnumerable<Message>>(url);
         }

@@ -112,12 +112,9 @@ namespace GitterSharp.Services
         /// (https://developer.gitter.im/docs/messages-resource#list-messages)
         /// </summary>
         /// <param name="roomId">Id of the room that contains messages</param>
-        /// <param name="limit">The limit of messages returned by the request</param>
-        /// <param name="beforeId">Id of a message (used to truncate messages after this message id)</param>
-        /// <param name="afterId">Id of a message (used to truncate messages before this message id)</param>
-        /// <param name="skip">The number of messages to skip in the request</param>
+        /// <param name="request">Request for search and navigation</param>
         /// <returns></returns>
-        Task<IEnumerable<Message>> GetRoomMessagesAsync(string roomId, int limit = 50, string beforeId = null, string afterId = null, int skip = 0);
+        Task<IEnumerable<Message>> GetRoomMessagesAsync(string roomId, MessageRequest request);
 
         /// <summary>
         /// Send a new message

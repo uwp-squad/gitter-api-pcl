@@ -133,9 +133,9 @@ namespace GitterSharp.Services
             return _apiService.GetSingleRoomMessageAsync(roomId, messageId).ToObservable();
         }
 
-        public IObservable<IEnumerable<Message>> GetRoomMessages(string roomId, int limit = 50, string beforeId = null, string afterId = null, int skip = 0)
+        public IObservable<IEnumerable<Message>> GetRoomMessages(string roomId, MessageRequest request)
         {
-            return _apiService.GetRoomMessagesAsync(roomId, limit, beforeId, afterId, skip).ToObservable();
+            return _apiService.GetRoomMessagesAsync(roomId, request).ToObservable();
         }
 
         public IObservable<Message> SendMessage(string roomId, string message)

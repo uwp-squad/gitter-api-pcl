@@ -261,44 +261,53 @@ var message = await gitterApiService.GetSingleRoomMessageAsync("room-id", "messa
 
 ### [All room messages](https://developer.gitter.im/docs/messages-resource#list-messages)
 
+```
+public class MessageRequest
+{
+    public int Limit { get; set; } = 50;
+    public string BeforeId { get; set; }
+    public string AfterId { get; set; }
+    public string AroundId { get; set; }
+    public int Skip { get; set; }
+    public string Query { get; set; }
+}
+```
+
 Retrieve multiple messages contained in a room. There is multiple parameters you can use to define a more precise request.
 
 ```
-var messages = await gitterApiService.GetRoomMessagesAsync("room-id");
+var request = new MessageRequest();
+var messages = await gitterApiService.GetRoomMessagesAsync("room-id", request);
 ```
 
 By default, the *limit* of messages you can get using this request is 50.
 
 ```
-var messages = await gitterApiService.GetRoomMessagesAsync("room-id", 20);
+var request = new MessageRequest
+{
+    Limit = 20
+};
+var messages = await gitterApiService.GetRoomMessagesAsync("room-id", request);
 ```
 
 Of course, you can overload this parameter like this. Here, we set the *limit* to 20.
 
 ```
-var messages = await gitterApiService.GetRoomMessagesAsync("room-id", 20, "before-message-id");
+var request = new MessageRequest
+{
+    Limit = 20,
+    BeforeId = "before-message-id",
+    AfterId = "after-message-id",
+    Skip = 10,
+    Query = "js"
+};
+var messages = await gitterApiService.GetRoomMessagesAsync("room-id", request);
 ```
 
 You can also add a parameter which expect a message id (*beforeId*). Using this parameter, you will only receive the messages before the one you set in parameter.
-
-```
-var messages = await gitterApiService.GetRoomMessagesAsync("room-id", 20, "before-message-id", "after-message-id");
-```
-
 There is also another parameter to set the *afterId*. It is the exact opposite effect of *beforeId* parameter.
-
-```
-var messages = await gitterApiService.GetRoomMessagesAsync("room-id", 20, "before-message-id", "after-message-id", 10);
-```
-
 Then, you have a way to *skip* some messages. Here, with the previous request, we ask to retrieve 20 messages before the 10 we skip.
-
-```
-var messages = await gitterApiService.GetRoomMessagesAsync("room-id", 20, null, null, 10);
-```
-
-Of course, you can also remove some parameters if you need the *skip* parameter but neither *beforeId* nor *afterId*.
-
+You can also search specific topic inside messages with *q* (query) parameter.
 
 ### [Send message](https://developer.gitter.im/docs/messages-resource#send-a-message)
 
