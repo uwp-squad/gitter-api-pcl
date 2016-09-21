@@ -94,6 +94,14 @@ namespace GitterSharp.Services
         /// <returns></returns>
         IObservable<Room> JoinRoom(string roomName);
 
+        /// <summary>
+        /// Create a new room
+        /// </summary>
+        /// <param name="groupId">Id of the group</param>
+        /// <param name="request">Request to create the room</param>
+        /// <returns></returns>
+        IObservable<Room> CreateRoom(string groupId, CreateRoomRequest request);
+
         #endregion
 
         #region Messages

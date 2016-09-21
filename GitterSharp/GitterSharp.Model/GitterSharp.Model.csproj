@@ -34,6 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CreateRoomRequest.cs" />
     <Compile Include="Group.cs" />
     <Compile Include="GroupSecurity.cs" />
     <Compile Include="GroupType.cs" />

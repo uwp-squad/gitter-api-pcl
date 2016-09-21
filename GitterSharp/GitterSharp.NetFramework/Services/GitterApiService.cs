@@ -157,6 +157,20 @@ namespace GitterSharp.Services
             return await HttpClient.PostAsync<Room>(url, content);
         }
 
+        public async Task<Room> CreateRoomAsync(string groupId, CreateRoomRequest request)
+        {
+            string url = _baseApiAddress + $"groups/${groupId}/rooms";
+
+#if __IOS__ || __ANDROID__ || NET45
+            var content = new StringContent(JsonConvert.SerializeObject(request));
+#endif
+#if NETFX_CORE
+            var content = new HttpStringContent(JsonConvert.SerializeObject(request));
+#endif
+
+            return await HttpClient.PostAsync<Room>(url, content);
+        }
+
         #endregion
 
         #region Messages

@@ -31,13 +31,14 @@ public interface IGitterApiService
     Task<IEnumerable<Room>> GetRoomsAsync();
 	Task<IEnumerable<User>> GetRoomUsersAsync(string roomId, int limit = 30, string q = null, int skip = 0);
     Task<Room> JoinRoomAsync(string roomName);
+    Task<Room> CreateRoomAsync(string groupId, CreateRoomRequest request);
 
     #endregion
 
     #region Messages
 
     Task<Message> GetSingleRoomMessageAsync(string roomId, string messageId);
-    Task<IEnumerable<Message>> GetRoomMessagesAsync(string roomId, int limit = 50, string beforeId = null, string afterId = null, int skip = 0);
+    Task<IEnumerable<Message>> GetRoomMessagesAsync(string roomId, MessageRequest request);
     Task<Message> SendMessageAsync(string roomId, string message);
     Task<Message> UpdateMessageAsync(string roomId, string messageId, string message);
 
@@ -207,6 +208,24 @@ The current user join a room. The parameter *room-name* looks like this : *Odonn
 
 ```
 var room = await gitterApiService.JoinRoomAsync("room-name");
+```
+
+### Create room
+
+The user can create a room, generally a channel, based on a name and other parameters.
+
+```
+public class CreateRoomRequest
+{
+    public string Name { get; set; }
+    public string Topic { get; set; }
+    public bool AddBadge { get; set; }
+}
+```
+
+```
+var request = new CreateRoomRequest { Name = "test" };
+var room = await gitterApiService.CreateRoomAsync("group-id", request);
 ```
 
 ## Messages
