@@ -1,4 +1,5 @@
 ﻿using GitterSharp.Model;
+using GitterSharp.Model.Requests;
 using System;
 using System.Collections.Generic;
 using System.Reactive;
@@ -92,15 +93,7 @@ namespace GitterSharp.Services
         /// </summary>
         /// <param name="roomName">Name of the room targeted (example: 'Odonno/Modern-Gitter')</param>
         /// <returns></returns>
-        IObservable<Room> JoinRoom(string roomName);
-
-        /// <summary>
-        /// Create a new room
-        /// </summary>
-        /// <param name="groupId">Id of the group</param>
-        /// <param name="request">Request to create the room</param>
-        /// <returns></returns>
-        IObservable<Room> CreateRoom(string groupId, CreateRoomRequest request);
+        IObservable<Room> JoinRoom(string roomName);        
 
         #endregion
 
@@ -172,6 +165,14 @@ namespace GitterSharp.Services
         /// <param name="groupId">Id of the group</param>
         /// <returns></returns>
         IObservable<IEnumerable<Room>> GetGroupRooms(string groupId);
+
+        /// <summary>
+        /// Create a new room
+        /// </summary>
+        /// <param name="groupId">Id of the group</param>
+        /// <param name="request">Request to create the room</param>
+        /// <returns></returns>
+        IObservable<Room> CreateRoom(string groupId, CreateRoomRequest request);
 
         #endregion
 

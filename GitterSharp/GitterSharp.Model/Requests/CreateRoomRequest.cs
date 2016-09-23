@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GitterSharp.Model
+namespace GitterSharp.Model.Requests
 {
     public class CreateRoomRequest
     {

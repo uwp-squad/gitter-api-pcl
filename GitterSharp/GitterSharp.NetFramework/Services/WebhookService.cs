@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using GitterSharp.Model;
 using System.Collections.Generic;
+using GitterSharp.Model.Webhook;
 #if __IOS__ || __ANDROID__ || NET45
 using System.Net.Http;
 using System.Net.Http.Headers;

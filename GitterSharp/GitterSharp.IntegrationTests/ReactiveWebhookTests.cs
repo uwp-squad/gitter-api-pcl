@@ -1,4 +1,5 @@
 ﻿using GitterSharp.Model;
+using GitterSharp.Model.Webhook;
 using GitterSharp.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;

@@ -2,6 +2,7 @@
 using GitterSharp.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
+using GitterSharp.Model.Webhook;
 
 namespace GitterSharp.IntegrationTests
 {

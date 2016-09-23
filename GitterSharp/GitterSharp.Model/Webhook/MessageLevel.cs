@@ -1,4 +1,4 @@
-﻿namespace GitterSharp.Model
+﻿namespace GitterSharp.Model.Webhook
 {
     public enum MessageLevel
     {

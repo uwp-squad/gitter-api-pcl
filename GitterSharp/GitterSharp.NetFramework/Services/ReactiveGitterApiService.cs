@@ -8,6 +8,7 @@ using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
 using Newtonsoft.Json;
 using GitterSharp.Helpers;
+using GitterSharp.Model.Requests;
 #if __IOS__ || __ANDROID__ || NET45
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -124,11 +125,6 @@ namespace GitterSharp.Services
             return _apiService.JoinRoomAsync(roomName).ToObservable();
         }
 
-        public IObservable<Room> CreateRoom(string groupId, CreateRoomRequest request)
-        {
-            return _apiService.CreateRoomAsync(groupId, request).ToObservable();
-        }
-
         #endregion
 
         #region Messages
@@ -174,6 +170,11 @@ namespace GitterSharp.Services
         public IObservable<IEnumerable<Room>> GetGroupRooms(string groupId)
         {
             return _apiService.GetGroupRoomsAsync(groupId).ToObservable();
+        }
+
+        public IObservable<Room> CreateRoom(string groupId, CreateRoomRequest request)
+        {
+            return _apiService.CreateRoomAsync(groupId, request).ToObservable();
         }
 
         #endregion

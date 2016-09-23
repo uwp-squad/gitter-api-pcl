@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using GitterSharp.Model;
+using GitterSharp.Model.Requests;
 
 namespace GitterSharp.Services
 {
@@ -94,14 +95,6 @@ namespace GitterSharp.Services
         /// <returns></returns>
         Task<Room> JoinRoomAsync(string roomName);
 
-        /// <summary>
-        /// Create a new room
-        /// </summary>
-        /// <param name="groupId">Id of the group</param>
-        /// <param name="request">Request to create the room</param>
-        /// <returns></returns>
-        Task<Room> CreateRoomAsync(string groupId, CreateRoomRequest request);
-
         #endregion
      
         #region Messages
@@ -172,6 +165,14 @@ namespace GitterSharp.Services
         /// <param name="groupId">Id of the group</param>
         /// <returns></returns>
         Task<IEnumerable<Room>> GetGroupRoomsAsync(string groupId);
+
+        /// <summary>
+        /// Create a new room
+        /// </summary>
+        /// <param name="groupId">Id of the group</param>
+        /// <param name="request">Request to create the room</param>
+        /// <returns></returns>
+        Task<Room> CreateRoomAsync(string groupId, CreateRoomRequest request);
 
         #endregion
     }

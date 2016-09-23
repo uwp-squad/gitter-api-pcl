@@ -7,6 +7,7 @@ using GitterSharp.Configuration;
 using GitterSharp.Helpers;
 using GitterSharp.Model;
 using Newtonsoft.Json;
+using GitterSharp.Model.Requests;
 #if __IOS__ || __ANDROID__ || NET45
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -157,20 +158,6 @@ namespace GitterSharp.Services
             return await HttpClient.PostAsync<Room>(url, content);
         }
 
-        public async Task<Room> CreateRoomAsync(string groupId, CreateRoomRequest request)
-        {
-            string url = _baseApiAddress + $"groups/${groupId}/rooms";
-
-#if __IOS__ || __ANDROID__ || NET45
-            var content = new StringContent(JsonConvert.SerializeObject(request));
-#endif
-#if NETFX_CORE
-            var content = new HttpStringContent(JsonConvert.SerializeObject(request));
-#endif
-
-            return await HttpClient.PostAsync<Room>(url, content);
-        }
-
         #endregion
 
         #region Messages
@@ -269,6 +256,20 @@ namespace GitterSharp.Services
         {
             string url = _baseApiAddress + $"groups/{groupId}/rooms";
             return await HttpClient.GetAsync<IEnumerable<Room>>(url);
+        }
+
+        public async Task<Room> CreateRoomAsync(string groupId, CreateRoomRequest request)
+        {
+            string url = _baseApiAddress + $"groups/${groupId}/rooms";
+
+#if __IOS__ || __ANDROID__ || NET45
+            var content = new StringContent(JsonConvert.SerializeObject(request));
+#endif
+#if NETFX_CORE
+            var content = new HttpStringContent(JsonConvert.SerializeObject(request));
+#endif
+
+            return await HttpClient.PostAsync<Room>(url, content);
         }
 
         #endregion

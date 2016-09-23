@@ -34,15 +34,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="CreateRoomRequest.cs" />
+    <Compile Include="Requests\CreateRoomRequest.cs" />
     <Compile Include="Group.cs" />
     <Compile Include="GroupSecurity.cs" />
     <Compile Include="GroupType.cs" />
     <Compile Include="Issue.cs" />
     <Compile Include="Mention.cs" />
     <Compile Include="Message.cs" />
-    <Compile Include="MessageLevel.cs" />
-    <Compile Include="MessageRequest.cs" />
+    <Compile Include="Webhook\MessageLevel.cs" />
+    <Compile Include="Requests\MessageRequest.cs" />
     <Compile Include="MessageUrl.cs" />
     <Compile Include="Meta.cs" />
     <Compile Include="Organization.cs" />
@@ -53,7 +53,7 @@
     <Compile Include="RoomSecurityType.cs" />
     <Compile Include="UnreadItems.cs" />
     <Compile Include="User.cs" />
-    <Compile Include="WebhookResponse.cs" />
+    <Compile Include="Webhook\WebhookResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">

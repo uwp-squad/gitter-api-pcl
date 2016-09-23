@@ -1,4 +1,5 @@
 ﻿using GitterSharp.Model;
+using GitterSharp.Model.Webhook;
 using System.Threading.Tasks;
 
 namespace GitterSharp.Services

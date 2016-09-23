@@ -3,6 +3,7 @@ using GitterSharp.Model;
 using System.Collections.Generic;
 using System.Reactive.Threading.Tasks;
 using System.Reactive.Linq;
+using GitterSharp.Model.Webhook;
 
 namespace GitterSharp.Services
 {
