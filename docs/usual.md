@@ -31,6 +31,7 @@ public interface IGitterApiService
     Task<IEnumerable<Room>> GetRoomsAsync();
 	Task<IEnumerable<User>> GetRoomUsersAsync(string roomId, int limit = 30, string q = null, int skip = 0);
     Task<Room> JoinRoomAsync(string roomName);
+    Task<IEnumerable<Room>> GetSuggestedRoomsAsync(string roomId);
 
     #endregion
 
@@ -208,6 +209,14 @@ The current user join a room. The parameter *room-name* looks like this : *Odonn
 
 ```
 var room = await gitterApiService.JoinRoomAsync("room-name");
+```
+
+### Suggested rooms
+
+Retrieve all suggested rooms based on a room.
+
+```
+var rooms = await gitterApiService.GetSuggestedRoomsAsync("room-id");
 ```
 
 ## Messages

@@ -95,8 +95,15 @@ namespace GitterSharp.Services
         /// <returns></returns>
         Task<Room> JoinRoomAsync(string roomName);
 
+        /// <summary>
+        /// Returns list of suggested rooms, based on your current room
+        /// </summary>
+        /// <param name="roomId">Id of the room</param>
+        /// <returns></returns>
+        Task<IEnumerable<Room>> GetSuggestedRoomsAsync(string roomId);
+
         #endregion
-     
+
         #region Messages
 
         /// <summary>

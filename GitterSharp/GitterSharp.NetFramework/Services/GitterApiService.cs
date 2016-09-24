@@ -158,6 +158,12 @@ namespace GitterSharp.Services
             return await HttpClient.PostAsync<Room>(url, content);
         }
 
+        public async Task<IEnumerable<Room>> GetSuggestedRoomsAsync(string roomId)
+        {
+            string url = _baseApiAddress + $"rooms/{roomId}/suggestedRooms";
+            return await HttpClient.GetAsync<IEnumerable<Room>>(url);
+        }
+
         #endregion
 
         #region Messages
@@ -270,7 +276,7 @@ namespace GitterSharp.Services
 #endif
 
             return await HttpClient.PostAsync<Room>(url, content);
-        }
+        }        
 
         #endregion
     }

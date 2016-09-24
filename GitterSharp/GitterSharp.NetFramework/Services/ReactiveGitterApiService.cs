@@ -125,6 +125,11 @@ namespace GitterSharp.Services
             return _apiService.JoinRoomAsync(roomName).ToObservable();
         }
 
+        public IObservable<IEnumerable<Room>> GetSuggestedRooms(string roomId)
+        {
+            return _apiService.GetSuggestedRoomsAsync(roomId).ToObservable();
+        }
+
         #endregion
 
         #region Messages

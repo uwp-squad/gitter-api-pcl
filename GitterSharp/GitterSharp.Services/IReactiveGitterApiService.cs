@@ -93,7 +93,14 @@ namespace GitterSharp.Services
         /// </summary>
         /// <param name="roomName">Name of the room targeted (example: 'Odonno/Modern-Gitter')</param>
         /// <returns></returns>
-        IObservable<Room> JoinRoom(string roomName);        
+        IObservable<Room> JoinRoom(string roomName);
+
+        /// <summary>
+        /// Returns list of suggested rooms, based on your current room
+        /// </summary>
+        /// <param name="roomId">Id of the room</param>
+        /// <returns></returns>
+        IObservable<IEnumerable<Room>> GetSuggestedRooms(string roomId)
 
         #endregion
 
