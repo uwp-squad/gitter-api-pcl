@@ -222,6 +222,11 @@ namespace GitterSharp.Services
             return _apiService.SearchRoomsAsync(query, limit).ToObservable();
         }
 
+        public IObservable<SearchResponse<User>> SearchUsers(string query, int limit = 10)
+        {
+            return _apiService.SearchUsersAsync(query, limit).ToObservable();
+        }
+
         #endregion
 
         #region Streaming

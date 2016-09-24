@@ -241,6 +241,14 @@ namespace GitterSharp.Services
         /// <returns></returns>
         IObservable<SearchResponse<Room>> SearchRooms(string query, int limit = 10);
 
+        /// <summary>
+        /// Search users
+        /// </summary>
+        /// <param name="query">Query to search users</param>
+        /// <param name="limit">Number of results</param>
+        /// <returns></returns>
+        IObservable<SearchResponse<User>> SearchUsers(string query, int limit = 10);
+
         #endregion
 
         #region Streaming

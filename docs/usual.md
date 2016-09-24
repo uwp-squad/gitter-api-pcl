@@ -67,6 +67,7 @@ public interface IGitterApiService
     #region Search
 
     Task<SearchResponse<Room>> SearchRoomsAsync(string query, int limit = 10);
+    Task<SearchResponse<User>> SearchUsersAsync(string query, int limit = 10);
 
     #endregion
 }
@@ -496,4 +497,12 @@ Search rooms by name.
 
 ```
 var results = await gitterApiService.SearchRoomsAsync("test", 50);
+```
+
+### Search users
+
+Search users by name.
+
+```
+var results = await gitterApiService.SearchUsersAsync("test", 50);
 ```
