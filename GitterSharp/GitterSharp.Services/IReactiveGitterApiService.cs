@@ -27,20 +27,26 @@ namespace GitterSharp.Services
         IObservable<User> GetCurrentUser();
 
         /// <summary>
-        /// Returns a list of organizations of the current user logged
+        /// Returns a list of organizations of a user
         /// (https://developer.gitter.im/docs/user-resource#orgs)
         /// </summary>
-        /// <param name="userId">Id of the user currently logged</param>
+        /// <param name="userId">Id of the user</param>
         /// <returns></returns>
         IObservable<IEnumerable<Organization>> GetOrganizations(string userId);
 
         /// <summary>
-        /// Returns a list of repositories of the current user logged
+        /// Returns a list of repositories of a user
         /// (https://developer.gitter.im/docs/user-resource#repos)
         /// </summary>
-        /// <param name="userId">Id of the user currently logged</param>
+        /// <param name="userId">Id of the user</param>
         /// <returns></returns>
         IObservable<IEnumerable<Repository>> GetRepositories(string userId);
+
+        /// <summary>
+        /// Returns list of suggested rooms for the current user
+        /// </summary>
+        /// <returns></returns>
+        IObservable<IEnumerable<Room>> GetSuggestedRooms();
 
         #endregion
 

@@ -27,20 +27,26 @@ namespace GitterSharp.Services
         Task<User> GetCurrentUserAsync();
 
         /// <summary>
-        /// Returns a list of organizations of the current user logged
+        /// Returns a list of organizations of a user
         /// (https://developer.gitter.im/docs/user-resource#orgs)
         /// </summary>
-        /// <param name="userId">Id of the user currently logged</param>
+        /// <param name="userId">Id of the user</param>
         /// <returns></returns>
         Task<IEnumerable<Organization>> GetOrganizationsAsync(string userId);
 
         /// <summary>
-        /// Returns a list of repositories of the current user logged
+        /// Returns a list of repositories of a user
         /// (https://developer.gitter.im/docs/user-resource#repos)
         /// </summary>
-        /// <param name="userId">Id of the user currently logged</param>
+        /// <param name="userId">Id of the user</param>
         /// <returns></returns>
         Task<IEnumerable<Repository>> GetRepositoriesAsync(string userId);
+
+        /// <summary>
+        /// Returns list of suggested rooms for the current user
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<Room>> GetSuggestedRoomsAsync();
 
         #endregion
 

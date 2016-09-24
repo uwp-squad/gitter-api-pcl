@@ -92,6 +92,11 @@ namespace GitterSharp.Services
             return _apiService.GetRepositoriesAsync(userId).ToObservable();
         }
 
+        public IObservable<IEnumerable<Room>> GetSuggestedRooms()
+        {
+            return _apiService.GetSuggestedRoomsAsync().ToObservable();
+        }
+
         #endregion
 
         #region Unread Items

@@ -16,6 +16,7 @@ public interface IGitterApiService
     Task<User> GetCurrentUserAsync();
     Task<IEnumerable<Organization>> GetOrganizationsAsync(string userId);
     Task<IEnumerable<Repository>> GetRepositoriesAsync(string userId);
+    Task<IEnumerable<Room>> GetSuggestedRoomsAsync();
 
     #endregion
 
@@ -126,6 +127,14 @@ Retrieve the list of repositories of the current user logged.
 ```
 var currentUser = await gitterApiService.GetCurrentUserAsync();
 var repositories = await gitterApiService.GetRepositoriesAsync(currentUser.Id);
+```
+
+### Suggested rooms
+
+Retrieve suggested rooms for the current user
+
+```
+var rooms = await gitterApiService.GetSuggestedRoomsAsync();
 ```
 
 ## Unread items

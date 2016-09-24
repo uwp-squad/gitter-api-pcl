@@ -87,6 +87,12 @@ namespace GitterSharp.Services
             return await HttpClient.GetAsync<IEnumerable<Repository>>(url);
         }
 
+        public async Task<IEnumerable<Room>> GetSuggestedRoomsAsync()
+        {
+            string url = _baseApiAddress + "user/me/suggestedRooms";
+            return await HttpClient.GetAsync<IEnumerable<Room>>(url);
+        }
+
         #endregion
 
         #region Unread Items
