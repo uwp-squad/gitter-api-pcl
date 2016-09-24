@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using GitterSharp.Model;
 using GitterSharp.Model.Requests;
+using GitterSharp.Model.Responses;
 
 namespace GitterSharp.Services
 {
@@ -117,6 +118,13 @@ namespace GitterSharp.Services
         /// <param name="request">Request setting user room settings</param>
         /// <returns></returns>
         Task<bool> UpdateUserRoomSettingsAsync(string userId, string roomId, UpdateUserRoomSettingsRequest request);
+
+        /// <summary>
+        /// Delete room by its id
+        /// </summary>
+        /// <param name="roomId">Id of the room</param>
+        /// <returns></returns>
+        Task<SuccessResponse> DeleteRoomAsync(string roomId);
 
         /// <summary>
         /// Returns list of suggested rooms, based on your current room

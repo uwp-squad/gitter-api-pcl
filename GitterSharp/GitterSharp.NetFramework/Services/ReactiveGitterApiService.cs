@@ -9,6 +9,7 @@ using System.Reactive.Threading.Tasks;
 using Newtonsoft.Json;
 using GitterSharp.Helpers;
 using GitterSharp.Model.Requests;
+using GitterSharp.Model.Responses;
 #if __IOS__ || __ANDROID__ || NET45
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -138,6 +139,11 @@ namespace GitterSharp.Services
         public IObservable<bool> UpdateUserRoomSettings(string userId, string roomId, UpdateUserRoomSettingsRequest request)
         {
             return _apiService.UpdateUserRoomSettingsAsync(userId, roomId, request).ToObservable();
+        }
+
+        public IObservable<SuccessResponse> DeleteRoom(string roomId)
+        {
+            return _apiService.DeleteRoomAsync(roomId).ToObservable();
         }
 
         public IObservable<IEnumerable<Room>> GetSuggestedRooms(string roomId)

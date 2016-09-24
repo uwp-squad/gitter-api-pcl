@@ -1,5 +1,6 @@
 ﻿using GitterSharp.Model;
 using GitterSharp.Model.Requests;
+using GitterSharp.Model.Responses;
 using System;
 using System.Collections.Generic;
 using System.Reactive;
@@ -117,6 +118,13 @@ namespace GitterSharp.Services
         /// <param name="request">Request setting user room settings</param>
         /// <returns></returns>
         IObservable<bool> UpdateUserRoomSettings(string userId, string roomId, UpdateUserRoomSettingsRequest request);
+
+        /// <summary>
+        /// Delete room by its id
+        /// </summary>
+        /// <param name="roomId">Id of the room</param>
+        /// <returns></returns>
+        IObservable<SuccessResponse> DeleteRoom(string roomId);
 
         /// <summary>
         /// Returns list of suggested rooms, based on your current room

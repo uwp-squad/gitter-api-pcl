@@ -29,7 +29,7 @@ namespace GitterSharp.Helpers
             }
         }
 
-        public static async Task PostAsync(this HttpClient httpClient, string url, HttpContent content)
+        public static async Task<HttpResponseMessage> PostAsync(this HttpClient httpClient, string url, HttpContent content)
         {
             using (httpClient)
             {
@@ -37,6 +37,8 @@ namespace GitterSharp.Helpers
 
                 if (!response.IsSuccessStatusCode)
                     throw new ApiException(response.ReasonPhrase, response.StatusCode);
+
+                return response;
             }
         }
         public static async Task<T> PostAsync<T>(this HttpClient httpClient, string url, HttpContent content)
@@ -70,6 +72,32 @@ namespace GitterSharp.Helpers
             using (httpClient)
             {
                 var response = await httpClient.PutAsync(new Uri(url), content);
+
+                if (!response.IsSuccessStatusCode)
+                    throw new ApiException(response.ReasonPhrase, response.StatusCode);
+
+                var result = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<T>(result);
+            }
+        }
+
+        public static async Task<HttpResponseMessage> DeleteAsync(this HttpClient httpClient, string url)
+        {
+            using (httpClient)
+            {
+                var response = await httpClient.GetAsync(new Uri(url));
+
+                if (!response.IsSuccessStatusCode)
+                    throw new ApiException(response.ReasonPhrase, response.StatusCode);
+
+                return response;
+            }
+        }
+        public static async Task<T> DeleteAsync<T>(this HttpClient httpClient, string url)
+        {
+            using (httpClient)
+            {
+                var response = await httpClient.GetAsync(new Uri(url));
 
                 if (!response.IsSuccessStatusCode)
                     throw new ApiException(response.ReasonPhrase, response.StatusCode);

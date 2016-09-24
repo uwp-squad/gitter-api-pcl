@@ -8,6 +8,7 @@ using GitterSharp.Helpers;
 using GitterSharp.Model;
 using Newtonsoft.Json;
 using GitterSharp.Model.Requests;
+using GitterSharp.Model.Responses;
 #if __IOS__ || __ANDROID__ || NET45
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -191,6 +192,12 @@ namespace GitterSharp.Services
 
             var response = await HttpClient.PutAsync(url, content);
             return response.IsSuccessStatusCode;
+        }
+
+        public async Task<SuccessResponse> DeleteRoomAsync(string roomId)
+        {
+            string url = _baseApiAddress + $"rooms/{roomId}";
+            return await HttpClient.DeleteAsync<SuccessResponse>(url);
         }
 
         public async Task<IEnumerable<Room>> GetSuggestedRoomsAsync(string roomId)
