@@ -32,6 +32,7 @@ public interface IGitterApiService
     Task<IEnumerable<Room>> GetRoomsAsync();
 	Task<IEnumerable<User>> GetRoomUsersAsync(string roomId, int limit = 30, string q = null, int skip = 0);
     Task<Room> JoinRoomAsync(string roomName);
+    Task<Room> UpdateRoomAsync(string roomId, UpdateRoomRequest request);
     Task<IEnumerable<Room>> GetSuggestedRoomsAsync(string roomId);
     Task<WelcomeMessage> GetWelcomeMessageAsync(string roomId);
 
@@ -220,6 +221,21 @@ The current user join a room. The parameter *room-name* looks like this : *Odonn
 ```
 var room = await gitterApiService.JoinRoomAsync("room-name");
 ```
+
+### Update room
+
+Update some room information.
+
+```
+var request = new UpdateRoomRequest
+{
+    Topic = "A gitter API library for .NET applications",
+    Tags = "gitter, api, csharp"
+};
+var room = await gitterApiService.UpdateRoomAsync("room-id", request);
+```
+
+Attention ! Notice that `tags` property is not returned by the response... 
 
 ### Suggested rooms
 

@@ -130,6 +130,11 @@ namespace GitterSharp.Services
             return _apiService.JoinRoomAsync(roomName).ToObservable();
         }
 
+        public IObservable<Room> UpdateRoom(string roomId, UpdateRoomRequest request)
+        {
+            return _apiService.UpdateRoomAsync(roomId, request).ToObservable();
+        }
+
         public IObservable<IEnumerable<Room>> GetSuggestedRooms(string roomId)
         {
             return _apiService.GetSuggestedRoomsAsync(roomId).ToObservable();

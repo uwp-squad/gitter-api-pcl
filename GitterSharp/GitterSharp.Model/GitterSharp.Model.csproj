@@ -41,6 +41,7 @@
     <Compile Include="Issue.cs" />
     <Compile Include="Mention.cs" />
     <Compile Include="Message.cs" />
+    <Compile Include="Requests\UpdateRoomRequest.cs" />
     <Compile Include="Webhook\MessageLevel.cs" />
     <Compile Include="Requests\MessageRequest.cs" />
     <Compile Include="MessageUrl.cs" />

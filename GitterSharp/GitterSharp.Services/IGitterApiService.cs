@@ -102,6 +102,14 @@ namespace GitterSharp.Services
         Task<Room> JoinRoomAsync(string roomName);
 
         /// <summary>
+        /// Update room information
+        /// </summary>
+        /// <param name="roomId">Id of the room</param>
+        /// <param name="request">Request for setting room information</param>
+        /// <returns></returns>
+        Task<Room> UpdateRoomAsync(string roomId, UpdateRoomRequest request);
+
+        /// <summary>
         /// Returns list of suggested rooms, based on your current room
         /// </summary>
         /// <param name="roomId">Id of the room</param>

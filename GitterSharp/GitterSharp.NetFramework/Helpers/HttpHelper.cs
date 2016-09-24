@@ -53,7 +53,7 @@ namespace GitterSharp.Helpers
             }
         }
 
-        public static async Task PutAsync(this HttpClient httpClient, string url, HttpContent content)
+        public static async Task<HttpResponseMessage> PutAsync(this HttpClient httpClient, string url, HttpContent content)
         {
             using (httpClient)
             {
@@ -61,6 +61,8 @@ namespace GitterSharp.Helpers
 
                 if (!response.IsSuccessStatusCode)
                     throw new ApiException(response.ReasonPhrase, response.StatusCode);
+
+                return response;
             }
         }
         public static async Task<T> PutAsync<T>(this HttpClient httpClient, string url, HttpContent content)

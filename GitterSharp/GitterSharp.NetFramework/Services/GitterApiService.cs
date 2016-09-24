@@ -164,6 +164,20 @@ namespace GitterSharp.Services
             return await HttpClient.PostAsync<Room>(url, content);
         }
 
+        public async Task<Room> UpdateRoomAsync(string roomId, UpdateRoomRequest request)
+        {
+            string url = _baseApiAddress + $"rooms/{roomId}";
+
+#if __IOS__ || __ANDROID__ || NET45
+            var content = new StringContent(JsonConvert.SerializeObject(request));
+#endif
+#if NETFX_CORE
+            var content = new HttpStringContent(JsonConvert.SerializeObject(request));
+#endif
+
+            return await HttpClient.PutAsync<Room>(url, content);
+        }
+
         public async Task<IEnumerable<Room>> GetSuggestedRoomsAsync(string roomId)
         {
             string url = _baseApiAddress + $"rooms/{roomId}/suggestedRooms";
@@ -189,7 +203,7 @@ namespace GitterSharp.Services
         public async Task<IEnumerable<Message>> GetRoomMessagesAsync(string roomId, MessageRequest request)
         {
             string url = _baseApiAddress + $"rooms/{roomId}/chatMessages?";
-            
+
             url += $"limit={request.Limit}";
 
             if (!string.IsNullOrWhiteSpace(request.BeforeId))
@@ -288,7 +302,7 @@ namespace GitterSharp.Services
 #endif
 
             return await HttpClient.PostAsync<Room>(url, content);
-        }        
+        }
 
         #endregion
     }
