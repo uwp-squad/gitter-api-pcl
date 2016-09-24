@@ -194,6 +194,12 @@ namespace GitterSharp.Services
             return response.IsSuccessStatusCode;
         }
 
+        public async Task<SuccessResponse> LeaveRoomAsync(string roomId, string userId)
+        {
+            string url = _baseApiAddress + $"rooms/{roomId}/users/{userId}";
+            return await HttpClient.DeleteAsync<SuccessResponse>(url);
+        }
+
         public async Task<SuccessResponse> DeleteRoomAsync(string roomId)
         {
             string url = _baseApiAddress + $"rooms/{roomId}";

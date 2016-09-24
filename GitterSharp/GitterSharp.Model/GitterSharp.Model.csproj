@@ -43,6 +43,7 @@
     <Compile Include="Message.cs" />
     <Compile Include="Requests\UpdateRoomRequest.cs" />
     <Compile Include="Requests\UpdateUserRoomSettingsRequest.cs" />
+    <Compile Include="Responses\SuccessResponse.cs" />
     <Compile Include="Webhook\MessageLevel.cs" />
     <Compile Include="Requests\MessageRequest.cs" />
     <Compile Include="MessageUrl.cs" />

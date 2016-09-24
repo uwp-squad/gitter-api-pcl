@@ -34,6 +34,7 @@ public interface IGitterApiService
     Task<Room> JoinRoomAsync(string roomName);
     Task<Room> UpdateRoomAsync(string roomId, UpdateRoomRequest request);
     Task<bool> UpdateUserRoomSettingsAsync(string userId, string roomId, UpdateUserRoomSettingsRequest request);
+    Task<SuccessResponse> LeaveRoomAsync(string roomId, string userId);
     Task<SuccessResponse> DeleteRoomAsync(string roomId);
     Task<IEnumerable<Room>> GetSuggestedRoomsAsync(string roomId);
     Task<WelcomeMessage> GetWelcomeMessageAsync(string roomId);
@@ -265,6 +266,14 @@ var request = new UpdateUserRoomSettingsRequest
     Favourite = true
 };
 bool success = await gitterApiService.UpdateUserRoomSettingsAsync("user-id", "room-id", request);
+```
+
+### Leave room
+
+Leave room (if it is current user) or remove user from room if we have rights to do it.
+
+```
+var successResponse = await gitterApiService.LeaveRoomAsync("room-id", "user-id");
 ```
 
 ### Delete room

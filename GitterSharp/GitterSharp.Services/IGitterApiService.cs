@@ -120,6 +120,16 @@ namespace GitterSharp.Services
         Task<bool> UpdateUserRoomSettingsAsync(string userId, string roomId, UpdateUserRoomSettingsRequest request);
 
         /// <summary>
+        /// Leave the room
+        /// If it is the current user, leave the room
+        /// If it is another user, remove user from the room if we have admin rights
+        /// </summary>
+        /// <param name="roomId">Id of the room</param>
+        /// <param name="userId">Id of the user</param>
+        /// <returns></returns>
+        Task<SuccessResponse> LeaveRoomAsync(string roomId, string userId);
+
+        /// <summary>
         /// Delete room by its id
         /// </summary>
         /// <param name="roomId">Id of the room</param>
