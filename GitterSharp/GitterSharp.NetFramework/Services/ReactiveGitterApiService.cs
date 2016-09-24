@@ -215,6 +215,15 @@ namespace GitterSharp.Services
 
         #endregion
 
+        #region Search
+
+        public IObservable<SearchResponse<Room>> SearchRooms(string query, int limit = 10)
+        {
+            return _apiService.SearchRoomsAsync(query, limit).ToObservable();
+        }
+
+        #endregion
+
         #region Streaming
 
         public IObservable<Message> GetRealtimeMessages(string roomId)

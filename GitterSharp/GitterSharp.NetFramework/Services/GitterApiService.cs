@@ -333,5 +333,20 @@ namespace GitterSharp.Services
         }
 
         #endregion
+
+        #region Search
+
+        public async Task<SearchResponse<Room>> SearchRoomsAsync(string query, int limit = 10)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                throw new ArgumentNullException(nameof(query));
+            }
+
+            string url = _baseApiAddress + $"rooms?q={query}&limit={limit}";
+            return await HttpClient.GetAsync<SearchResponse<Room>>(url);
+        }
+
+        #endregion
     }
 }

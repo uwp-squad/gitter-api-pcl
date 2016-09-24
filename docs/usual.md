@@ -63,6 +63,12 @@ public interface IGitterApiService
     Task<Room> CreateRoomAsync(string groupId, CreateRoomRequest request);
 
     #endregion
+
+    #region Search
+
+    Task<SearchResponse<Room>> SearchRoomsAsync(string query, int limit = 10);
+
+    #endregion
 }
 ```
 
@@ -480,4 +486,14 @@ public class CreateRoomRequest
 ```
 var request = new CreateRoomRequest { Name = "test" };
 var room = await gitterApiService.CreateRoomAsync("group-id", request);
+```
+
+## Search
+
+### Search rooms
+
+Search rooms by name.
+
+```
+var results = await gitterApiService.SearchRoomsAsync("test", 50);
 ```

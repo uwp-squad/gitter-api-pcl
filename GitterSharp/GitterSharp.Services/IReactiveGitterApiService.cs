@@ -231,6 +231,18 @@ namespace GitterSharp.Services
 
         #endregion
 
+        #region Search
+
+        /// <summary>
+        /// Search rooms
+        /// </summary>
+        /// <param name="query">Query to search rooms (example: "gitter" for rooms relative to gitter)</param>
+        /// <param name="limit">Number fo results</param>
+        /// <returns></returns>
+        IObservable<SearchResponse<Room>> SearchRooms(string query, int limit = 10);
+
+        #endregion
+
         #region Streaming
 
         /// <summary>

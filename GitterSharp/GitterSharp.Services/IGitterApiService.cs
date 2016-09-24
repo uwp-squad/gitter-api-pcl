@@ -230,5 +230,17 @@ namespace GitterSharp.Services
         Task<Room> CreateRoomAsync(string groupId, CreateRoomRequest request);
 
         #endregion
+
+        #region Search
+
+        /// <summary>
+        /// Search rooms
+        /// </summary>
+        /// <param name="query">Query to search rooms (example: "gitter" for rooms relative to gitter)</param>
+        /// <param name="limit">Number fo results</param>
+        /// <returns></returns>
+        Task<SearchResponse<Room>> SearchRoomsAsync(string query, int limit = 10);
+
+        #endregion
     }
 }
