@@ -102,6 +102,13 @@ namespace GitterSharp.Services
         /// <returns></returns>
         Task<IEnumerable<Room>> GetSuggestedRoomsAsync(string roomId);
 
+        /// <summary>
+        /// Returns welcome message of a room
+        /// </summary>
+        /// <param name="roomId">Id of the room</param>
+        /// <returns></returns>
+        Task<WelcomeMessage> GetWelcomeMessageAsync(string roomId);
+
         #endregion
 
         #region Messages

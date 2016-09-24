@@ -32,6 +32,7 @@ public interface IGitterApiService
 	Task<IEnumerable<User>> GetRoomUsersAsync(string roomId, int limit = 30, string q = null, int skip = 0);
     Task<Room> JoinRoomAsync(string roomName);
     Task<IEnumerable<Room>> GetSuggestedRoomsAsync(string roomId);
+    Task<WelcomeMessage> GetWelcomeMessageAsync(string roomId);
 
     #endregion
 
@@ -217,6 +218,14 @@ Retrieve all suggested rooms based on a room.
 
 ```
 var rooms = await gitterApiService.GetSuggestedRoomsAsync("room-id");
+```
+
+### Welcome message
+
+Retrieve welcome message of the room
+
+```
+var welcomeMessage = await gitterApiService.GetWelcomeMessageAsync("room-id");
 ```
 
 ## Messages

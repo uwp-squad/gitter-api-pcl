@@ -100,7 +100,14 @@ namespace GitterSharp.Services
         /// </summary>
         /// <param name="roomId">Id of the room</param>
         /// <returns></returns>
-        IObservable<IEnumerable<Room>> GetSuggestedRooms(string roomId)
+        IObservable<IEnumerable<Room>> GetSuggestedRooms(string roomId);
+
+        /// <summary>
+        /// Returns welcome message of a room
+        /// </summary>
+        /// <param name="roomId">Id of the room</param>
+        /// <returns></returns>
+        IObservable<WelcomeMessage> GetWelcomeMessage(string roomId);
 
         #endregion
 

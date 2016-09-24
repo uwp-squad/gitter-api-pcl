@@ -164,6 +164,12 @@ namespace GitterSharp.Services
             return await HttpClient.GetAsync<IEnumerable<Room>>(url);
         }
 
+        public async Task<WelcomeMessage> GetWelcomeMessageAsync(string roomId)
+        {
+            string url = _baseApiAddress + $"rooms/{roomId}/meta/welcome-message";
+            return await HttpClient.GetAsync<WelcomeMessage>(url);
+        }
+
         #endregion
 
         #region Messages
