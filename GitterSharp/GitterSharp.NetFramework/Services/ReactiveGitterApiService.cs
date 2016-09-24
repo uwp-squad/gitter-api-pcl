@@ -135,6 +135,11 @@ namespace GitterSharp.Services
             return _apiService.UpdateRoomAsync(roomId, request).ToObservable();
         }
 
+        public IObservable<bool> UpdateUserRoomSettings(string userId, string roomId, UpdateUserRoomSettingsRequest request)
+        {
+            return _apiService.UpdateUserRoomSettingsAsync(userId, roomId, request).ToObservable();
+        }
+
         public IObservable<IEnumerable<Room>> GetSuggestedRooms(string roomId)
         {
             return _apiService.GetSuggestedRoomsAsync(roomId).ToObservable();

@@ -33,6 +33,7 @@ public interface IGitterApiService
 	Task<IEnumerable<User>> GetRoomUsersAsync(string roomId, int limit = 30, string q = null, int skip = 0);
     Task<Room> JoinRoomAsync(string roomName);
     Task<Room> UpdateRoomAsync(string roomId, UpdateRoomRequest request);
+    Task<bool> UpdateUserRoomSettingsAsync(string userId, string roomId, UpdateUserRoomSettingsRequest request);
     Task<IEnumerable<Room>> GetSuggestedRoomsAsync(string roomId);
     Task<WelcomeMessage> GetWelcomeMessageAsync(string roomId);
 
@@ -224,6 +225,15 @@ var room = await gitterApiService.JoinRoomAsync("room-name");
 
 ### Update room
 
+```
+public class UpdateRoomRequest
+{
+    public string Topic { get; set; }
+    public bool NoIndex { get; set; }
+    public string Tags { get; set; }
+}
+```
+
 Update some room information.
 
 ```
@@ -236,6 +246,25 @@ var room = await gitterApiService.UpdateRoomAsync("room-id", request);
 ```
 
 Attention ! Notice that `tags` property is not returned by the response... 
+
+### Update user room settings
+
+```
+public class UpdateUserRoomSettingsRequest
+{
+    public bool Favourite { get; set; }
+}
+```
+
+Update settings of the user on a specific room. Example below shows that user X set room Y as favourite.
+
+```
+var request = new UpdateUserRoomSettingsRequest
+{
+    Favourite = true
+};
+var success = await gitterApiService.UpdateUserRoomSettingsAsync("user-id", "room-id", request);
+```
 
 ### Suggested rooms
 

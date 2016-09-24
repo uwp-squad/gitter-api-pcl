@@ -110,6 +110,15 @@ namespace GitterSharp.Services
         Task<Room> UpdateRoomAsync(string roomId, UpdateRoomRequest request);
 
         /// <summary>
+        /// Update room settings for the user
+        /// </summary>
+        /// <param name="userId">Id of the user (generally current user)</param>
+        /// <param name="roomId">Id of the room</param>
+        /// <param name="request">Request setting user room settings</param>
+        /// <returns></returns>
+        Task<bool> UpdateUserRoomSettingsAsync(string userId, string roomId, UpdateUserRoomSettingsRequest request);
+
+        /// <summary>
         /// Returns list of suggested rooms, based on your current room
         /// </summary>
         /// <param name="roomId">Id of the room</param>

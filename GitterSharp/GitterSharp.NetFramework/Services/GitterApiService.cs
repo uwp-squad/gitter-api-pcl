@@ -178,6 +178,21 @@ namespace GitterSharp.Services
             return await HttpClient.PutAsync<Room>(url, content);
         }
 
+        public async Task<bool> UpdateUserRoomSettingsAsync(string userId, string roomId, UpdateUserRoomSettingsRequest request)
+        {
+            string url = _baseApiAddress + $"user/{userId}/rooms/{roomId}";
+
+#if __IOS__ || __ANDROID__ || NET45
+            var content = new StringContent(JsonConvert.SerializeObject(request));
+#endif
+#if NETFX_CORE
+            var content = new HttpStringContent(JsonConvert.SerializeObject(request));
+#endif
+
+            var response = await HttpClient.PutAsync(url, content);
+            return response.IsSuccessStatusCode;
+        }
+
         public async Task<IEnumerable<Room>> GetSuggestedRoomsAsync(string roomId)
         {
             string url = _baseApiAddress + $"rooms/{roomId}/suggestedRooms";
