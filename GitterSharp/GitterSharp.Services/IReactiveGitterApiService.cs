@@ -269,6 +269,14 @@ namespace GitterSharp.Services
         /// <returns></returns>
         IObservable<Message> GetRealtimeMessages(string roomId);
 
+        /// <summary>
+        /// Retrieve events of a specific room - in realtime
+        /// (https://developer.gitter.im/docs/streaming-api)
+        /// </summary>
+        /// <param name="roomId">Id of the room that contains events (activity tab)</param>
+        /// <returns></returns>
+        IObservable<RoomEvent> GetRealtimeEvents(string roomId);
+
         #endregion
     }
 }

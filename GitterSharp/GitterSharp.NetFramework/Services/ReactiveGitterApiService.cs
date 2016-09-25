@@ -13,13 +13,10 @@ using GitterSharp.Model.Responses;
 #if __IOS__ || __ANDROID__ || NET45
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 #endif
 #if NETFX_CORE
 using Windows.Web.Http;
 using Windows.Web.Http.Headers;
-using System.IO;
-using Windows.Storage.Streams;
 #endif
 
 namespace GitterSharp.Services
@@ -239,26 +236,13 @@ namespace GitterSharp.Services
         public IObservable<Message> GetRealtimeMessages(string roomId)
         {
             string url = _baseStreamingApiAddress + $"rooms/{roomId}/chatMessages";
+            return HttpClient.CreateObservableHttpStream<Message>(url);
+        }
 
-#if __IOS__ || __ANDROID__ || NET45
-            return Observable.Using(() => HttpClient,
-                client => client.GetStreamAsync(new Uri(url))
-                    .ToObservable()
-                    .Select(x => Observable.FromAsync(() => StreamHelper.ReadStreamAsync(x)).Repeat())
-                    .Concat()
-                    .Where(x => !string.IsNullOrWhiteSpace(x))
-                    .Select(JsonConvert.DeserializeObject<Message>));
-#endif
-#if NETFX_CORE
-            return Observable.Using(() => HttpClient,
-                client => client.GetInputStreamAsync(new Uri(url))
-                    .AsTask()
-                    .ToObservable()
-                    .Select(x => Observable.FromAsync(() => StreamHelper.ReadStreamAsync(x.AsStreamForRead())).Repeat())
-                    .Concat()
-                    .Where(x => !string.IsNullOrWhiteSpace(x))
-                    .Select(JsonConvert.DeserializeObject<Message>));
-#endif
+        public IObservable<RoomEvent> GetRealtimeEvents(string roomId)
+        {
+            string url = _baseStreamingApiAddress + $"rooms/{roomId}/events";
+            return HttpClient.CreateObservableHttpStream<RoomEvent>(url);
         }
 
         #endregion

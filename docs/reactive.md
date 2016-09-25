@@ -16,6 +16,7 @@ public interface IReactiveGitterApiService
     IObservable<User> GetCurrentUser();
     IObservable<IEnumerable<Organization>> GetOrganizations(string userId);
     IObservable<IEnumerable<Repository>> GetRepositories(string userId);
+    IObservable<IEnumerable<Room>> GetSuggestedRooms();
 
     #endregion
 
@@ -29,15 +30,22 @@ public interface IReactiveGitterApiService
     #region Rooms
 
     IObservable<IEnumerable<Room>> GetRooms();
-	IObservable<IEnumerable<User>> GetRoomUsers(string roomId, int limit = 30, string q = null, int skip = 0);
+    IObservable<IEnumerable<User>> GetRoomUsers(string roomId, int limit = 30, string q = null, int skip = 0);
     IObservable<Room> JoinRoom(string roomName);
+    IObservable<Room> JoinRoom(string userId, string roomId);
+    IObservable<Room> UpdateRoom(string roomId, UpdateRoomRequest request);
+    IObservable<bool> UpdateUserRoomSettings(string userId, string roomId, UpdateUserRoomSettingsRequest request);
+    IObservable<SuccessResponse> LeaveRoom(string roomId, string userId);
+    IObservable<SuccessResponse> DeleteRoom(string roomId);
+    IObservable<IEnumerable<Room>> GetSuggestedRooms(string roomId);
+    IObservable<WelcomeMessage> GetWelcomeMessage(string roomId);
 
     #endregion
 
     #region Messages
 
     IObservable<Message> GetSingleRoomMessage(string roomId, string messageId);
-    IObservable<IEnumerable<Message>> GetRoomMessages(string roomId, int limit = 50, string beforeId = null, string afterId = null, int skip = 0);
+    IObservable<IEnumerable<Message>> GetRoomMessages(string roomId, MessageRequest request);
     IObservable<Message> SendMessage(string roomId, string message);
     IObservable<Message> UpdateMessage(string roomId, string messageId, string message);
 
@@ -49,9 +57,25 @@ public interface IReactiveGitterApiService
 
     #endregion
 
+    #region Groups
+
+    IObservable<IEnumerable<Group>> GetGroups();
+    IObservable<IEnumerable<Room>> GetGroupRooms(string groupId);
+    IObservable<Room> CreateRoom(string groupId, CreateRoomRequest request);
+
+    #endregion
+
+    #region Search
+
+    IObservable<SearchResponse<Room>> SearchRooms(string query, int limit = 10);
+    IObservable<SearchResponse<User>> SearchUsers(string query, int limit = 10);
+
+    #endregion
+
     #region Streaming
 
     IObservable<Message> GetRealtimeMessages(string roomId);
+    IObservable<RoomEvent> GetRealtimeEvents(string roomId);
 
     #endregion
 }
@@ -88,4 +112,13 @@ gitterApiService.GetRealtimeMessages(Room.Id)
 
 ### Realtime events
 
-Not available...
+Retrieve realtime new events inside a room.
+
+```
+gitterApiService.GetRealtimeEvents(Room.Id)
+                .Subscribe(event => 
+					{
+						// Do everything you need
+						// This code will be executed each time the room receive a new event
+					});
+```

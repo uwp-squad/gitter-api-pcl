@@ -1,6 +1,9 @@
 ﻿using GitterSharp.Exceptions;
 using Newtonsoft.Json;
 using System;
+using System.IO;
+using System.Reactive.Linq;
+using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
 #if __IOS__ || __ANDROID__ || NET45
 using System.Net.Http;
@@ -105,6 +108,29 @@ namespace GitterSharp.Helpers
                 var result = await response.Content.ReadAsStringAsync();
                 return JsonConvert.DeserializeObject<T>(result);
             }
+        }
+
+        public static IObservable<T> CreateObservableHttpStream<T>(this HttpClient httpClient, string url)
+        {
+#if __IOS__ || __ANDROID__ || NET45
+            return Observable.Using(() => httpClient,
+                client => client.GetStreamAsync(new Uri(url))
+                    .ToObservable()
+                    .Select(x => Observable.FromAsync(() => StreamHelper.ReadStreamAsync(x)).Repeat())
+                    .Concat()
+                    .Where(x => !string.IsNullOrWhiteSpace(x))
+                    .Select(JsonConvert.DeserializeObject<T>));
+#endif
+#if NETFX_CORE
+            return Observable.Using(() => httpClient,
+                client => client.GetInputStreamAsync(new Uri(url))
+                    .AsTask()
+                    .ToObservable()
+                    .Select(x => Observable.FromAsync(() => StreamHelper.ReadStreamAsync(x.AsStreamForRead())).Repeat())
+                    .Concat()
+                    .Where(x => !string.IsNullOrWhiteSpace(x))
+                    .Select(JsonConvert.DeserializeObject<T>));
+#endif
         }
     }
 }
