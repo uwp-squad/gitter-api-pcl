@@ -165,6 +165,26 @@ namespace GitterSharp.Services
             return await HttpClient.PostAsync<Room>(url, content);
         }
 
+        public async Task<Room> JoinRoomAsync(string userId, string roomId)
+        {
+            string url = _baseApiAddress + $"user/{userId}/rooms";
+
+#if __IOS__ || __ANDROID__ || NET45
+            var content = new FormUrlEncodedContent(new Dictionary<string, string>
+            {
+                {"id", roomId}
+            });
+#endif
+#if NETFX_CORE
+            var content = new HttpFormUrlEncodedContent(new Dictionary<string, string>
+            {
+                {"id", roomId}
+            });
+#endif
+
+            return await HttpClient.PostAsync<Room>(url, content);
+        }
+
         public async Task<Room> UpdateRoomAsync(string roomId, UpdateRoomRequest request)
         {
             string url = _baseApiAddress + $"rooms/{roomId}";
