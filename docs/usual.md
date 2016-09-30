@@ -72,6 +72,12 @@ public interface IGitterApiService
     Task<SearchResponse<User>> SearchUsersAsync(string query, int limit = 10);
 
     #endregion
+
+    #region Analytics
+
+    Task<Dictionary<DateTime, int>> GetRoomMessagesCountByDayAsync(string roomId);
+
+    #endregion
 }
 ```
 
@@ -529,4 +535,14 @@ Search users by name.
 
 ```
 var results = await gitterApiService.SearchUsersAsync("test", 50);
+```
+
+## Analytics
+
+### Get room messages count by day
+
+This method is mainly use to build a heatmap of room messages.
+
+```
+var datesWithCount = await gitterApiService.GetRoomMessagesCountByDayAsync("room-id");
 ```

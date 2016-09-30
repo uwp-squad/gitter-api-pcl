@@ -266,5 +266,17 @@ namespace GitterSharp.Services
         Task<SearchResponse<User>> SearchUsersAsync(string query, int limit = 10);
 
         #endregion
+
+        #region Analytics
+
+        /// <summary>
+        /// Retrieve all messages count of a room, grouped by day
+        /// Warning ! It only returns messages count from a year ago
+        /// </summary>
+        /// <param name="roomId">Id of the room</param>
+        /// <returns></returns>
+        Task<Dictionary<DateTime, int>> GetRoomMessagesCountByDayAsync(string roomId);
+
+        #endregion
     }
 }

@@ -286,5 +286,17 @@ namespace GitterSharp.Services
         IObservable<RoomEvent> GetRealtimeEvents(string roomId);
 
         #endregion
+
+        #region Analytics
+
+        /// <summary>
+        /// Retrieve all messages count of a room, grouped by day
+        /// Warning ! It only returns messages count from a year ago
+        /// </summary>
+        /// <param name="roomId">Id of the room</param>
+        /// <returns></returns>
+        IObservable<Dictionary<DateTime, int>> GetRoomMessagesCountByDay(string roomId);
+
+        #endregion
     }
 }

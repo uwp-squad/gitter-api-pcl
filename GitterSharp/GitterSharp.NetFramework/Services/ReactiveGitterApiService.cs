@@ -251,5 +251,14 @@ namespace GitterSharp.Services
         }
 
         #endregion
+
+        #region Analytics
+
+        public IObservable<Dictionary<DateTime, int>> GetRoomMessagesCountByDay(string roomId)
+        {
+            return _apiService.GetRoomMessagesCountByDayAsync(roomId).ToObservable();
+        }
+
+        #endregion
     }
 }

@@ -19,9 +19,8 @@ namespace GitterSharp.IntegrationTests
         private string _roomId = "56312c8816b6c7089cb89e07";
 
         #endregion
-
-
-        #region Methods
+        
+        #region Streaming
 
         [TestMethod]
         public async Task Can_Receive_Realtime_Messages()
@@ -43,6 +42,27 @@ namespace GitterSharp.IntegrationTests
 
             // Assert
             Assert.AreEqual(1, messagesReceived);
+        }
+
+        #endregion
+
+        #region Analytics
+
+        [TestMethod]
+        public async Task Can_Get_Room_Messages_Count_By_Date()
+        {
+            // Arrange
+            IReactiveGitterApiService gitterApiService = new ReactiveGitterApiService(_token);
+
+            // Act
+            gitterApiService.GetRoomMessagesCountByDay(_roomId)
+                    .Subscribe(datesWithCount =>
+                    {
+                        // Assert
+                        Assert.AreEqual(9, datesWithCount.Count);
+                    });
+
+            await Task.Delay(2000);
         }
 
         #endregion

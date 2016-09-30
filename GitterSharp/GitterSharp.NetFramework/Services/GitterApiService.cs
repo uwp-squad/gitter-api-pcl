@@ -393,5 +393,29 @@ namespace GitterSharp.Services
         }
 
         #endregion
+
+        #region Analytics
+
+        public async Task<Dictionary<DateTime, int>> GetRoomMessagesCountByDayAsync(string roomId)
+        {
+            string url = $"{Constants.ApiBaseUrl}/private/chat-heatmap/{roomId}";
+            return await HttpClient.GetAsync<Dictionary<string, int>>(url)
+                .ContinueWith(task =>
+                {
+                    var datesWithCount = new Dictionary<DateTime, int>();
+
+                    foreach (var timestampWithCount in task.Result)
+                    {
+                        double timestamp = Convert.ToDouble(timestampWithCount.Key);
+                        var dateNewKey = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddSeconds(timestamp);
+
+                        datesWithCount.Add(dateNewKey, timestampWithCount.Value);
+                    }
+
+                    return datesWithCount;
+                });
+        }
+
+        #endregion
     }
 }

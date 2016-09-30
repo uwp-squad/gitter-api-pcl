@@ -79,6 +79,12 @@ public interface IReactiveGitterApiService
     IObservable<RoomEvent> GetRealtimeEvents(string roomId);
 
     #endregion
+
+    #region Analytics
+
+    IObservable<Dictionary<DateTime, int>> GetRoomMessagesCountByDay(string roomId);
+
+    #endregion
 }
 ```
 
