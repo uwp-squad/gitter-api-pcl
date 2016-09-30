@@ -158,6 +158,14 @@ namespace GitterSharp.Services
         /// <returns></returns>
         Task<WelcomeMessage> GetWelcomeMessageAsync(string roomId);
 
+        /// <summary>
+        /// Update welcome message of room
+        /// </summary>
+        /// <param name="roomId">Id of the room</param>
+        /// <param name="request">Request to edit room welcome message</param>
+        /// <returns></returns>
+        Task<UpdateWelcomeMessageResponse> UpdateWelcomeMessageAsync(string roomId, UpdateWelcomeMessageRequest request);
+
         #endregion
 
         #region Messages

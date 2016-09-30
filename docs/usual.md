@@ -39,6 +39,7 @@ public interface IGitterApiService
     Task<SuccessResponse> DeleteRoomAsync(string roomId);
     Task<IEnumerable<Room>> GetSuggestedRoomsAsync(string roomId);
     Task<WelcomeMessage> GetWelcomeMessageAsync(string roomId);
+    Task<UpdateWelcomeMessageResponse> UpdateWelcomeMessageAsync(string roomId, UpdateWelcomeMessageRequest request);
 
     #endregion
 
@@ -316,6 +317,18 @@ Retrieve welcome message of the room
 
 ```
 var welcomeMessage = await gitterApiService.GetWelcomeMessageAsync("room-id");
+```
+
+### Update welcome message
+
+Update welcome message of the room
+
+```
+var request = new UpdateWelcomeMessageRequest
+{
+    Content = "A welcome message"
+};
+var result = await gitterApiService.UpdateWelcomeMessageAsync("room-id", request);
 ```
 
 ## Messages

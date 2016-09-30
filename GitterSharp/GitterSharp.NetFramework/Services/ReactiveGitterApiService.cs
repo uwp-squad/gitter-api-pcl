@@ -163,6 +163,11 @@ namespace GitterSharp.Services
             return _apiService.GetWelcomeMessageAsync(roomId).ToObservable();
         }
 
+        public IObservable<UpdateWelcomeMessageResponse> UpdateWelcomeMessage(string roomId, UpdateWelcomeMessageRequest request)
+        {
+            return _apiService.UpdateWelcomeMessageAsync(roomId, request).ToObservable();
+        }
+
         #endregion
 
         #region Messages

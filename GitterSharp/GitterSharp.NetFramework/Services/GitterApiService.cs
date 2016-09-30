@@ -238,6 +238,20 @@ namespace GitterSharp.Services
             return await HttpClient.GetAsync<WelcomeMessage>(url);
         }
 
+        public async Task<UpdateWelcomeMessageResponse> UpdateWelcomeMessageAsync(string roomId, UpdateWelcomeMessageRequest request)
+        {
+            string url = _baseApiAddress + $"rooms/{roomId}/meta/welcome-message";
+
+#if __IOS__ || __ANDROID__ || NET45
+            var content = new StringContent(JsonConvert.SerializeObject(request));
+#endif
+#if NETFX_CORE
+            var content = new HttpStringContent(JsonConvert.SerializeObject(request));
+#endif
+
+            return await HttpClient.PutAsync<UpdateWelcomeMessageResponse>(url, content);
+        }
+
         #endregion
 
         #region Messages
