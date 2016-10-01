@@ -244,6 +244,12 @@ namespace GitterSharp.Services
             return await HttpClient.GetAsync<IEnumerable<RoomIssue>>(url);
         }
 
+        public async Task<IEnumerable<Ban>> GetRoomBansAsync(string roomId)
+        {
+            string url = _baseApiAddress + $"rooms/{roomId}/bans";
+            return await HttpClient.GetAsync<IEnumerable<Ban>>(url);
+        }
+
         public async Task<WelcomeMessage> GetWelcomeMessageAsync(string roomId)
         {
             string url = _baseApiAddress + $"rooms/{roomId}/meta/welcome-message";

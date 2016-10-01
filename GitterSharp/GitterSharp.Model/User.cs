@@ -26,6 +26,9 @@ namespace GitterSharp.Model
         [JsonProperty("providers")]
         public IEnumerable<string> Providers { get; set; }
 
+        [JsonProperty("staff")]
+        public bool Staff { get; set; }
+
         [JsonProperty("v")]
         public int Version { get; set; }
 

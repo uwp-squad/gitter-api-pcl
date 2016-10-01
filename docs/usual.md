@@ -40,6 +40,7 @@ public interface IGitterApiService
     Task<IEnumerable<Room>> GetSuggestedRoomsAsync(string roomId);
     Task<IEnumerable<Collaborator>> GetSuggestedCollaboratorsOnRoomAsync(string roomId);
     Task<IEnumerable<RoomIssue>> GetRoomIssuesAsync(string roomId);
+    Task<IEnumerable<Ban>> GetRoomBansAsync(string roomId);
     Task<WelcomeMessage> GetWelcomeMessageAsync(string roomId);
     Task<UpdateWelcomeMessageResponse> UpdateWelcomeMessageAsync(string roomId, UpdateWelcomeMessageRequest request);
 
@@ -97,6 +98,7 @@ public class User
     public string SmallAvatarUrl { get; set; }
     public string MediumAvatarUrl { get; set; }
     public IEnumerable<string> Providers { get; set; }
+    public bool Staff { get; set; }
     public int Version { get; set; }
     public string GravatarVersion { get; set; }
     public string GitHubUrl { get; }
@@ -351,6 +353,23 @@ public class RoomIssue
 
 ```
 var issues = await gitterApiService.GetRoomIssuesAsync("room-id");
+```
+
+### Room banned users
+
+Retrieve banned users on a room.
+
+```
+public class Ban
+{
+    public User User { get; set; }
+    public User BannedBy { get; set; }
+    public DateTime Date { get; set; }
+}
+```
+
+```
+var bans = await gitterApiService.GetRoomBansAsync("room-id");
 ```
 
 ### Welcome message

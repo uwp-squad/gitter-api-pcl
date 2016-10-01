@@ -168,6 +168,11 @@ namespace GitterSharp.Services
             return _apiService.GetRoomIssuesAsync(roomId).ToObservable();
         }
 
+        public IObservable<IEnumerable<Ban>> GetRoomBans(string roomId)
+        {
+            return _apiService.GetRoomBansAsync(roomId).ToObservable();
+        }
+
         public IObservable<WelcomeMessage> GetWelcomeMessage(string roomId)
         {
             return _apiService.GetWelcomeMessageAsync(roomId).ToObservable();
