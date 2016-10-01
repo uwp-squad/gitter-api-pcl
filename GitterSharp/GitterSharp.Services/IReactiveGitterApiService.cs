@@ -274,7 +274,7 @@ namespace GitterSharp.Services
         /// Search rooms
         /// </summary>
         /// <param name="query">Query to search rooms (example: "gitter" for rooms relative to gitter)</param>
-        /// <param name="limit">Number fo results</param>
+        /// <param name="limit">Number max of results</param>
         /// <returns></returns>
         IObservable<SearchResponse<Room>> SearchRooms(string query, int limit = 10);
 
@@ -282,9 +282,18 @@ namespace GitterSharp.Services
         /// Search users
         /// </summary>
         /// <param name="query">Query to search users</param>
-        /// <param name="limit">Number of results</param>
+        /// <param name="limit">Number max of results</param>
         /// <returns></returns>
         IObservable<SearchResponse<User>> SearchUsers(string query, int limit = 10);
+
+        /// <summary>
+        /// Search repositories of a user
+        /// </summary>
+        /// <param name="userId">Id of the user</param>
+        /// <param name="query">Query to search repositories</param>
+        /// <param name="limit">Number max of results</param>
+        /// <returns></returns>
+        IObservable<SearchResponse<Repository>> SearchUserRepositories(string userId, string query, int limit = 10);
 
         #endregion
 

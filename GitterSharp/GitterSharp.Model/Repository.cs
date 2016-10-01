@@ -10,6 +10,9 @@ namespace GitterSharp.Model
         [JsonProperty("name")]
         public string Name { get; set; }
 
+        [JsonProperty("description")]
+        public string Description { get; set; }
+
         [JsonProperty("uri")]
         public string Uri { get; set; }
 
@@ -18,5 +21,11 @@ namespace GitterSharp.Model
 
         [JsonProperty("room")]
         public Room Room { get; set; }
+
+        [JsonProperty("exists")]
+        public bool Exists { get; set; }
+
+        [JsonProperty("avatar_url")]
+        public string AvatarUrl { get; set; }
     }
 }

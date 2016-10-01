@@ -73,7 +73,8 @@ public interface IReactiveGitterApiService
 
     IObservable<SearchResponse<Room>> SearchRooms(string query, int limit = 10);
     IObservable<SearchResponse<User>> SearchUsers(string query, int limit = 10);
-
+    IObservable<SearchResponse<Repository>> SearchUserRepositories(string userId, string query, int limit = 10);
+    
     #endregion
 
     #region Streaming

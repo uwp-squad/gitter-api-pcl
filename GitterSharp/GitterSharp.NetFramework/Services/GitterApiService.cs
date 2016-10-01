@@ -413,6 +413,17 @@ namespace GitterSharp.Services
             return await HttpClient.GetAsync<SearchResponse<User>>(url);
         }
 
+        public async Task<SearchResponse<Repository>> SearchUserRepositoriesAsync(string userId, string query, int limit = 10)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                throw new ArgumentNullException(nameof(query));
+            }
+
+            string url = _baseApiAddress + $"user/{userId}/repos?q={query}&limit={limit}";
+            return await HttpClient.GetAsync<SearchResponse<Repository>>(url);
+        }
+
         #endregion
 
         #region Analytics

@@ -73,6 +73,7 @@ public interface IGitterApiService
 
     Task<SearchResponse<Room>> SearchRoomsAsync(string query, int limit = 10);
     Task<SearchResponse<User>> SearchUsersAsync(string query, int limit = 10);
+    Task<SearchResponse<Repository>> SearchUserRepositoriesAsync(string userId, string query, int limit = 10);
 
     #endregion
 
@@ -120,9 +121,12 @@ public class Repository
 {
     public string Id { get; set; }
     public string Name { get; set; }
+    public string Description { get; set; }
     public string Uri { get; set; }
     public bool IsPrivate { get; set; }
     public Room Room { get; set; }
+    public bool Exists { get; set; }
+    public string AvatarUrl { get; set; }
 }
 ```
 
@@ -591,6 +595,14 @@ Search users by name.
 
 ```
 var results = await gitterApiService.SearchUsersAsync("test", 50);
+```
+
+### Search user repositories
+
+Search repositories of a user.
+
+```
+var results = await gitterApiService.SearchUserRepositoriesAsync("user-id", "test", 50);
 ```
 
 ## Analytics
