@@ -158,6 +158,11 @@ namespace GitterSharp.Services
             return _apiService.GetSuggestedRoomsAsync(roomId).ToObservable();
         }
 
+        public IObservable<IEnumerable<Collaborator>> GetSuggestedCollaboratorsOnRoom(string roomId)
+        {
+            return _apiService.GetSuggestedCollaboratorsOnRoomAsync(roomId).ToObservable();
+        }
+
         public IObservable<WelcomeMessage> GetWelcomeMessage(string roomId)
         {
             return _apiService.GetWelcomeMessageAsync(roomId).ToObservable();

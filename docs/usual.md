@@ -38,6 +38,7 @@ public interface IGitterApiService
     Task<SuccessResponse> LeaveRoomAsync(string roomId, string userId);
     Task<SuccessResponse> DeleteRoomAsync(string roomId);
     Task<IEnumerable<Room>> GetSuggestedRoomsAsync(string roomId);
+    Task<IEnumerable<Collaborator>> GetSuggestedCollaboratorsOnRoomAsync(string roomId);
     Task<WelcomeMessage> GetWelcomeMessageAsync(string roomId);
     Task<UpdateWelcomeMessageResponse> UpdateWelcomeMessageAsync(string roomId, UpdateWelcomeMessageRequest request);
 
@@ -315,6 +316,24 @@ Retrieve all suggested rooms based on a room.
 
 ```
 var rooms = await gitterApiService.GetSuggestedRoomsAsync("room-id");
+```
+
+### Suggested collaborators
+
+Retrieve collaborators that you can invite to join the room.
+
+```
+public class Collaborator
+{
+    public string DisplayName { get; set; }
+    public string ExternalId { get; set; }
+    public string AvatarUrl { get; set; }
+    public string Type { get; set; }
+}
+```
+
+```
+var collaborators = await gitterApiService.GetSuggestedCollaboratorsOnRoomAsync("room-id");
 ```
 
 ### Welcome message
