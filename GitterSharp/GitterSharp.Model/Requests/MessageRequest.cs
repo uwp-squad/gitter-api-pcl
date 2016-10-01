@@ -37,5 +37,10 @@ namespace GitterSharp.Model.Requests
         /// Query to search specific topic on messages
         /// </summary>
         public string Query { get; set; }
+
+        /// <summary>
+        /// Language of messages (exemple: 'en')
+        /// </summary>
+        public string Lang { get; set; }
     }
 }

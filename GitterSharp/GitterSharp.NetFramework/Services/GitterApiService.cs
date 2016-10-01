@@ -298,6 +298,9 @@ namespace GitterSharp.Services
             if (request.Skip > 0)
                 url += $"&skip={request.Skip}";
 
+            if (!string.IsNullOrWhiteSpace(request.Lang))
+                url += $"&lang={request.Lang}";
+
             if (!string.IsNullOrWhiteSpace(request.Query))
                 url += $"&q={request.Query}";
 
