@@ -48,6 +48,7 @@
     <Compile Include="Responses\SearchResponse.cs" />
     <Compile Include="Responses\SuccessResponse.cs" />
     <Compile Include="Responses\UpdateWelcomeMessageResponse.cs" />
+    <Compile Include="RoomIssue.cs" />
     <Compile Include="Webhook\MessageLevel.cs" />
     <Compile Include="Requests\MessageRequest.cs" />
     <Compile Include="MessageUrl.cs" />

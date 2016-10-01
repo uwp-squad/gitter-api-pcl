@@ -39,6 +39,7 @@ public interface IGitterApiService
     Task<SuccessResponse> DeleteRoomAsync(string roomId);
     Task<IEnumerable<Room>> GetSuggestedRoomsAsync(string roomId);
     Task<IEnumerable<Collaborator>> GetSuggestedCollaboratorsOnRoomAsync(string roomId);
+    Task<IEnumerable<RoomIssue>> GetRoomIssuesAsync(string roomId);
     Task<WelcomeMessage> GetWelcomeMessageAsync(string roomId);
     Task<UpdateWelcomeMessageResponse> UpdateWelcomeMessageAsync(string roomId, UpdateWelcomeMessageRequest request);
 
@@ -334,6 +335,22 @@ public class Collaborator
 
 ```
 var collaborators = await gitterApiService.GetSuggestedCollaboratorsOnRoomAsync("room-id");
+```
+
+### Room Issues
+
+Retrieve issues on a room.
+
+```
+public class RoomIssue
+{
+    public string Title { get; set; }
+    public string Number { get; set; }
+}
+```
+
+```
+var issues = await gitterApiService.GetRoomIssuesAsync("room-id");
 ```
 
 ### Welcome message

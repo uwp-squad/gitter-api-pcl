@@ -159,6 +159,13 @@ namespace GitterSharp.Services
         Task<IEnumerable<Collaborator>> GetSuggestedCollaboratorsOnRoomAsync(string roomId);
 
         /// <summary>
+        /// Returns list of room issues
+        /// </summary>
+        /// <param name="roomId">Id of the room</param>
+        /// <returns></returns>
+        Task<IEnumerable<RoomIssue>> GetRoomIssuesAsync(string roomId);
+
+        /// <summary>
         /// Returns welcome message of a room
         /// </summary>
         /// <param name="roomId">Id of the room</param>
