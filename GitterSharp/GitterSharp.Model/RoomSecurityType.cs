@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GitterSharp.Model
 {
-    public class RoomSecurityType
+    public static class RoomSecurityType
     {
         /// <summary>
         /// A room that represents a GitHub Organisation

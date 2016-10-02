@@ -35,6 +35,7 @@ public interface IGitterApiService
     Task<Room> JoinRoomAsync(string userId, string roomId);
     Task<Room> UpdateRoomAsync(string roomId, UpdateRoomRequest request);
     Task<bool> UpdateUserRoomSettingsAsync(string userId, string roomId, UpdateUserRoomSettingsRequest request);
+    Task<RoomNotificationSettingsResponse> UpdateRoomNotificationSettingsAsync(string userId, string roomId, UpdateRoomNotificationSettingsRequest request);
     Task<SuccessResponse> LeaveRoomAsync(string roomId, string userId);
     Task<SuccessResponse> DeleteRoomAsync(string roomId);
     Task<IEnumerable<Room>> GetSuggestedRoomsAsync(string roomId);
@@ -300,6 +301,27 @@ var request = new UpdateUserRoomSettingsRequest
 };
 bool success = await gitterApiService.UpdateUserRoomSettingsAsync("user-id", "room-id", request);
 ```
+
+### Update room notification settings
+
+```
+public class UpdateRoomNotificationSettingsRequest
+{
+    public string Mode { get; set; }
+}
+```
+
+Update notification settings on a specific room. Example below shows that user X set notification mode on room Y to "mute" mode.
+
+```
+var request = new UpdateRoomNotificationSettingsRequest
+{
+    Mode = NotificationMode.Mute
+};
+var response = await gitterApiService.UpdateRoomNotificationSettingsAsync("user-id", "room-id", request);
+```
+
+By default, room notification mode is set to `NotificationMode.All`.
 
 ### Leave room
 

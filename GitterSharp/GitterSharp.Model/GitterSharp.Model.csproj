@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="Ban.cs" />
     <Compile Include="Collaborator.cs" />
+    <Compile Include="NotificationMode.cs" />
     <Compile Include="Requests\CreateRoomRequest.cs" />
     <Compile Include="Group.cs" />
     <Compile Include="GroupSecurity.cs" />
@@ -43,9 +44,11 @@
     <Compile Include="Issue.cs" />
     <Compile Include="Mention.cs" />
     <Compile Include="Message.cs" />
+    <Compile Include="Requests\UpdateRoomNotificationSettingsRequest.cs" />
     <Compile Include="Requests\UpdateRoomRequest.cs" />
     <Compile Include="Requests\UpdateUserRoomSettingsRequest.cs" />
     <Compile Include="Requests\UpdateWelcomeMessageRequest.cs" />
+    <Compile Include="Responses\RoomNotificationSettingsResponse.cs" />
     <Compile Include="Responses\SearchResponse.cs" />
     <Compile Include="Responses\SuccessResponse.cs" />
     <Compile Include="Responses\UpdateWelcomeMessageResponse.cs" />

@@ -128,6 +128,15 @@ namespace GitterSharp.Services
         Task<bool> UpdateUserRoomSettingsAsync(string userId, string roomId, UpdateUserRoomSettingsRequest request);
 
         /// <summary>
+        /// Update notification room settings of a room (for the user)
+        /// </summary>
+        /// <param name="userId">Id of the user</param>
+        /// <param name="roomId">Id of the room</param>
+        /// <param name="request">Request setting notification room settings</param>
+        /// <returns></returns>
+        Task<RoomNotificationSettingsResponse> UpdateRoomNotificationSettingsAsync(string userId, string roomId, UpdateRoomNotificationSettingsRequest request);
+
+        /// <summary>
         /// Leave the room
         /// If it is the current user, leave the room
         /// If it is another user, remove user from the room if we have admin rights
@@ -185,7 +194,7 @@ namespace GitterSharp.Services
         /// <param name="roomId">Id of the room</param>
         /// <param name="request">Request to edit room welcome message</param>
         /// <returns></returns>
-        Task<UpdateWelcomeMessageResponse> UpdateWelcomeMessageAsync(string roomId, UpdateWelcomeMessageRequest request);
+        Task<UpdateWelcomeMessageResponse> UpdateWelcomeMessageAsync(string roomId, UpdateWelcomeMessageRequest request);        
 
         #endregion
 

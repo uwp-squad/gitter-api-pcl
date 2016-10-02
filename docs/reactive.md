@@ -35,6 +35,7 @@ public interface IReactiveGitterApiService
     IObservable<Room> JoinRoom(string userId, string roomId);
     IObservable<Room> UpdateRoom(string roomId, UpdateRoomRequest request);
     IObservable<bool> UpdateUserRoomSettings(string userId, string roomId, UpdateUserRoomSettingsRequest request);
+    IObservable<RoomNotificationSettingsResponse> UpdateRoomNotificationSettings(string userId, string roomId, UpdateRoomNotificationSettingsRequest request);
     IObservable<SuccessResponse> LeaveRoom(string roomId, string userId);
     IObservable<SuccessResponse> DeleteRoom(string roomId);
     IObservable<IEnumerable<Room>> GetSuggestedRooms(string roomId);
@@ -74,7 +75,7 @@ public interface IReactiveGitterApiService
     IObservable<SearchResponse<Room>> SearchRooms(string query, int limit = 10);
     IObservable<SearchResponse<User>> SearchUsers(string query, int limit = 10);
     IObservable<SearchResponse<Repository>> SearchUserRepositories(string userId, string query, int limit = 10);
-    
+
     #endregion
 
     #region Streaming

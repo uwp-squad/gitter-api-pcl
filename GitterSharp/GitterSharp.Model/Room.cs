@@ -42,7 +42,10 @@ namespace GitterSharp.Model
 
         [JsonProperty("favourite")]
         public bool Favourite { get; set; }
-
+        
+        /// <summary>
+        /// Deprecated
+        /// </summary>
         [JsonProperty("lurk")]
         public bool DisabledNotifications { get; set; }
 

@@ -214,6 +214,20 @@ namespace GitterSharp.Services
             return response.IsSuccessStatusCode;
         }
 
+        public async Task<RoomNotificationSettingsResponse> UpdateRoomNotificationSettingsAsync(string userId, string roomId, UpdateRoomNotificationSettingsRequest request)
+        {
+            string url = _baseApiAddress + $"user/{userId}/rooms/{roomId}/settings/notifications";
+
+#if __IOS__ || __ANDROID__ || NET45
+            var content = new StringContent(JsonConvert.SerializeObject(request));
+#endif
+#if NETFX_CORE
+            var content = new HttpStringContent(JsonConvert.SerializeObject(request));
+#endif
+
+            return await HttpClient.PutAsync<RoomNotificationSettingsResponse>(url, content);
+        }
+
         public async Task<SuccessResponse> LeaveRoomAsync(string roomId, string userId)
         {
             string url = _baseApiAddress + $"rooms/{roomId}/users/{userId}";
