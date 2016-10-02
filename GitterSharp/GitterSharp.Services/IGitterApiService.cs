@@ -128,6 +128,14 @@ namespace GitterSharp.Services
         Task<bool> UpdateUserRoomSettingsAsync(string userId, string roomId, UpdateUserRoomSettingsRequest request);
 
         /// <summary>
+        /// Get notification room settings of a room (for the user)
+        /// </summary>
+        /// <param name="userId">Id of the user</param>
+        /// <param name="roomId">Id of the room</param>
+        /// <returns></returns>
+        Task<RoomNotificationSettingsResponse> GetRoomNotificationSettingsAsync(string userId, string roomId);
+
+        /// <summary>
         /// Update notification room settings of a room (for the user)
         /// </summary>
         /// <param name="userId">Id of the user</param>

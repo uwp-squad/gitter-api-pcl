@@ -35,6 +35,7 @@ public interface IGitterApiService
     Task<Room> JoinRoomAsync(string userId, string roomId);
     Task<Room> UpdateRoomAsync(string roomId, UpdateRoomRequest request);
     Task<bool> UpdateUserRoomSettingsAsync(string userId, string roomId, UpdateUserRoomSettingsRequest request);
+    Task<RoomNotificationSettingsResponse> GetRoomNotificationSettingsAsync(string userId, string roomId);
     Task<RoomNotificationSettingsResponse> UpdateRoomNotificationSettingsAsync(string userId, string roomId, UpdateRoomNotificationSettingsRequest request);
     Task<SuccessResponse> LeaveRoomAsync(string roomId, string userId);
     Task<SuccessResponse> DeleteRoomAsync(string roomId);
@@ -300,6 +301,31 @@ var request = new UpdateUserRoomSettingsRequest
     Favourite = true
 };
 bool success = await gitterApiService.UpdateUserRoomSettingsAsync("user-id", "room-id", request);
+```
+
+### Get room notification settings
+
+```
+public class RoomNotificationSettingsResponse
+{
+    public string Push { get; set; }
+    public string Mode { get; set; }
+    public bool Lurk { get; set; }
+    public bool Unread { get; set; }
+    public bool Activity { get; set; }
+    public bool Mention { get; set; }
+    public bool Announcement { get; set; }
+    public bool Desktop { get; set; }
+    public bool Mobile { get; set; }
+    public bool Default { get; set; }
+    public DefaultNotificationSettingsReponse DefaultSettings { get; set; }
+}
+```
+
+Get notification settings on a specific room.
+
+```
+var response = await gitterApiService.GetRoomNotificationSettingsAsync("user-id", "room-id");
 ```
 
 ### Update room notification settings

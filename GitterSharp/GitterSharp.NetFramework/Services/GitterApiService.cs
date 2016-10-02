@@ -214,6 +214,12 @@ namespace GitterSharp.Services
             return response.IsSuccessStatusCode;
         }
 
+        public async Task<RoomNotificationSettingsResponse> GetRoomNotificationSettingsAsync(string userId, string roomId)
+        {
+            string url = _baseApiAddress + $"user/{userId}/rooms/{roomId}/settings/notifications";
+            return await HttpClient.GetAsync<RoomNotificationSettingsResponse>(url);
+        }
+
         public async Task<RoomNotificationSettingsResponse> UpdateRoomNotificationSettingsAsync(string userId, string roomId, UpdateRoomNotificationSettingsRequest request)
         {
             string url = _baseApiAddress + $"user/{userId}/rooms/{roomId}/settings/notifications";
