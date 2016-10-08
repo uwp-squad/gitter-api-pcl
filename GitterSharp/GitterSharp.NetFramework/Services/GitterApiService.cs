@@ -270,6 +270,26 @@ namespace GitterSharp.Services
             return await HttpClient.GetAsync<IEnumerable<Ban>>(url);
         }
 
+        public async Task<BanUserResponse> BanUserFromRoomAsync(string roomId, string username)
+        {
+            string url = _baseApiAddress + $"rooms/{roomId}/bans";
+
+#if __IOS__ || __ANDROID__ || NET45
+            var content = new FormUrlEncodedContent(new Dictionary<string, string>
+            {
+                {"username", username}
+            });
+#endif
+#if NETFX_CORE
+            var content = new HttpFormUrlEncodedContent(new Dictionary<string, string>
+            {
+                {"username", username}
+            });
+#endif
+
+            return await HttpClient.PostAsync<BanUserResponse>(url, content);
+        }
+
         public async Task<WelcomeMessage> GetWelcomeMessageAsync(string roomId)
         {
             string url = _baseApiAddress + $"rooms/{roomId}/meta/welcome-message";

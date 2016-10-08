@@ -43,6 +43,7 @@ public interface IReactiveGitterApiService
     IObservable<IEnumerable<Collaborator>> GetSuggestedCollaboratorsOnRoom(string roomId);
     IObservable<IEnumerable<RoomIssue>> GetRoomIssues(string roomId);
     IObservable<IEnumerable<Ban>> GetRoomBans(string roomId);
+    IObservable<BanUserResponse> BanUserFromRoom(string roomId, string username);
     IObservable<WelcomeMessage> GetWelcomeMessage(string roomId);
     IObservable<UpdateWelcomeMessageResponse> UpdateWelcomeMessage(string roomId, UpdateWelcomeMessageRequest request);
 

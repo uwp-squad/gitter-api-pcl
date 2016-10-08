@@ -43,6 +43,7 @@ public interface IGitterApiService
     Task<IEnumerable<Collaborator>> GetSuggestedCollaboratorsOnRoomAsync(string roomId);
     Task<IEnumerable<RoomIssue>> GetRoomIssuesAsync(string roomId);
     Task<IEnumerable<Ban>> GetRoomBansAsync(string roomId);
+    Task<BanUserResponse> BanUserFromRoomAsync(string roomId, string username);
     Task<WelcomeMessage> GetWelcomeMessageAsync(string roomId);
     Task<UpdateWelcomeMessageResponse> UpdateWelcomeMessageAsync(string roomId, UpdateWelcomeMessageRequest request);
 
@@ -422,6 +423,14 @@ public class Ban
 
 ```
 var bans = await gitterApiService.GetRoomBansAsync("room-id");
+```
+
+### Ban user from room
+
+Ban user from room.
+
+```
+var banResponse = await gitterApiService.BanUserFromRoomAsync("room-id", "username");
 ```
 
 ### Welcome message

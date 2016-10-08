@@ -190,6 +190,14 @@ namespace GitterSharp.Services
         Task<IEnumerable<Ban>> GetRoomBansAsync(string roomId);
 
         /// <summary>
+        /// Ban user from a room
+        /// </summary>
+        /// <param name="roomId">Id of the room</param>
+        /// <param name="username">Username of the user to ban</param>
+        /// <returns></returns>
+        Task<BanUserResponse> BanUserFromRoomAsync(string roomId, string username);
+
+        /// <summary>
         /// Returns welcome message of a room
         /// </summary>
         /// <param name="roomId">Id of the room</param>

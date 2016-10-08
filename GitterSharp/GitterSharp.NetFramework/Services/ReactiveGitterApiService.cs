@@ -183,6 +183,11 @@ namespace GitterSharp.Services
             return _apiService.GetRoomBansAsync(roomId).ToObservable();
         }
 
+        public IObservable<BanUserResponse> BanUserFromRoom(string roomId, string username)
+        {
+            return _apiService.BanUserFromRoomAsync(roomId, username).ToObservable();
+        }
+
         public IObservable<WelcomeMessage> GetWelcomeMessage(string roomId)
         {
             return _apiService.GetWelcomeMessageAsync(roomId).ToObservable();

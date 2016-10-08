@@ -190,6 +190,14 @@ namespace GitterSharp.Services
         IObservable<IEnumerable<Ban>> GetRoomBans(string roomId);
 
         /// <summary>
+        /// Ban user from a room
+        /// </summary>
+        /// <param name="roomId">Id of the room</param>
+        /// <param name="username">Username of the user to ban</param>
+        /// <returns></returns>
+        IObservable<BanUserResponse> BanUserFromRoom(string roomId, string username);
+
+        /// <summary>
         /// Returns welcome message of a room
         /// </summary>
         /// <param name="roomId">Id of the room</param>
