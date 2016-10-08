@@ -18,3 +18,4 @@ The documentation is available in separate files dedicated to the possibilities 
 * [Usual API](/docs/usual.md), the default API that returns async Tasks
 * [Reactive API](/docs/reactive.md), a reactive version of the default API
 * [Webhook](/docs/webhook.md), a way to use Webhook through Gitter
+* [Upload images](/docs/upload-images.md), explains how to upload images
