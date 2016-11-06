@@ -300,16 +300,18 @@ namespace GitterSharp.Services
         /// </summary>
         /// <param name="query">Query to search rooms (example: "gitter" for rooms relative to gitter)</param>
         /// <param name="limit">Number max of results</param>
+        /// <param name="skip">The number of rooms to skip in the request</param>
         /// <returns></returns>
-        Task<SearchResponse<Room>> SearchRoomsAsync(string query, int limit = 10);
+        Task<SearchResponse<Room>> SearchRoomsAsync(string query, int limit = 10, int skip = 0);
 
         /// <summary>
         /// Search users
         /// </summary>
         /// <param name="query">Query to search users</param>
         /// <param name="limit">Number max of results</param>
+        /// <param name="skip">The number of users to skip in the request</param>
         /// <returns></returns>
-        Task<SearchResponse<User>> SearchUsersAsync(string query, int limit = 10);
+        Task<SearchResponse<User>> SearchUsersAsync(string query, int limit = 10, int skip = 0);
 
         /// <summary>
         /// Search repositories of a user

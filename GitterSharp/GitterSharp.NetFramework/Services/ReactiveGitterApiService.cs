@@ -254,14 +254,14 @@ namespace GitterSharp.Services
 
         #region Search
 
-        public IObservable<SearchResponse<Room>> SearchRooms(string query, int limit = 10)
+        public IObservable<SearchResponse<Room>> SearchRooms(string query, int limit = 10, int skip = 0)
         {
-            return _apiService.SearchRoomsAsync(query, limit).ToObservable();
+            return _apiService.SearchRoomsAsync(query, limit, skip).ToObservable();
         }
 
-        public IObservable<SearchResponse<User>> SearchUsers(string query, int limit = 10)
+        public IObservable<SearchResponse<User>> SearchUsers(string query, int limit = 10, int skip = 0)
         {
-            return _apiService.SearchUsersAsync(query, limit).ToObservable();
+            return _apiService.SearchUsersAsync(query, limit, skip).ToObservable();
         }
 
         public IObservable<SearchResponse<Repository>> SearchUserRepositories(string userId, string query, int limit = 10)

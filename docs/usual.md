@@ -74,8 +74,8 @@ public interface IGitterApiService
 
     #region Search
 
-    Task<SearchResponse<Room>> SearchRoomsAsync(string query, int limit = 10);
-    Task<SearchResponse<User>> SearchUsersAsync(string query, int limit = 10);
+    Task<SearchResponse<Room>> SearchRoomsAsync(string query, int limit = 10, int skip = 0);
+    Task<SearchResponse<User>> SearchUsersAsync(string query, int limit = 10, int skip = 0);
     Task<SearchResponse<Repository>> SearchUserRepositoriesAsync(string userId, string query, int limit = 10);
 
     #endregion

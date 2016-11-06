@@ -300,16 +300,18 @@ namespace GitterSharp.Services
         /// </summary>
         /// <param name="query">Query to search rooms (example: "gitter" for rooms relative to gitter)</param>
         /// <param name="limit">Number max of results</param>
+        /// <param name="skip">The number of rooms to skip in the request</param>
         /// <returns></returns>
-        IObservable<SearchResponse<Room>> SearchRooms(string query, int limit = 10);
+        IObservable<SearchResponse<Room>> SearchRooms(string query, int limit = 10, int skip = 0);
 
         /// <summary>
         /// Search users
         /// </summary>
         /// <param name="query">Query to search users</param>
         /// <param name="limit">Number max of results</param>
+        /// <param name="skip">The number of users to skip in the request</param>
         /// <returns></returns>
-        IObservable<SearchResponse<User>> SearchUsers(string query, int limit = 10);
+        IObservable<SearchResponse<User>> SearchUsers(string query, int limit = 10, int skip = 0);
 
         /// <summary>
         /// Search repositories of a user
