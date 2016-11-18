@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>gitter-api-pcl</id>
-        <version>0.6.0</version>
+        <version>0.6.1</version>
         <title>Gitter#</title>
         <authors>David Bottiau</authors>
         <owners>David Bottiau</owners>
@@ -10,24 +10,28 @@
         <iconUrl>https://avatars0.githubusercontent.com/u/5990364</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Gitter# provide you the minimum code you need to use the Gitter API</description>
-        <releaseNotes>Adding a lot of API endpoints</releaseNotes>
+        <releaseNotes></releaseNotes>
         <copyright>Copyright 2015</copyright>
         <tags>Gitter Api</tags>
         <dependencies>
-            <group>
+            <group targetFramework="net45">
                 <dependency id="Newtonsoft.Json" />
                 <dependency id="Rx-Main" />
-            </group>
-            <group targetFramework="net45">
                 <dependency id="System.Net.Http" />
             </group>
             <group targetFramework="uap10.0">
+                <dependency id="Newtonsoft.Json" />
+                <dependency id="Rx-Main" />
                 <dependency id="Microsoft.Net.Http" />
             </group>
             <group targetFramework="win81">
+                <dependency id="Newtonsoft.Json" />
+                <dependency id="Rx-Main" />
                 <dependency id="Microsoft.Net.Http" />
             </group>
             <group targetFramework="wpa81">
+                <dependency id="Newtonsoft.Json" />
+                <dependency id="Rx-Main" />
                 <dependency id="Microsoft.Net.Http" />
             </group>
         </dependencies>
