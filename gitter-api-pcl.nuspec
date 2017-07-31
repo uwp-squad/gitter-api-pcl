@@ -2,44 +2,25 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>gitter-api-pcl</id>
-        <version>0.6.1</version>
+        <version>0.7.0</version>
         <title>Gitter#</title>
         <authors>David Bottiau</authors>
         <owners>David Bottiau</owners>
-        <projectUrl>https://github.com/Odonno/gitter-api-pcl</projectUrl>
+        <projectUrl>https://github.com/uwp-squad/gitter-api-pcl</projectUrl>
         <iconUrl>https://avatars0.githubusercontent.com/u/5990364</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Gitter# provide you the minimum code you need to use the Gitter API</description>
-        <releaseNotes></releaseNotes>
+        <releaseNotes>Upgrade to .NET Standard 1.1</releaseNotes>
         <copyright>Copyright 2015</copyright>
         <tags>Gitter Api</tags>
         <dependencies>
-            <group targetFramework="net45">
-                <dependency id="Newtonsoft.Json" />
-                <dependency id="Rx-Main" />
-                <dependency id="System.Net.Http" />
-            </group>
-            <group targetFramework="uap10.0">
-                <dependency id="Newtonsoft.Json" />
-                <dependency id="Rx-Main" />
-                <dependency id="Microsoft.Net.Http" />
-            </group>
-            <group targetFramework="win81">
-                <dependency id="Newtonsoft.Json" />
-                <dependency id="Rx-Main" />
-                <dependency id="Microsoft.Net.Http" />
-            </group>
-            <group targetFramework="wpa81">
-                <dependency id="Newtonsoft.Json" />
-                <dependency id="Rx-Main" />
-                <dependency id="Microsoft.Net.Http" />
-            </group>
+            <dependency id="NETStandard.Library" version="1.6.1" />
+            <dependency id="Newtonsoft.Json" version="10.0.3" />
+            <dependency id="System.Reactive.Core" version="3.1.1" />
+            <dependency id="System.Reactive.Linq" version="3.1.1" />
         </dependencies>
     </metadata>
     <files>
-        <file src=".\GitterSharp\GitterSharp.UniversalWindows\bin\Release\GitterSharp.*.dll" target="lib\portable-win81+wpa81+uap10.0" />
-        <file src=".\GitterSharp\GitterSharp.NetFramework\bin\Release\GitterSharp.*.dll" target="lib\net45" />
-        <file src=".\GitterSharp\GitterSharp.Android\bin\Release\GitterSharp.*.dll" target="lib\monoandroid" />
-        <file src=".\GitterSharp\GitterSharp.iOS\bin\iPhone\Release\GitterSharp.*.dll" target="lib\xamarin.ios" />
+        <file src=".\GitterSharp\GitterSharp.NetStandard\bin\Release\netstandard1.1\GitterSharp.NetStandard.dll" target="lib\netstandard1.1\GitterSharp.NetStandard.dll" />
     </files>
 </package>
