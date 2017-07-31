@@ -2,7 +2,7 @@
 
 With Gitter#, you can use the Gitter API as a service. So, everything you need (almost) is inside a single place : *GitterApiService*.
 
-```
+```c#
 public interface IGitterApiService
 {
     #region Properties
@@ -92,7 +92,7 @@ public interface IGitterApiService
 
 ## User
 
-```
+```c#
 public class User
 {
     public string Id { get; set; }
@@ -109,7 +109,7 @@ public class User
 }
 ```
 
-```
+```c#
 public class Organization
 {
     public string Id { get; set; }
@@ -119,7 +119,7 @@ public class Organization
 }
 ```
 
-```
+```c#
 public class Repository
 {
     public string Id { get; set; }
@@ -137,7 +137,7 @@ public class Repository
 
 Retrieve information about the user logged in (after authentication).
 
-```
+```c#
 var currentUser = await gitterApiService.GetCurrentUserAsync();
 ```
 
@@ -145,7 +145,7 @@ var currentUser = await gitterApiService.GetCurrentUserAsync();
 
 Retrieve the list of organizations of the current user logged.
 
-```
+```c#
 var currentUser = await gitterApiService.GetCurrentUserAsync();
 var organizations = await gitterApiService.GetOrganizationsAsync(currentUser.Id);
 ```
@@ -154,7 +154,7 @@ var organizations = await gitterApiService.GetOrganizationsAsync(currentUser.Id)
 
 Retrieve the list of repositories of the current user logged.
 
-```
+```c#
 var currentUser = await gitterApiService.GetCurrentUserAsync();
 var repositories = await gitterApiService.GetRepositoriesAsync(currentUser.Id);
 ```
@@ -163,13 +163,13 @@ var repositories = await gitterApiService.GetRepositoriesAsync(currentUser.Id);
 
 Retrieve suggested rooms for the current user
 
-```
+```c#
 var rooms = await gitterApiService.GetSuggestedRoomsAsync();
 ```
 
 ## Unread items
 
-```
+```c#
 public class UnreadItems
 {
     public IEnumerable<string> Messages { get; set; }
@@ -181,7 +181,7 @@ public class UnreadItems
 
 Retrieve unread items (messages + mentions) of a specific room. Each list of string contains a list of message id.
 
-```
+```c#
 var unreadItems = await gitterApiService.RetrieveUnreadChatMessagesAsync("user-id", "room-id");
 ```
 
@@ -189,14 +189,14 @@ var unreadItems = await gitterApiService.RetrieveUnreadChatMessagesAsync("user-i
 
 Mark unread messages for the user who are currently reading the messages. You need to pass the list of message id.
 
-```
+```c#
 IEnumerable<string> ids = new [] { "message-id", "another-message-id" };
 await gitterApiService.MarkUnreadChatMessagesAsync("user-id", "room-id", ids);
 ```
 
 ## Rooms
 
-```
+```c#
 public class Room
 {
     public string Id { get; set; }
@@ -231,7 +231,7 @@ public class Room
 
 Retrieve all rooms where the current user is in.
 
-```
+```c#
 var rooms = await gitterApiService.GetRoomsAsync();
 ```
 
@@ -239,7 +239,7 @@ var rooms = await gitterApiService.GetRoomsAsync();
 
 Returns list of users in the room.
 
-```
+```c#
 var users = await gitterApiService.GetRoomUsersAsync("room-id");
 ```
 
@@ -251,19 +251,19 @@ THere is two endpoints to join a room, by room name or by room id.
 
 The current user join a room. The parameter *room-name* looks like this : *Odonno/Modern-Gitter*.
 
-```
+```c#
 var room = await gitterApiService.JoinRoomAsync("room-name");
 ```
 
 #### Join room by id
 
-```
+```c#
 var room = await gitterApiService.JoinRoomAsync("user-id", "room-id");
 ```
 
 ### Update room
 
-```
+```c#
 public class UpdateRoomRequest
 {
     public string Topic { get; set; }
@@ -274,7 +274,7 @@ public class UpdateRoomRequest
 
 Update some room information.
 
-```
+```c#
 var request = new UpdateRoomRequest
 {
     Topic = "A gitter API library for .NET applications",
@@ -287,7 +287,7 @@ Attention ! Notice that `tags` property is not returned by the response...
 
 ### Update user room settings
 
-```
+```c#
 public class UpdateUserRoomSettingsRequest
 {
     public bool Favourite { get; set; }
@@ -296,7 +296,7 @@ public class UpdateUserRoomSettingsRequest
 
 Update settings of the user on a specific room. Example below shows that user X set room Y as favourite.
 
-```
+```c#
 var request = new UpdateUserRoomSettingsRequest
 {
     Favourite = true
@@ -306,7 +306,7 @@ bool success = await gitterApiService.UpdateUserRoomSettingsAsync("user-id", "ro
 
 ### Get room notification settings
 
-```
+```c#
 public class RoomNotificationSettingsResponse
 {
     public string Push { get; set; }
@@ -325,13 +325,13 @@ public class RoomNotificationSettingsResponse
 
 Get notification settings on a specific room.
 
-```
+```c#
 var response = await gitterApiService.GetRoomNotificationSettingsAsync("user-id", "room-id");
 ```
 
 ### Update room notification settings
 
-```
+```c#
 public class UpdateRoomNotificationSettingsRequest
 {
     public string Mode { get; set; }
@@ -340,7 +340,7 @@ public class UpdateRoomNotificationSettingsRequest
 
 Update notification settings on a specific room. Example below shows that user X set notification mode on room Y to "mute" mode.
 
-```
+```c#
 var request = new UpdateRoomNotificationSettingsRequest
 {
     Mode = NotificationMode.Mute
@@ -354,7 +354,7 @@ By default, room notification mode is set to `NotificationMode.All`.
 
 Leave room (if it is current user) or remove user from room if we have rights to do it.
 
-```
+```c#
 var successResponse = await gitterApiService.LeaveRoomAsync("room-id", "user-id");
 ```
 
@@ -362,7 +362,7 @@ var successResponse = await gitterApiService.LeaveRoomAsync("room-id", "user-id"
 
 Delete room by id.
 
-```
+```c#
 var successResponse = await gitterApiService.DeleteRoomAsync("room-id");
 ```
 
@@ -370,7 +370,7 @@ var successResponse = await gitterApiService.DeleteRoomAsync("room-id");
 
 Retrieve all suggested rooms based on a room.
 
-```
+```c#
 var rooms = await gitterApiService.GetSuggestedRoomsAsync("room-id");
 ```
 
@@ -378,7 +378,7 @@ var rooms = await gitterApiService.GetSuggestedRoomsAsync("room-id");
 
 Retrieve collaborators that you can invite to join the room.
 
-```
+```c#
 public class Collaborator
 {
     public string DisplayName { get; set; }
@@ -388,7 +388,7 @@ public class Collaborator
 }
 ```
 
-```
+```c#
 var collaborators = await gitterApiService.GetSuggestedCollaboratorsOnRoomAsync("room-id");
 ```
 
@@ -396,7 +396,7 @@ var collaborators = await gitterApiService.GetSuggestedCollaboratorsOnRoomAsync(
 
 Retrieve issues on a room.
 
-```
+```c#
 public class RoomIssue
 {
     public string Title { get; set; }
@@ -404,7 +404,7 @@ public class RoomIssue
 }
 ```
 
-```
+```c#
 var issues = await gitterApiService.GetRoomIssuesAsync("room-id");
 ```
 
@@ -412,7 +412,7 @@ var issues = await gitterApiService.GetRoomIssuesAsync("room-id");
 
 Retrieve banned users on a room.
 
-```
+```c#
 public class Ban
 {
     public User User { get; set; }
@@ -421,7 +421,7 @@ public class Ban
 }
 ```
 
-```
+```c#
 var bans = await gitterApiService.GetRoomBansAsync("room-id");
 ```
 
@@ -429,7 +429,7 @@ var bans = await gitterApiService.GetRoomBansAsync("room-id");
 
 Ban user from room.
 
-```
+```c#
 var banResponse = await gitterApiService.BanUserFromRoomAsync("room-id", "username");
 ```
 
@@ -437,7 +437,7 @@ var banResponse = await gitterApiService.BanUserFromRoomAsync("room-id", "userna
 
 Retrieve welcome message of the room
 
-```
+```c#
 var welcomeMessage = await gitterApiService.GetWelcomeMessageAsync("room-id");
 ```
 
@@ -445,7 +445,7 @@ var welcomeMessage = await gitterApiService.GetWelcomeMessageAsync("room-id");
 
 Update welcome message of the room
 
-```
+```c#
 var request = new UpdateWelcomeMessageRequest
 {
     Content = "A welcome message"
@@ -455,7 +455,7 @@ var result = await gitterApiService.UpdateWelcomeMessageAsync("room-id", request
 
 ## Messages
 
-```
+```c#
 public class Message
 {
     public string Id { get; set; }
@@ -473,14 +473,14 @@ public class Message
 }
 ```
 
-```
+```c#
 public class MessageUrl
 {
     public string Url { get; set; }
 }
 ```
 
-```
+```c#
 public class Mention
 {
     public string ScreenName { get; set; }
@@ -488,7 +488,7 @@ public class Mention
 }
 ```
 
-```
+```c#
 public class Issue
 {
     public string Number { get; set; }
@@ -499,13 +499,13 @@ public class Issue
 
 Retrieve a single message based on its id.
 
-```
+```c#
 var message = await gitterApiService.GetSingleRoomMessageAsync("room-id", "message-id");
 ```
 
 ### [All room messages](https://developer.gitter.im/docs/messages-resource#list-messages)
 
-```
+```c#
 public class MessageRequest
 {
     public int Limit { get; set; } = 50;
@@ -520,14 +520,14 @@ public class MessageRequest
 
 Retrieve multiple messages contained in a room. There is multiple parameters you can use to define a more precise request.
 
-```
+```c#
 var request = new MessageRequest();
 var messages = await gitterApiService.GetRoomMessagesAsync("room-id", request);
 ```
 
 By default, the *limit* of messages you can get using this request is 50.
 
-```
+```c#
 var request = new MessageRequest
 {
     Limit = 20
@@ -537,7 +537,7 @@ var messages = await gitterApiService.GetRoomMessagesAsync("room-id", request);
 
 Of course, you can overload this parameter like this. Here, we set the *limit* to 20.
 
-```
+```c#
 var request = new MessageRequest
 {
     Limit = 20,
@@ -558,7 +558,7 @@ You can also search specific topic inside messages with *q* (query) parameter.
 
 Send a new message to the room.
 
-```
+```c#
 var message = await gitterApiService.SendMessageAsync("room-id", "this is a test message");
 ```
 
@@ -566,13 +566,13 @@ var message = await gitterApiService.SendMessageAsync("room-id", "this is a test
 
 Update an existing message.
 
-```
+```c#
 var message = await gitterApiService.UpdateMessageAsync("room-id", "message-id", "this is an updated message");
 ```
 
 ## Events
 
-```
+```c#
 public class RoomEvent
 {
     public string Id { get; set; }
@@ -589,13 +589,13 @@ public class RoomEvent
 
 Retrieve all room events.
 
-```
+```c#
 var events = await gitterApiService.GetRoomEventsAsync("room-id");
 ```
 
 ## Groups
 
-```
+```c#
 public class Group
 {
     public string Id { get; set; }
@@ -608,13 +608,13 @@ public class Group
 
 ### [List of groups](https://developer.gitter.im/docs/groups-resource#list-groups)
 
-```
+```c#
 var groups = await gitterApiService.GetGroupsAsync("room-id");
 ```
 
 ### [List of rooms in a group](https://developer.gitter.im/docs/groups-resource#list-rooms-under-group)
 
-```
+```c#
 var rooms = await gitterApiService.GetGroupRoomsAsync("group-id");
 ```
 
@@ -622,7 +622,7 @@ var rooms = await gitterApiService.GetGroupRoomsAsync("group-id");
 
 The user can create a room, generally a channel, based on a name and other parameters.
 
-```
+```c#
 public class CreateRoomRequest
 {
     public string Name { get; set; }
@@ -631,7 +631,7 @@ public class CreateRoomRequest
 }
 ```
 
-```
+```c#
 var request = new CreateRoomRequest { Name = "test" };
 var room = await gitterApiService.CreateRoomAsync("group-id", request);
 ```
@@ -642,7 +642,7 @@ var room = await gitterApiService.CreateRoomAsync("group-id", request);
 
 Search rooms by name.
 
-```
+```c#
 var results = await gitterApiService.SearchRoomsAsync("test", 50);
 ```
 
@@ -650,7 +650,7 @@ var results = await gitterApiService.SearchRoomsAsync("test", 50);
 
 Search users by name.
 
-```
+```c#
 var results = await gitterApiService.SearchUsersAsync("test", 50);
 ```
 
@@ -658,7 +658,7 @@ var results = await gitterApiService.SearchUsersAsync("test", 50);
 
 Search repositories of a user.
 
-```
+```c#
 var results = await gitterApiService.SearchUserRepositoriesAsync("user-id", "test", 50);
 ```
 
@@ -668,6 +668,6 @@ var results = await gitterApiService.SearchUserRepositoriesAsync("user-id", "tes
 
 This method is mainly use to build a heatmap of room messages.
 
-```
+```c#
 var datesWithCount = await gitterApiService.GetRoomMessagesCountByDayAsync("room-id");
 ```

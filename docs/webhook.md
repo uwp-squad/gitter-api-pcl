@@ -11,7 +11,7 @@ This webhook service give you a way to send two kinds of message :
 
 ## The usual way
 
-```
+```c#
 public interface IWebhookService
 {
     Task<bool> PostAsync(string url, string message, MessageLevel level = MessageLevel.Info);
@@ -20,7 +20,7 @@ public interface IWebhookService
 
 This way, you can send messages whenever you want like that :
 
-```
+```c#
 var webhookService = new WebhookService();
 
 bool infoPosted = await webhookService.PostAsync("webhook-url", "a simple message", MessageLevel.Info);
@@ -30,7 +30,7 @@ bool errorPosted = await webhookService.PostAsync("webhook-url", "an error messa
 
 ## The reactive way
 
-```
+```c#
 public interface IReactiveWebhookService
 {
     IObservable<bool> Post(string url, string message, MessageLevel level = MessageLevel.Info);
@@ -39,7 +39,7 @@ public interface IReactiveWebhookService
 
 In a reactive way, you can send messages like that :
 
-```
+```c#
 var webhookService = new ReactiveWebhookService();
 
 webhookService.Post("webhook-url", "a simple message", MessageLevel.Info)

@@ -13,7 +13,7 @@ Once you downloaded an image using one of these services, you can send a new mes
 
 ## Send the message
 
-```
+```c#
 string fileName = "myImage.png";
 string filePath = $"http://localhost/{fileName}";
 string textMessage = $"[![{fileName}]({filePath})]({filePath})";

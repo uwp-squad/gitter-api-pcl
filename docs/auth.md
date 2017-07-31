@@ -4,14 +4,14 @@ The Gitter API requires you to retrieve a token to have access to the entire API
 
 Now, you should receive a token. All you need to do is to provide it to the ApiService :
 
-```
+```c#
 IGitterApiService gitterApiService = new GitterApiService();
 gitterApiService.Token = "the-token";
 ```
 
 In case you want to set the token instantly by creating a new instance of *GitterApiService*, you can use a specific constructor :
 
-```
+```c#
 IGitterApiService gitterApiService = new GitterApiService("the-token");
 ```
 

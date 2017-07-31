@@ -2,7 +2,7 @@
 
 Like the usual Gitter Api Service, you can use the Gitter API using Reactive Extensions. This time, everything you need is inside a single place : *ReactiveGitterApiService*.
 
-```
+```c#
 public interface IReactiveGitterApiService
 {
 	#region Properties
@@ -101,7 +101,7 @@ Most of methods here are just usual methods adapted to Rx (User, Unread Items, R
 
 And, instead of executing methods asynchronouly (*Task*), you will subscribe to the result. For example :
 
-```
+```c#
 gitterApiService.GetCurrentUser()
 				.Subscribe(user =>
 					{
@@ -115,7 +115,7 @@ gitterApiService.GetCurrentUser()
 
 Retrieve realtime new messages inside a room.
 
-```
+```c#
 gitterApiService.GetRealtimeMessages(Room.Id)
                 .Subscribe(message => 
 					{
@@ -128,7 +128,7 @@ gitterApiService.GetRealtimeMessages(Room.Id)
 
 Retrieve realtime new events inside a room.
 
-```
+```c#
 gitterApiService.GetRealtimeEvents(Room.Id)
                 .Subscribe(event => 
 					{
