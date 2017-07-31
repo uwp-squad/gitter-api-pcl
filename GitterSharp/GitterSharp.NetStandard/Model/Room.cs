@@ -28,7 +28,7 @@ namespace GitterSharp.Model
         public int UserCount { get; set; }
 
         [JsonProperty("user")]
-        public User User { get; set; }
+        public GitterUser User { get; set; }
 
         [JsonProperty("unreadItems")]
         public int UnreadItems { get; set; }

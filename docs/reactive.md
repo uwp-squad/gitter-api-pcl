@@ -11,9 +11,15 @@ public interface IReactiveGitterApiService
 
     #endregion
 
+    #region Repository
+
+    IObservable<RepositoryInfo> GetRepositoryInfo(string repositoryName);
+
+    #endregion
+
     #region User
 
-    IObservable<User> GetCurrentUser();
+    IObservable<GitterUser> GetCurrentUser();
     IObservable<IEnumerable<Organization>> GetOrganizations(string userId);
     IObservable<IEnumerable<Repository>> GetRepositories(string userId);
     IObservable<IEnumerable<Room>> GetSuggestedRooms();
@@ -75,7 +81,7 @@ public interface IReactiveGitterApiService
     #region Search
 
     IObservable<SearchResponse<Room>> SearchRooms(string query, int limit = 10, int skip = 0);
-    IObservable<SearchResponse<User>> SearchUsers(string query, int limit = 10, int skip = 0);
+    IObservable<SearchResponse<GitterUser>> SearchUsers(string query, int limit = 10, int skip = 0);
     IObservable<SearchResponse<Repository>> SearchUserRepositories(string userId, string query, int limit = 10);
 
     #endregion

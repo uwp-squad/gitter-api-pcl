@@ -22,7 +22,7 @@ namespace GitterSharp.Model
         public DateTime? EditedDate { get; set; }
 
         [JsonProperty("fromUser")]
-        public User User { get; set; }
+        public GitterUser User { get; set; }
 
         [JsonProperty("unread")]
         public bool UnreadByCurrent { get; set; }

@@ -24,6 +24,17 @@ namespace GitterSharp.Services
 
         #endregion
 
+        #region Repository
+
+        /// <summary>
+        /// Returns the repository info from GitHub API
+        /// </summary>
+        /// <param name="repositoryName">Full name of the repository (ex: "owner/repoName")</param>
+        /// <returns></returns>
+        IObservable<RepositoryInfo> GetRepositoryInfo(string repositoryName);
+
+        #endregion
+
         #region User
 
         /// <summary>
@@ -31,7 +42,7 @@ namespace GitterSharp.Services
         /// (https://developer.gitter.im/docs/authentication#check-who-you-are-authenticated-as)
         /// </summary>
         /// <returns></returns>
-        IObservable<User> GetCurrentUser();
+        IObservable<GitterUser> GetCurrentUser();
 
         /// <summary>
         /// Returns a list of organizations of a user
@@ -98,7 +109,7 @@ namespace GitterSharp.Services
         /// <param name="q">A search query for user names</param>
         /// <param name="skip">The number of users to skip in the request</param>
         /// <returns></returns>
-        IObservable<IEnumerable<User>> GetRoomUsers(string roomId, int limit = 30, string q = null, int skip = 0);  // TODO : `limit` and `skip` does not exist anymore
+        IObservable<IEnumerable<GitterUser>> GetRoomUsers(string roomId, int limit = 30, string q = null, int skip = 0);  // TODO : `limit` and `skip` does not exist anymore
 
         /// <summary>
         /// Join and retrieve the room the user ask using the URI of the room
@@ -317,7 +328,7 @@ namespace GitterSharp.Services
         /// <param name="limit">Number max of results</param>
         /// <param name="skip">The number of users to skip in the request</param>
         /// <returns></returns>
-        IObservable<SearchResponse<User>> SearchUsers(string query, int limit = 10, int skip = 0);
+        IObservable<SearchResponse<GitterUser>> SearchUsers(string query, int limit = 10, int skip = 0);
 
         /// <summary>
         /// Search repositories of a user
@@ -408,9 +419,18 @@ namespace GitterSharp.Services
 
         #endregion
 
+        #region Repository
+
+        public IObservable<RepositoryInfo> GetRepositoryInfo(string repositoryName)
+        {
+            return _apiService.GetRepositoryInfoAsync(repositoryName).ToObservable();
+        }
+
+        #endregion
+
         #region User
 
-        public IObservable<User> GetCurrentUser()
+        public IObservable<GitterUser> GetCurrentUser()
         {
             return _apiService.GetCurrentUserAsync().ToObservable();
         }
@@ -453,7 +473,7 @@ namespace GitterSharp.Services
             return _apiService.GetRoomsAsync().ToObservable();
         }
 
-        public IObservable<IEnumerable<User>> GetRoomUsers(string roomId, int limit = 30, string q = null, int skip = 0)
+        public IObservable<IEnumerable<GitterUser>> GetRoomUsers(string roomId, int limit = 30, string q = null, int skip = 0)
         {
             return _apiService.GetRoomUsersAsync(roomId, limit, q, skip).ToObservable();
         }
@@ -594,7 +614,7 @@ namespace GitterSharp.Services
             return _apiService.SearchRoomsAsync(query, limit, skip).ToObservable();
         }
 
-        public IObservable<SearchResponse<User>> SearchUsers(string query, int limit = 10, int skip = 0)
+        public IObservable<SearchResponse<GitterUser>> SearchUsers(string query, int limit = 10, int skip = 0)
         {
             return _apiService.SearchUsersAsync(query, limit, skip).ToObservable();
         }

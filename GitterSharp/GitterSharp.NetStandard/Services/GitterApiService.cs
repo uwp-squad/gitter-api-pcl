@@ -24,6 +24,17 @@ namespace GitterSharp.Services
 
         #endregion
 
+        #region Repository
+
+        /// <summary>
+        /// Returns the repository info from GitHub API
+        /// </summary>
+        /// <param name="repositoryName">Full name of the repository (ex: "owner/repoName")</param>
+        /// <returns></returns>
+        Task<RepositoryInfo> GetRepositoryInfoAsync(string repositoryName);
+
+        #endregion
+
         #region User
 
         /// <summary>
@@ -31,7 +42,7 @@ namespace GitterSharp.Services
         /// (https://developer.gitter.im/docs/authentication#check-who-you-are-authenticated-as)
         /// </summary>
         /// <returns></returns>
-        Task<User> GetCurrentUserAsync();
+        Task<GitterUser> GetCurrentUserAsync();
 
         /// <summary>
         /// Returns a list of organizations of a user
@@ -98,7 +109,7 @@ namespace GitterSharp.Services
         /// <param name="q">A search query for user names</param>
         /// <param name="skip">The number of users to skip in the request</param>
         /// <returns></returns>
-        Task<IEnumerable<User>> GetRoomUsersAsync(string roomId, int limit = 30, string q = null, int skip = 0); // TODO : `limit` and `skip` does not exist anymore
+        Task<IEnumerable<GitterUser>> GetRoomUsersAsync(string roomId, int limit = 30, string q = null, int skip = 0); // TODO : `limit` and `skip` does not exist anymore
 
         /// <summary>
         /// Join and retrieve the room the user ask using the URI of the room
@@ -317,7 +328,7 @@ namespace GitterSharp.Services
         /// <param name="limit">Number max of results</param>
         /// <param name="skip">The number of users to skip in the request</param>
         /// <returns></returns>
-        Task<SearchResponse<User>> SearchUsersAsync(string query, int limit = 10, int skip = 0);
+        Task<SearchResponse<GitterUser>> SearchUsersAsync(string query, int limit = 10, int skip = 0);
 
         /// <summary>
         /// Search repositories of a user
@@ -382,12 +393,27 @@ namespace GitterSharp.Services
 
         #endregion
 
+        #region Repository
+
+        public async Task<RepositoryInfo> GetRepositoryInfoAsync(string repositoryName)
+        {
+            if (string.IsNullOrWhiteSpace(repositoryName))
+            {
+                throw new ArgumentNullException(nameof(repositoryName));
+            }
+
+            string url = _baseApiAddress + $"repo-info?repo={repositoryName}";
+            return await HttpClient.GetAsync<RepositoryInfo>(url);
+        }
+
+        #endregion
+
         #region User
 
-        public async Task<User> GetCurrentUserAsync()
+        public async Task<GitterUser> GetCurrentUserAsync()
         {
             string url = _baseApiAddress + "user/me";
-            return await HttpClient.GetAsync<User>(url);
+            return await HttpClient.GetAsync<GitterUser>(url);
         }
 
         public async Task<IEnumerable<Organization>> GetOrganizationsAsync(string userId)
@@ -439,7 +465,7 @@ namespace GitterSharp.Services
             return await HttpClient.GetAsync<IEnumerable<Room>>(url);
         }
 
-        public async Task<IEnumerable<User>> GetRoomUsersAsync(string roomId, int limit = 30, string q = null, int skip = 0)
+        public async Task<IEnumerable<GitterUser>> GetRoomUsersAsync(string roomId, int limit = 30, string q = null, int skip = 0)
         {
             string url = _baseApiAddress + $"rooms/{roomId}/users?limit={limit}";
 
@@ -449,7 +475,7 @@ namespace GitterSharp.Services
             if (skip > 0)
                 url += $"&skip={skip}";
 
-            return await HttpClient.GetAsync<IEnumerable<User>>(url);
+            return await HttpClient.GetAsync<IEnumerable<GitterUser>>(url);
         }
 
         public async Task<Room> JoinRoomAsync(string roomName)
@@ -684,7 +710,7 @@ namespace GitterSharp.Services
             return await HttpClient.GetAsync<SearchResponse<Room>>(url);
         }
 
-        public async Task<SearchResponse<User>> SearchUsersAsync(string query, int limit = 10, int skip = 0)
+        public async Task<SearchResponse<GitterUser>> SearchUsersAsync(string query, int limit = 10, int skip = 0)
         {
             if (string.IsNullOrWhiteSpace(query))
             {
@@ -692,7 +718,7 @@ namespace GitterSharp.Services
             }
 
             string url = _baseApiAddress + $"user?q={query}&limit={limit}&skip={skip}";
-            return await HttpClient.GetAsync<SearchResponse<User>>(url);
+            return await HttpClient.GetAsync<SearchResponse<GitterUser>>(url);
         }
 
         public async Task<SearchResponse<Repository>> SearchUserRepositoriesAsync(string userId, string query, int limit = 10)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace GitterSharp.Model
 {
-    public class User
+    public class GitterUser
     {
         [JsonProperty("id")]
         public string Id { get; set; }

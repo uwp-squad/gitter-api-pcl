@@ -11,9 +11,15 @@ public interface IGitterApiService
 
     #endregion
 
+    #region Repository
+
+    Task<RepositoryInfo> GetRepositoryInfoAsync(string repositoryName);
+
+    #endregion
+
     #region User
 
-    Task<User> GetCurrentUserAsync();
+    Task<GitterUser> GetCurrentUserAsync();
     Task<IEnumerable<Organization>> GetOrganizationsAsync(string userId);
     Task<IEnumerable<Repository>> GetRepositoriesAsync(string userId);
     Task<IEnumerable<Room>> GetSuggestedRoomsAsync();
@@ -75,7 +81,7 @@ public interface IGitterApiService
     #region Search
 
     Task<SearchResponse<Room>> SearchRoomsAsync(string query, int limit = 10, int skip = 0);
-    Task<SearchResponse<User>> SearchUsersAsync(string query, int limit = 10, int skip = 0);
+    Task<SearchResponse<GitterUser>> SearchUsersAsync(string query, int limit = 10, int skip = 0);
     Task<SearchResponse<Repository>> SearchUserRepositoriesAsync(string userId, string query, int limit = 10);
 
     #endregion
@@ -90,10 +96,134 @@ public interface IGitterApiService
 
 **Be careful, as no usual methods allow us to send incoming streaming messages, the streaming API could only be available using the [reactive](/docs/reactive.md) version of this service.**
 
+## Repository
+
+```c#
+public class GitHubUser
+{
+    public long Id { get; set; }
+    public string Username { get; set; }
+    public string AvatarUrl { get; set; }
+    public string GravatarId { get; set; }
+    public string ApiUrl { get; set; }
+    public string WebsiteUrl { get; set; }
+    public string FollowersApiUrl { get; set; }
+    public string FollowingApiUrl { get; set; }
+    public string GistsApiUrl { get; set; }
+    public string StarredApiUrl { get; set; }
+    public string SubscriptionsApiUrl { get; set; }
+    public string OrgsApiUrl { get; set; }
+    public string ReposApiUrl { get; set; }
+    public string EventsApiUrl { get; set; }
+    public string ReceivedEventsApiUrl { get; set; }
+    public string Type { get; set; }
+    public bool IsGitHubAdmin { get; set; }
+}
+```
+
+```c#
+public class GitHubPermission
+{
+    public bool Admin { get; set; }
+    public bool Push { get; set; }
+    public bool Pull { get; set; }
+}
+```
+
+```c#
+public class RepositoryInfo
+{
+    public long Id { get; set; }
+    public string Name { get; set; }
+    public string FullName { get; set; }
+    public GitHubUser Owner { get; set; }
+    public bool IsPrivate { get; set; }
+    public string WebsiteUrl{ get; set; }
+    public string Description { get; set; }
+    public bool IsFork { get; set; }
+    public string ApiUrl { get; set; }
+    public string ForksApiUrl { get; set; }
+    public string KeysApiUrl { get; set; }
+    public string CollaboratorsApiUrl { get; set; }
+    public string TeamsApiUrl { get; set; }
+    public string HooksApiUrl { get; set; }
+    public string IssueEventsApiUrl { get; set; }
+    public string EventsApiUrl { get; set; }
+    public string AssigneesApiUrl { get; set; }
+    public string BranchesApiUrl { get; set; }
+    public string TagsApiUrl { get; set; }
+    public string BlobsApiUrl { get; set; }
+    public string GitTagsApiUrl { get; set; }
+    public string GitRefsApiUrl { get; set; }
+    public string TreesApiUrl { get; set; }
+    public string StatusesApiUrl { get; set; }
+    public string LanguagesApiUrl { get; set; }
+    public string StargazersApiUrl { get; set; }
+    public string ContributorsApiUrl { get; set; }
+    public string SubscribersApiUrl { get; set; }
+    public string SubscriptionApiUrl { get; set; }
+    public string CommitsApiUrl { get; set; }
+    public string GitCommitsApiUrl { get; set; }
+    public string CommentsApiUrl { get; set; }
+    public string IssueCommentsApiUrl { get; set; }
+    public string ContentsApiUrl { get; set; }
+    public string CompareApiUrl { get; set; }
+    public string MergesApiUrl { get; set; }
+    public string ArchiveApiUrl { get; set; }
+    public string DownloadsApiUrl { get; set; }
+    public string IssuesApiUrl { get; set; }
+    public string PullsApiUrl { get; set; }
+    public string MilestonesApiUrl { get; set; }
+    public string NotificationsApiUrl { get; set; }
+    public string LabelsApiUrl { get; set; }
+    public string ReleasesApiUrl { get; set; }
+    public string DeploymentsApiUrl { get; set; }
+    public string CreatedAt { get; set; }
+    public string UpdatedAt { get; set; }
+    public string PushedAt { get; set; }
+    public string GitUrl { get; set; }
+    public string SshUrl { get; set; }
+    public string CloneUrl { get; set; }
+    public string SvnUrl { get; set; }
+    public string HomepageUrl { get; set; }
+    public long Size { get; set; }
+    public int StargazersCount { get; set; }
+    public int WatchersCount { get; set; }
+    public string Language { get; set; }
+    public bool HasIssues { get; set; }
+    public bool HasProjects { get; set; }
+    public bool HasDownloads { get; set; }
+    public bool HasWiki { get; set; }
+    public bool HasPages { get; set; }
+    public int ForksCount { get; set; }
+    public string MirrorUrl { get; set; }
+    public int OpenIssuesCount { get; set; }
+    public int Forks { get; set; }
+    public int OpenIssues { get; set; }
+    public int Watchers { get; set; }
+    public string DefaultBranch { get; set; }
+    public GitHubPermission Permissions { get; set; }
+    public bool AllowSquashMerge { get; set; }
+    public bool AllowMergeCommit { get; set; }
+    public bool AllowRebaseMerge { get; set; }
+    public GitHubUser Organization { get; set; }
+    public int NetworkCount { get; set; }
+    public int SubscribersCount { get; set; }
+}
+```
+
+### Repository info
+
+Retrieve repository information from GitHub API.
+
+```c#
+var repositoryInfo = await gitterApiService.GetRepositoryInfoAsync("owner/repoName");
+```
+
 ## User
 
 ```c#
-public class User
+public class GitterUser
 {
     public string Id { get; set; }
     public string Username { get; set; }
