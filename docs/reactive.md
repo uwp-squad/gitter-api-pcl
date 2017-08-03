@@ -20,9 +20,14 @@ public interface IReactiveGitterApiService
     #region User
 
     IObservable<GitterUser> GetCurrentUser();
+    IObservable<IEnumerable<Organization>> GetMyOrganizations(bool unused = false);
     IObservable<IEnumerable<Organization>> GetOrganizations(string userId);
+    IObservable<IEnumerable<Repository>> GetMyRepositories(string query, int limit = 0);
+    IObservable<IEnumerable<Repository>> GetMyRepositories(bool unused = false);
     IObservable<IEnumerable<Repository>> GetRepositories(string userId);
     IObservable<IEnumerable<Room>> GetSuggestedRooms();
+    IObservable<IEnumerable<RoomUnreadCount>> GetAggregatedUnreadItems();
+    IObservable<UserInfo> GetUserInfo(string username);
 
     #endregion
 
@@ -49,9 +54,11 @@ public interface IReactiveGitterApiService
     IObservable<IEnumerable<Collaborator>> GetSuggestedCollaboratorsOnRoom(string roomId);
     IObservable<IEnumerable<RoomIssue>> GetRoomIssues(string roomId);
     IObservable<IEnumerable<Ban>> GetRoomBans(string roomId);
-    IObservable<BanUserResponse> BanUserFromRoom(string roomId, string username);
+    IObservable<BanUserResponse> BanUserFromRoom(string roomId, string username, bool removeMessages = false);
+    IObservable<SuccessResponse> UnbanUser(string roomId, string userId);
     IObservable<WelcomeMessage> GetWelcomeMessage(string roomId);
     IObservable<UpdateWelcomeMessageResponse> UpdateWelcomeMessage(string roomId, UpdateWelcomeMessageRequest request);
+    IObservable<InviteUserResponse> InviteUserInRoom(string roomId, InviteUserRequest request);
 
     #endregion
 
@@ -61,12 +68,14 @@ public interface IReactiveGitterApiService
     IObservable<IEnumerable<Message>> GetRoomMessages(string roomId, MessageRequest request);
     IObservable<Message> SendMessage(string roomId, string message);
     IObservable<Message> UpdateMessage(string roomId, string messageId, string message);
+    IObservable<Unit> DeleteMessage(string roomId, string messageId);
+    IObservable<IEnumerable<GitterUser>> GetUsersWhoReadMessage(string roomId, string messageId)
 
     #endregion
 
     #region Events
 
-    IObservable<IEnumerable<RoomEvent>> GetRoomEvents(string roomId);
+    IObservable<IEnumerable<RoomEvent>> GetRoomEvents(string roomId, int limit = 50, int skip = 0, string beforeId = null);
 
     #endregion
 
@@ -75,6 +84,7 @@ public interface IReactiveGitterApiService
     IObservable<IEnumerable<Group>> GetGroups();
     IObservable<IEnumerable<Room>> GetGroupRooms(string groupId);
     IObservable<Room> CreateRoom(string groupId, CreateRoomRequest request);
+    IObservable<IEnumerable<Room>> GetSuggestedRoomsFromGroup(string groupId);
 
     #endregion
 

@@ -20,9 +20,14 @@ public interface IGitterApiService
     #region User
 
     Task<GitterUser> GetCurrentUserAsync();
+    Task<IEnumerable<Organization>> GetMyOrganizationsAsync(bool unused = false);
     Task<IEnumerable<Organization>> GetOrganizationsAsync(string userId);
+    Task<IEnumerable<Repository>> GetMyRepositoriesAsync(string query, int limit = 0);
+    Task<IEnumerable<Repository>> GetMyRepositoriesAsync(bool unused = false);
     Task<IEnumerable<Repository>> GetRepositoriesAsync(string userId);
     Task<IEnumerable<Room>> GetSuggestedRoomsAsync();
+    Task<IEnumerable<RoomUnreadCount>> GetAggregatedUnreadItemsAsync();
+    Task<UserInfo> GetUserInfoAsync(string username);
 
     #endregion
 
@@ -49,9 +54,11 @@ public interface IGitterApiService
     Task<IEnumerable<Collaborator>> GetSuggestedCollaboratorsOnRoomAsync(string roomId);
     Task<IEnumerable<RoomIssue>> GetRoomIssuesAsync(string roomId);
     Task<IEnumerable<Ban>> GetRoomBansAsync(string roomId);
-    Task<BanUserResponse> BanUserFromRoomAsync(string roomId, string username);
+    Task<BanUserResponse> BanUserFromRoomAsync(string roomId, string username, bool removeMessages = false);
+    Task<SuccessResponse> UnbanUserAsync(string roomId, string userId);
     Task<WelcomeMessage> GetWelcomeMessageAsync(string roomId);
     Task<UpdateWelcomeMessageResponse> UpdateWelcomeMessageAsync(string roomId, UpdateWelcomeMessageRequest request);
+    Task<InviteUserResponse> InviteUserInRoomAsync(string roomId, InviteUserRequest request); 
 
     #endregion
 
@@ -61,12 +68,14 @@ public interface IGitterApiService
     Task<IEnumerable<Message>> GetRoomMessagesAsync(string roomId, MessageRequest request);
     Task<Message> SendMessageAsync(string roomId, string message);
     Task<Message> UpdateMessageAsync(string roomId, string messageId, string message);
+    Task DeleteMessageAsync(string roomId, string messageId);
+    Task<IEnumerable<GitterUser>> GetUsersWhoReadMessageAsync(string roomId, string messageId);
 
     #endregion
 
     #region Events
 
-    Task<IEnumerable<RoomEvent>> GetRoomEventsAsync(string roomId);
+    Task<IEnumerable<RoomEvent>> GetRoomEventsAsync(string roomId, int limit = 50, int skip = 0, string beforeId = null);
 
     #endregion
 
@@ -75,6 +84,7 @@ public interface IGitterApiService
     Task<IEnumerable<Group>> GetGroupsAsync();
     Task<IEnumerable<Room>> GetGroupRoomsAsync(string groupId);
     Task<Room> CreateRoomAsync(string groupId, CreateRoomRequest request);
+    Task<IEnumerable<Room>> GetSuggestedRoomsFromGroupAsync(string groupId);
 
     #endregion
 

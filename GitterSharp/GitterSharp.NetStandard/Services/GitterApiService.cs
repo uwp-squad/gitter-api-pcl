@@ -45,12 +45,34 @@ namespace GitterSharp.Services
         Task<GitterUser> GetCurrentUserAsync();
 
         /// <summary>
+        /// Returns a list of organizations of the current user
+        /// </summary>
+        /// <param name="unused">Only returns orgs that have no Gitter room</param>
+        /// <returns></returns>
+        Task<IEnumerable<Organization>> GetMyOrganizationsAsync(bool unused = false);
+
+        /// <summary>
         /// Returns a list of organizations of a user
         /// (https://developer.gitter.im/docs/user-resource#orgs)
         /// </summary>
         /// <param name="userId">Id of the user</param>
         /// <returns></returns>
         Task<IEnumerable<Organization>> GetOrganizationsAsync(string userId);
+
+        /// <summary>
+        /// Returns a list of repositories of the current user (filtered by their name)
+        /// </summary>
+        /// <param name="query">Query string</param>
+        /// <param name="limit">Number max of results (0 = no limit)</param>
+        /// <returns></returns>
+        Task<IEnumerable<Repository>> GetMyRepositoriesAsync(string query, int limit = 0);
+
+        /// <summary>
+        /// Returns a list of repositories of the current user
+        /// </summary>
+        /// <param name="unused">Only returns orgs that have no Gitter room</param>
+        /// <returns></returns>
+        Task<IEnumerable<Repository>> GetMyRepositoriesAsync(bool unused = false);
 
         /// <summary>
         /// Returns a list of repositories of a user
@@ -65,6 +87,19 @@ namespace GitterSharp.Services
         /// </summary>
         /// <returns></returns>
         Task<IEnumerable<Room>> GetSuggestedRoomsAsync();
+
+        /// <summary>
+        /// Returns an aggregation of count unread messages/mentions by room for the current user
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<RoomUnreadCount>> GetAggregatedUnreadItemsAsync();
+
+        /// <summary>
+        /// Retrieve user info by username
+        /// </summary>
+        /// <param name="username">Username of a user</param>
+        /// <returns></returns>
+        Task<UserInfo> GetUserInfoAsync(string username);
 
         #endregion
 
@@ -211,8 +246,17 @@ namespace GitterSharp.Services
         /// </summary>
         /// <param name="roomId">Id of the room</param>
         /// <param name="username">Username of the user to ban</param>
+        /// <param name="removeMessages">Removes all messages of the user in the room</param>
         /// <returns></returns>
-        Task<BanUserResponse> BanUserFromRoomAsync(string roomId, string username);
+        Task<BanUserResponse> BanUserFromRoomAsync(string roomId, string username, bool removeMessages = false);
+
+        /// <summary>
+        /// Unban user from room
+        /// </summary>
+        /// <param name="roomId">Id of the room</param>
+        /// <param name="userId">Id of the user</param>
+        /// <returns></returns>
+        Task<SuccessResponse> UnbanUserAsync(string roomId, string userId);
 
         /// <summary>
         /// Returns welcome message of a room
@@ -228,6 +272,14 @@ namespace GitterSharp.Services
         /// <param name="request">Request to edit room welcome message</param>
         /// <returns></returns>
         Task<UpdateWelcomeMessageResponse> UpdateWelcomeMessageAsync(string roomId, UpdateWelcomeMessageRequest request);
+
+        /// <summary>
+        /// Invite a user in a room
+        /// </summary>
+        /// <param name="roomId">Id of the room</param>
+        /// <param name="request">Request info to invite a user</param>
+        /// <returns></returns>
+        Task<InviteUserResponse> InviteUserInRoomAsync(string roomId, InviteUserRequest request); 
 
         #endregion
 
@@ -256,7 +308,7 @@ namespace GitterSharp.Services
         /// (https://developer.gitter.im/docs/messages-resource#send-a-message)
         /// </summary>
         /// <param name="roomId">Id of the room that will contain this message</param>
-        /// <param name="message">Content of the message</param>
+        /// <param name="message">Content of the message (max length: 4096)</param>
         /// <returns></returns>
         Task<Message> SendMessageAsync(string roomId, string message);
 
@@ -270,6 +322,22 @@ namespace GitterSharp.Services
         /// <returns></returns>
         Task<Message> UpdateMessageAsync(string roomId, string messageId, string message);
 
+        /// <summary>
+        /// Remove a message from a room
+        /// </summary>
+        /// <param name="roomId">Id of the room</param>
+        /// <param name="messageId">Id of the message</param>
+        /// <returns></returns>
+        Task DeleteMessageAsync(string roomId, string messageId);
+
+        /// <summary>
+        /// Returns a list of users who already read the message
+        /// </summary>
+        /// <param name="roomId">Id of the room</param>
+        /// <param name="messageId">Id of the message</param>
+        /// <returns></returns>
+        Task<IEnumerable<GitterUser>> GetUsersWhoReadMessageAsync(string roomId, string messageId);
+
         #endregion
 
         #region Events
@@ -278,8 +346,11 @@ namespace GitterSharp.Services
         /// Returns list of room events
         /// </summary>
         /// <param name="roomId">Id of the room</param>
+        /// <param name="limit">The limit of users returned by the request</param>
+        /// <param name="skip">The number of users to skip in the request</param>
+        /// <param name="beforeId">Id of an event (used to truncate events after this event id)</param>
         /// <returns></returns>
-        Task<IEnumerable<RoomEvent>> GetRoomEventsAsync(string roomId);
+        Task<IEnumerable<RoomEvent>> GetRoomEventsAsync(string roomId, int limit = 50, int skip = 0, string beforeId = null);
 
         #endregion
 
@@ -307,6 +378,13 @@ namespace GitterSharp.Services
         /// <param name="request">Request to create the room</param>
         /// <returns></returns>
         Task<Room> CreateRoomAsync(string groupId, CreateRoomRequest request);
+
+        /// <summary>
+        /// Get suggested rooms based on the group selected
+        /// </summary>
+        /// <param name="groupId">Id of the group</param>
+        /// <returns></returns>
+        Task<IEnumerable<Room>> GetSuggestedRoomsFromGroupAsync(string groupId);
 
         #endregion
 
@@ -416,10 +494,45 @@ namespace GitterSharp.Services
             return await HttpClient.GetAsync<GitterUser>(url);
         }
 
+        public async Task<IEnumerable<Organization>> GetMyOrganizationsAsync(bool unused = false)
+        {
+            string url = _baseApiAddress + "user/me/orgs";
+
+            if (unused)
+                url += $"?type=unused";
+
+            return await HttpClient.GetAsync<IEnumerable<Organization>>(url);
+        }
+
         public async Task<IEnumerable<Organization>> GetOrganizationsAsync(string userId)
         {
             string url = _baseApiAddress + $"user/{userId}/orgs";
             return await HttpClient.GetAsync<IEnumerable<Organization>>(url);
+        }
+
+        public async Task<IEnumerable<Repository>> GetMyRepositoriesAsync(string query, int limit = 0)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                throw new ArgumentNullException(nameof(query));
+            }
+
+            string url = _baseApiAddress + $"user/me/repos?q={query}";
+
+            if (limit > 0)
+                url += $"&limit={limit}";
+
+            return await HttpClient.GetAsync<IEnumerable<Repository>>(url);
+        }
+
+        public async Task<IEnumerable<Repository>> GetMyRepositoriesAsync(bool unused = false)
+        {
+            string url = _baseApiAddress + "user/me/repos";
+
+            if (unused)
+                url += $"?type=unused";
+
+            return await HttpClient.GetAsync<IEnumerable<Repository>>(url);
         }
 
         public async Task<IEnumerable<Repository>> GetRepositoriesAsync(string userId)
@@ -432,6 +545,18 @@ namespace GitterSharp.Services
         {
             string url = _baseApiAddress + "user/me/suggestedRooms";
             return await HttpClient.GetAsync<IEnumerable<Room>>(url);
+        }
+
+        public async Task<IEnumerable<RoomUnreadCount>> GetAggregatedUnreadItemsAsync()
+        {
+            string url = _baseApiAddress + "user/me/unreadItems";
+            return await HttpClient.GetAsync<IEnumerable<RoomUnreadCount>>(url);
+        }
+
+        public async Task<UserInfo> GetUserInfoAsync(string username)
+        {
+            string url = _baseApiAddress + $"users/{username}";
+            return await HttpClient.GetAsync<UserInfo>(url);
         }
 
         #endregion
@@ -572,16 +697,23 @@ namespace GitterSharp.Services
             return await HttpClient.GetAsync<IEnumerable<Ban>>(url);
         }
 
-        public async Task<BanUserResponse> BanUserFromRoomAsync(string roomId, string username)
+        public async Task<BanUserResponse> BanUserFromRoomAsync(string roomId, string username, bool removeMessages = false)
         {
             string url = _baseApiAddress + $"rooms/{roomId}/bans";
 
-            var content = new FormUrlEncodedContent(new Dictionary<string, string>
+            var content = new StringContent(JsonConvert.SerializeObject(new BanUserFromRoomRequest
             {
-                {"username", username}
-            });
+                Username = username,
+                RemoveMessages = removeMessages
+            }));
 
             return await HttpClient.PostAsync<BanUserResponse>(url, content);
+        }
+
+        public async Task<SuccessResponse> UnbanUserAsync(string roomId, string userId)
+        {
+            string url = _baseApiAddress + $"rooms/{roomId}/bans/{userId}";
+            return await HttpClient.DeleteAsync<SuccessResponse>(url);
         }
 
         public async Task<WelcomeMessage> GetWelcomeMessageAsync(string roomId)
@@ -597,6 +729,15 @@ namespace GitterSharp.Services
             var content = new StringContent(JsonConvert.SerializeObject(request));
 
             return await HttpClient.PutAsync<UpdateWelcomeMessageResponse>(url, content);
+        }
+
+        public async Task<InviteUserResponse> InviteUserInRoomAsync(string roomId, InviteUserRequest request)
+        {
+            string url = _baseApiAddress + $"rooms/{roomId}/invites";
+
+            var content = new StringContent(JsonConvert.SerializeObject(request));
+
+            return await HttpClient.PostAsync<InviteUserResponse>(url, content);
         }
 
         #endregion
@@ -660,13 +801,32 @@ namespace GitterSharp.Services
             return await HttpClient.PutAsync<Message>(url, content);
         }
 
+        public async Task DeleteMessageAsync(string roomId, string messageId)
+        {
+            string url = _baseApiAddress + $"rooms/{roomId}/chatMessages/{messageId}";
+            await HttpClient.DeleteAsync(url);
+        }
+
+        public async Task<IEnumerable<GitterUser>> GetUsersWhoReadMessageAsync(string roomId, string messageId)
+        {
+            string url = _baseApiAddress + $"rooms/{roomId}/chatMessages/{messageId}/readBy";
+            return await HttpClient.GetAsync<IEnumerable<GitterUser>>(url);
+        }
+
         #endregion
 
         #region Events
 
-        public async Task<IEnumerable<RoomEvent>> GetRoomEventsAsync(string roomId)
+        public async Task<IEnumerable<RoomEvent>> GetRoomEventsAsync(string roomId, int limit = 50, int skip = 0, string beforeId = null)
         {
-            string url = _baseApiAddress + $"rooms/{roomId}/events";
+            string url = _baseApiAddress + $"rooms/{roomId}/events?limit={limit}";
+                        
+            if (skip > 0)
+                url += $"&skip={skip}";
+
+            if (!string.IsNullOrWhiteSpace(beforeId))
+                url += $"&beforeId={beforeId}";
+
             return await HttpClient.GetAsync<IEnumerable<RoomEvent>>(url);
         }
 
@@ -688,11 +848,17 @@ namespace GitterSharp.Services
 
         public async Task<Room> CreateRoomAsync(string groupId, CreateRoomRequest request)
         {
-            string url = _baseApiAddress + $"groups/${groupId}/rooms";
+            string url = _baseApiAddress + $"groups/{groupId}/rooms";
 
             var content = new StringContent(JsonConvert.SerializeObject(request));
 
             return await HttpClient.PostAsync<Room>(url, content);
+        }
+
+        public async Task<IEnumerable<Room>> GetSuggestedRoomsFromGroupAsync(string groupId)
+        {
+            string url = _baseApiAddress + $"groups/{groupId}/suggestedRooms";
+            return await HttpClient.GetAsync<IEnumerable<Room>>(url);
         }
 
         #endregion

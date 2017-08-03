@@ -45,12 +45,34 @@ namespace GitterSharp.Services
         IObservable<GitterUser> GetCurrentUser();
 
         /// <summary>
+        /// Returns a list of organizations of the current user
+        /// </summary>
+        /// <param name="unused">Only returns orgs that have no Gitter room</param>
+        /// <returns></returns>
+        IObservable<IEnumerable<Organization>> GetMyOrganizations(bool unused = false);
+
+        /// <summary>
         /// Returns a list of organizations of a user
         /// (https://developer.gitter.im/docs/user-resource#orgs)
         /// </summary>
         /// <param name="userId">Id of the user</param>
         /// <returns></returns>
         IObservable<IEnumerable<Organization>> GetOrganizations(string userId);
+
+        /// <summary>
+        /// Returns a list of repositories of the current user (filtered by their name)
+        /// </summary>
+        /// <param name="query">Query string</param>
+        /// <param name="limit">Number max of results (0 = no limit)</param>
+        /// <returns></returns>
+        IObservable<IEnumerable<Repository>> GetMyRepositories(string query, int limit = 0);
+
+        /// <summary>
+        /// Returns a list of repositories of the current user
+        /// </summary>
+        /// <param name="unused">Only returns orgs that have no Gitter room</param>
+        /// <returns></returns>
+        IObservable<IEnumerable<Repository>> GetMyRepositories(bool unused = false);
 
         /// <summary>
         /// Returns a list of repositories of a user
@@ -65,6 +87,19 @@ namespace GitterSharp.Services
         /// </summary>
         /// <returns></returns>
         IObservable<IEnumerable<Room>> GetSuggestedRooms();
+
+        /// <summary>
+        /// Returns an aggregation of count unread messages/mentions by room for the current user
+        /// </summary>
+        /// <returns></returns>
+        IObservable<IEnumerable<RoomUnreadCount>> GetAggregatedUnreadItems();
+
+        /// <summary>
+        /// Retrieve user info by username
+        /// </summary>
+        /// <param name="username">Username of a user</param>
+        /// <returns></returns>
+        IObservable<UserInfo> GetUserInfo(string username);
 
         #endregion
 
@@ -211,8 +246,17 @@ namespace GitterSharp.Services
         /// </summary>
         /// <param name="roomId">Id of the room</param>
         /// <param name="username">Username of the user to ban</param>
+        /// <param name="removeMessages">Removes all messages of the user in the room</param>
         /// <returns></returns>
-        IObservable<BanUserResponse> BanUserFromRoom(string roomId, string username);
+        IObservable<BanUserResponse> BanUserFromRoom(string roomId, string username, bool removeMessages = false);
+
+        /// <summary>
+        /// Unban user from room
+        /// </summary>
+        /// <param name="roomId">Id of the room</param>
+        /// <param name="userId">Id of the user</param>
+        /// <returns></returns>
+        IObservable<SuccessResponse> UnbanUser(string roomId, string userId);
 
         /// <summary>
         /// Returns welcome message of a room
@@ -228,6 +272,14 @@ namespace GitterSharp.Services
         /// <param name="request">Request to edit room welcome message</param>
         /// <returns></returns>
         IObservable<UpdateWelcomeMessageResponse> UpdateWelcomeMessage(string roomId, UpdateWelcomeMessageRequest request);
+
+        /// <summary>
+        /// Invite a user in a room
+        /// </summary>
+        /// <param name="roomId">Id of the room</param>
+        /// <param name="request">Request info to invite a user</param>
+        /// <returns></returns>
+        IObservable<InviteUserResponse> InviteUserInRoom(string roomId, InviteUserRequest request);
 
         #endregion
 
@@ -256,7 +308,7 @@ namespace GitterSharp.Services
         /// (https://developer.gitter.im/docs/messages-resource#send-a-message)
         /// </summary>
         /// <param name="roomId">Id of the room that will contain this message</param>
-        /// <param name="message">Content of the message</param>
+        /// <param name="message">Content of the message (max length: 4096)</param>
         /// <returns></returns>
         IObservable<Message> SendMessage(string roomId, string message);
 
@@ -270,6 +322,22 @@ namespace GitterSharp.Services
         /// <returns></returns>
         IObservable<Message> UpdateMessage(string roomId, string messageId, string message);
 
+        /// <summary>
+        /// Remove a message from a room
+        /// </summary>
+        /// <param name="roomId">Id of the room</param>
+        /// <param name="messageId">Id of the message</param>
+        /// <returns></returns>
+        IObservable<Unit> DeleteMessage(string roomId, string messageId);
+
+        /// <summary>
+        /// Returns a list of users who already read the message
+        /// </summary>
+        /// <param name="roomId">Id of the room</param>
+        /// <param name="messageId">Id of the message</param>
+        /// <returns></returns>
+        IObservable<IEnumerable<GitterUser>> GetUsersWhoReadMessage(string roomId, string messageId);
+
         #endregion
 
         #region Events
@@ -278,8 +346,11 @@ namespace GitterSharp.Services
         /// Returns list of room events
         /// </summary>
         /// <param name="roomId">Id of the room</param>
+        /// <param name="limit">The limit of users returned by the request</param>
+        /// <param name="skip">The number of users to skip in the request</param>
+        /// <param name="beforeId">Id of an event (used to truncate events after this event id)</param>
         /// <returns></returns>
-        IObservable<IEnumerable<RoomEvent>> GetRoomEvents(string roomId);
+        IObservable<IEnumerable<RoomEvent>> GetRoomEvents(string roomId, int limit = 50, int skip = 0, string beforeId = null);
 
         #endregion
 
@@ -307,6 +378,13 @@ namespace GitterSharp.Services
         /// <param name="request">Request to create the room</param>
         /// <returns></returns>
         IObservable<Room> CreateRoom(string groupId, CreateRoomRequest request);
+
+        /// <summary>
+        /// Get suggested rooms based on the group selected
+        /// </summary>
+        /// <param name="groupId">Id of the group</param>
+        /// <returns></returns>
+        IObservable<IEnumerable<Room>> GetSuggestedRoomsFromGroup(string groupId);
 
         #endregion
 
@@ -435,9 +513,24 @@ namespace GitterSharp.Services
             return _apiService.GetCurrentUserAsync().ToObservable();
         }
 
+        public IObservable<IEnumerable<Organization>> GetMyOrganizations(bool unused = false)
+        {
+            return _apiService.GetMyOrganizationsAsync(unused).ToObservable();
+        }
+
         public IObservable<IEnumerable<Organization>> GetOrganizations(string userId)
         {
             return _apiService.GetOrganizationsAsync(userId).ToObservable();
+        }
+
+        public IObservable<IEnumerable<Repository>> GetMyRepositories(string query, int limit = 0)
+        {
+            return _apiService.GetMyRepositoriesAsync(query, limit).ToObservable();
+        }
+
+        public IObservable<IEnumerable<Repository>> GetMyRepositories(bool unused = false)
+        {
+            return _apiService.GetMyRepositoriesAsync(unused).ToObservable();
         }
 
         public IObservable<IEnumerable<Repository>> GetRepositories(string userId)
@@ -448,6 +541,16 @@ namespace GitterSharp.Services
         public IObservable<IEnumerable<Room>> GetSuggestedRooms()
         {
             return _apiService.GetSuggestedRoomsAsync().ToObservable();
+        }
+
+        public IObservable<IEnumerable<RoomUnreadCount>> GetAggregatedUnreadItems()
+        {
+            return _apiService.GetAggregatedUnreadItemsAsync().ToObservable();
+        }
+
+        public IObservable<UserInfo> GetUserInfo(string username)
+        {
+            return _apiService.GetUserInfoAsync(username).ToObservable();
         }
 
         #endregion
@@ -538,9 +641,14 @@ namespace GitterSharp.Services
             return _apiService.GetRoomBansAsync(roomId).ToObservable();
         }
 
-        public IObservable<BanUserResponse> BanUserFromRoom(string roomId, string username)
+        public IObservable<BanUserResponse> BanUserFromRoom(string roomId, string username, bool removeMessages = false)
         {
-            return _apiService.BanUserFromRoomAsync(roomId, username).ToObservable();
+            return _apiService.BanUserFromRoomAsync(roomId, username, removeMessages).ToObservable();
+        }
+
+        public IObservable<SuccessResponse> UnbanUser(string roomId, string userId)
+        {
+            return _apiService.UnbanUserAsync(roomId, userId).ToObservable();
         }
 
         public IObservable<WelcomeMessage> GetWelcomeMessage(string roomId)
@@ -551,6 +659,11 @@ namespace GitterSharp.Services
         public IObservable<UpdateWelcomeMessageResponse> UpdateWelcomeMessage(string roomId, UpdateWelcomeMessageRequest request)
         {
             return _apiService.UpdateWelcomeMessageAsync(roomId, request).ToObservable();
+        }
+
+        public IObservable<InviteUserResponse> InviteUserInRoom(string roomId, InviteUserRequest request)
+        {
+            return _apiService.InviteUserInRoomAsync(roomId, request).ToObservable();
         }
 
         #endregion
@@ -577,13 +690,23 @@ namespace GitterSharp.Services
             return _apiService.UpdateMessageAsync(roomId, messageId, message).ToObservable();
         }
 
+        public IObservable<Unit> DeleteMessage(string roomId, string messageId)
+        {
+            return _apiService.DeleteMessageAsync(roomId, messageId).ToObservable();
+        }
+
+        public IObservable<IEnumerable<GitterUser>> GetUsersWhoReadMessage(string roomId, string messageId)
+        {
+            return _apiService.GetUsersWhoReadMessageAsync(roomId, messageId).ToObservable();
+        }
+
         #endregion
 
         #region Events
 
-        public IObservable<IEnumerable<RoomEvent>> GetRoomEvents(string roomId)
+        public IObservable<IEnumerable<RoomEvent>> GetRoomEvents(string roomId, int limit = 50, int skip = 0, string beforeId = null)
         {
-            return _apiService.GetRoomEventsAsync(roomId).ToObservable();
+            return _apiService.GetRoomEventsAsync(roomId, limit, skip, beforeId).ToObservable();
         }
 
         #endregion
@@ -603,6 +726,11 @@ namespace GitterSharp.Services
         public IObservable<Room> CreateRoom(string groupId, CreateRoomRequest request)
         {
             return _apiService.CreateRoomAsync(groupId, request).ToObservable();
+        }
+
+        public IObservable<IEnumerable<Room>> GetSuggestedRoomsFromGroup(string groupId)
+        {
+            return _apiService.GetSuggestedRoomsFromGroupAsync(groupId).ToObservable();
         }
 
         #endregion
