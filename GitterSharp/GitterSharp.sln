@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{78BB090C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitterSharp.IntegrationTests", "GitterSharp.IntegrationTests\GitterSharp.IntegrationTests.csproj", "{CF099375-2EF5-4CFC-B818-8B25D24EB98B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitterSharp.NetStandard", "GitterSharp.NetStandard\GitterSharp.NetStandard.csproj", "{FECF7270-B577-41E2-A8A7-0B558A2E8E06}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitterSharp", "GitterSharp\GitterSharp.csproj", "{FECF7270-B577-41E2-A8A7-0B558A2E8E06}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

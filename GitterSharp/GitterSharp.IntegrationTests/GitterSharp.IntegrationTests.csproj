@@ -68,9 +68,9 @@
     <Compile Include="WebhookTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GitterSharp.NetStandard\GitterSharp.NetStandard.csproj">
+    <ProjectReference Include="..\GitterSharp\GitterSharp.csproj">
       <Project>{fecf7270-b577-41e2-a8a7-0b558a2e8e06}</Project>
-      <Name>GitterSharp.NetStandard</Name>
+      <Name>GitterSharp</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
