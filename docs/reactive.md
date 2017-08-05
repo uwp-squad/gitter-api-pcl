@@ -127,6 +127,9 @@ gitterApiService.GetCurrentUser()
 
 ## [Streaming API](https://developer.gitter.im/docs/streaming-api)
 
+The streaming API allows you to get realtime information.
+Be careful, this method is not working sometimes. You should use the Realtime service if you want a more stable service.
+
 ### Realtime messages
 
 Retrieve realtime new messages inside a room.
