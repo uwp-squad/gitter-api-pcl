@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitterSharp.IntegrationTest
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitterSharp", "GitterSharp\GitterSharp.csproj", "{FECF7270-B577-41E2-A8A7-0B558A2E8E06}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{D65FDC98-134E-4E5D-A18D-69952BC926FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitterSharp.Realtime.Samples", "GitterSharp.Realtime.Samples\GitterSharp.Realtime.Samples.csproj", "{B780DF45-3698-43A4-B72C-D4CA12807825}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +59,22 @@ Global
 		{FECF7270-B577-41E2-A8A7-0B558A2E8E06}.Release|x64.Build.0 = Release|Any CPU
 		{FECF7270-B577-41E2-A8A7-0B558A2E8E06}.Release|x86.ActiveCfg = Release|Any CPU
 		{FECF7270-B577-41E2-A8A7-0B558A2E8E06}.Release|x86.Build.0 = Release|Any CPU
+		{B780DF45-3698-43A4-B72C-D4CA12807825}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B780DF45-3698-43A4-B72C-D4CA12807825}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B780DF45-3698-43A4-B72C-D4CA12807825}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{B780DF45-3698-43A4-B72C-D4CA12807825}.Debug|ARM.Build.0 = Debug|Any CPU
+		{B780DF45-3698-43A4-B72C-D4CA12807825}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B780DF45-3698-43A4-B72C-D4CA12807825}.Debug|x64.Build.0 = Debug|Any CPU
+		{B780DF45-3698-43A4-B72C-D4CA12807825}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B780DF45-3698-43A4-B72C-D4CA12807825}.Debug|x86.Build.0 = Debug|Any CPU
+		{B780DF45-3698-43A4-B72C-D4CA12807825}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B780DF45-3698-43A4-B72C-D4CA12807825}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B780DF45-3698-43A4-B72C-D4CA12807825}.Release|ARM.ActiveCfg = Release|Any CPU
+		{B780DF45-3698-43A4-B72C-D4CA12807825}.Release|ARM.Build.0 = Release|Any CPU
+		{B780DF45-3698-43A4-B72C-D4CA12807825}.Release|x64.ActiveCfg = Release|Any CPU
+		{B780DF45-3698-43A4-B72C-D4CA12807825}.Release|x64.Build.0 = Release|Any CPU
+		{B780DF45-3698-43A4-B72C-D4CA12807825}.Release|x86.ActiveCfg = Release|Any CPU
+		{B780DF45-3698-43A4-B72C-D4CA12807825}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,5 +82,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{CF099375-2EF5-4CFC-B818-8B25D24EB98B} = {78BB090C-1396-4B8D-81A5-7DF6FF470308}
 		{FECF7270-B577-41E2-A8A7-0B558A2E8E06} = {D2E04D6F-CB68-4BE9-9B55-DDC37508C95E}
+		{B780DF45-3698-43A4-B72C-D4CA12807825} = {D65FDC98-134E-4E5D-A18D-69952BC926FB}
 	EndGlobalSection
 EndGlobal
