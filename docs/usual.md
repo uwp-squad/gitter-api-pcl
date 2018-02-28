@@ -42,7 +42,7 @@ public interface IGitterApiService
 
     Task<IEnumerable<Room>> GetRoomsAsync();
 	Task<IEnumerable<User>> GetRoomUsersAsync(string roomId, int limit = 30, string q = null, int skip = 0);
-    Task<Room> JoinRoomAsync(string roomName);
+    Task<Room> GetRoomAsync(string roomName);
     Task<Room> JoinRoomAsync(string userId, string roomId);
     Task<Room> UpdateRoomAsync(string roomId, UpdateRoomRequest request);
     Task<bool> UpdateUserRoomSettingsAsync(string userId, string roomId, UpdateUserRoomSettingsRequest request);
@@ -385,14 +385,17 @@ var users = await gitterApiService.GetRoomUsersAsync("room-id");
 
 ### [Join room](https://developer.gitter.im/docs/rooms-resource#join-a-room)
 
-THere is two endpoints to join a room, by room name or by room id.
+THere is two endpoints to join a room, 
 
-#### Join room by name
+* by room name (only for one-to-one room) 
+* by room id
+
+#### Get room information by name
 
 The current user join a room. The parameter *room-name* looks like this : *Odonno/Modern-Gitter*.
 
 ```c#
-var room = await gitterApiService.JoinRoomAsync("room-name");
+var room = await gitterApiService.GetRoomAsync("room-name");
 ```
 
 #### Join room by id

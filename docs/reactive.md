@@ -42,7 +42,7 @@ public interface IReactiveGitterApiService
 
     IObservable<IEnumerable<Room>> GetRooms();
     IObservable<IEnumerable<User>> GetRoomUsers(string roomId, int limit = 30, string q = null, int skip = 0);
-    IObservable<Room> JoinRoom(string roomName);
+    IObservable<Room> GetRoom(string roomName);
     IObservable<Room> JoinRoom(string userId, string roomId);
     IObservable<Room> UpdateRoom(string roomId, UpdateRoomRequest request);
     IObservable<bool> UpdateUserRoomSettings(string userId, string roomId, UpdateUserRoomSettingsRequest request);

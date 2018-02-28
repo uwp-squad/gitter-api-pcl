@@ -147,12 +147,12 @@ namespace GitterSharp.Services
         Task<IEnumerable<GitterUser>> GetRoomUsersAsync(string roomId, int limit = 30, string q = null, int skip = 0); // TODO : `limit` and `skip` does not exist anymore
 
         /// <summary>
-        /// Join and retrieve the room the user ask using the URI of the room
+        /// Get room information
         /// (https://developer.gitter.im/docs/rooms-resource#join-a-room)
         /// </summary>
         /// <param name="roomName">Name of the room targeted (example: 'Odonno/Modern-Gitter')</param>
         /// <returns></returns>
-        Task<Room> JoinRoomAsync(string roomName);
+        Task<Room> GetRoomAsync(string roomName);
 
         /// <summary>
         /// Join the room using room id
@@ -603,7 +603,7 @@ namespace GitterSharp.Services
             return await HttpClient.GetAsync<IEnumerable<GitterUser>>(url);
         }
 
-        public async Task<Room> JoinRoomAsync(string roomName)
+        public async Task<Room> GetRoomAsync(string roomName)
         {
             string url = _baseApiAddress + "rooms";
 

@@ -147,12 +147,12 @@ namespace GitterSharp.Services
         IObservable<IEnumerable<GitterUser>> GetRoomUsers(string roomId, int limit = 30, string q = null, int skip = 0);  // TODO : `limit` and `skip` does not exist anymore
 
         /// <summary>
-        /// Join and retrieve the room the user ask using the URI of the room
+        /// Get room information
         /// (https://developer.gitter.im/docs/rooms-resource#join-a-room)
         /// </summary>
         /// <param name="roomName">Name of the room targeted (example: 'Odonno/Modern-Gitter')</param>
         /// <returns></returns>
-        IObservable<Room> JoinRoom(string roomName);
+        IObservable<Room> GetRoom(string roomName);
 
         /// <summary>
         /// Join the room using room id
@@ -581,9 +581,9 @@ namespace GitterSharp.Services
             return _apiService.GetRoomUsersAsync(roomId, limit, q, skip).ToObservable();
         }
 
-        public IObservable<Room> JoinRoom(string roomName)
+        public IObservable<Room> GetRoom(string roomName)
         {
-            return _apiService.JoinRoomAsync(roomName).ToObservable();
+            return _apiService.GetRoomAsync(roomName).ToObservable();
         }
 
         public IObservable<Room> JoinRoom(string userId, string roomId)
